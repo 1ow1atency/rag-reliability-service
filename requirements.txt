@@ -1,0 +1,12 @@
+sentence-transformers
+rank-bm25
+qdrant-client
+groq
+datasets
+fastapi
+uvicorn
+python-dotenv
+tqdm
+numpy
+scikit-learn
+pytest
