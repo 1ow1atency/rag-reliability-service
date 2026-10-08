@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DOCS_ROOT = ROOT / "data" / "raw" / "k8s-website" / "content" / "en" / "docs"
 SECTIONS = ["concepts", "tasks"]
 
-FRONT_MATTER_RE = re.compile(r"\A(?:---\s*\n.*?\n---|\+\+\+\s*\n.*?\n\+\+\+)\s*\n", re.DOTALL)
+FRONT_MATTER_RE = re.compile(r"\A(?:---\s*\n.*?\n---|\+\+\+\s*\n.*?\n\+\+\+)\s*(?:\n|\Z)", re.DOTALL)
 TOKEN_RE = re.compile(r"\w+|[^\w\s]")
 
 
