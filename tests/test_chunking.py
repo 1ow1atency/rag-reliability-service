@@ -1,7 +1,9 @@
+from collections import Counter
+
 import pytest
 
 from src.ingest.chunking import (
-    MAX_SECTION_TOKENS,
+    MAX_CHUNK_TOKENS,
     Doc,
     Tokenizer,
     clean_markdown,
@@ -25,11 +27,19 @@ def test_clean_markdown_strips_front_matter_and_shortcodes():
         'A {{< glossary_tooltip text="Pod" term_id="pod" >}} runs on a '
         '{{< glossary_tooltip term_id="node" >}}.\n\n'
         "{{< note >}}\nBe careful.\n{{< /note >}}\n\n"
-        '## {{% heading "whatsnext" %}}\n'
+        '## {{% heading "prerequisites" %}}\n\n'
+        "```shell\n## {{< not-a-heading >}}\n```\n\n"
+        "## {{< some-widget >}}\n"
     )
-    title, text = clean_markdown(raw)
+    counts = Counter()
+    title, text = clean_markdown(raw, counts)
     assert title == "Pods"
-    assert text == "A Pod runs on a node.\n\nBe careful.\n\n## What's next"
+    assert text == (
+        "A Pod runs on a node.\n\nBe careful.\n\n## Before you begin\n\n"
+        "```shell\n##\n```\n\n## What's next"
+    )
+    # Two empty headings outside the code fence; one had no label and fell back.
+    assert counts == {"empty_headings": 2, "empty_headings_fallback": 1}
 
     # Front-matter-only page without a trailing newline cleans to nothing.
     assert clean_markdown('---\ntitle: "Index"\n---') == ("Index", "")
@@ -61,9 +71,9 @@ def test_heading_chunks_merge_split_and_paths(tok):
     assert first.heading_path == ["Example", "Install"]
     assert "### Verify" in first.text and "## not a heading" in first.text
 
-    # Oversized "Configure" section is split into <= 512-token windows.
+    # Oversized "Configure" section is split into <= 510-token windows.
     configure = chunks[1:]
     assert len(configure) >= 2
     assert all(c.heading_path == ["Example", "Configure"] for c in configure)
-    assert all(c.n_tokens <= MAX_SECTION_TOKENS for c in configure)
+    assert all(c.n_tokens <= MAX_CHUNK_TOKENS for c in configure)
     assert [c.chunk_index for c in chunks] == list(range(len(chunks)))
