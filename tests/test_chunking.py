@@ -45,6 +45,16 @@ def test_clean_markdown_strips_front_matter_and_shortcodes():
     assert clean_markdown('---\ntitle: "Index"\n---') == ("Index", "")
 
 
+def test_clean_markdown_removes_br_tags():
+    raw = (
+        '---\ntitle: "Eviction"\n---\n'
+        '{{< glossary_definition term_id="api-eviction" length="short" >}} </br>\n\n'
+        "| Pod | `spec.nodeName`<br>`spec.restartPolicy`<BR/>`spec.schedulerName`<br /> |\n"
+    )
+    _, text = clean_markdown(raw)
+    assert text == "| Pod | `spec.nodeName` `spec.restartPolicy` `spec.schedulerName` |"
+
+
 def test_fixed_windows_overlap_and_word_boundaries(tok):
     text = filler(600)
     spans = token_windows(text, tok, 256)

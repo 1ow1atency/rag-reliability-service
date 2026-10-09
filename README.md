@@ -11,3 +11,7 @@ Documentation corpus from [github.com/kubernetes/website](https://github.com/kub
 - 5 questions (q001–q005) were written by hand.
 - 44 were drafted by an AI model and then reviewed by the project author. Each drafted answerable question was evidence-checked: its supporting sentence was confirmed at the recorded line of its source page at the pinned docs commit above. The drafts, including the evidence sentences and line numbers, are kept in `data/eval/candidates.jsonl`.
 - `scripts/validate_eval.py` checks the format, the dev/test split and that each answerable question's source file exists.
+
+## Limitations
+
+- Glossary definitions pulled in by Hugo shortcodes (`glossary_definition`) are not in the corpus, so the opening definition is missing on the 25 pages that use them.
