@@ -1,0 +1,376 @@
+{
+  "retriever": "dense",
+  "model": "BAAI/bge-small-en-v1.5",
+  "query_prefix": "Represent this sentence for searching relevant passages: ",
+  "batch_size": 32,
+  "chunks": "data/processed/chunks_heading.jsonl",
+  "split": "dev",
+  "answerable_only": true,
+  "hit_definition": "any top-k chunk from the question's source_file",
+  "n_questions": 19,
+  "recall@1": {
+    "hits": 14,
+    "total": 19,
+    "rate": 0.7368421052631579
+  },
+  "recall@3": {
+    "hits": 18,
+    "total": 19,
+    "rate": 0.9473684210526315
+  },
+  "recall@5": {
+    "hits": 18,
+    "total": 19,
+    "rate": 0.9473684210526315
+  },
+  "recall@10": {
+    "hits": 18,
+    "total": 19,
+    "rate": 0.9473684210526315
+  },
+  "mrr@10": 0.8333333333333334,
+  "per_question": [
+    {
+      "id": "q001",
+      "question": "How long does Kubernetes wait for a Pod to shut down cleanly before it force-kills it, if I haven't configured anything?",
+      "source_file": "concepts/workloads/pods/pod-lifecycle.md",
+      "rank": 1,
+      "top_pages": [
+        "concepts/workloads/pods/pod-lifecycle.md",
+        "concepts/cluster-administration/node-shutdown.md",
+        "concepts/workloads/pods/pod-lifecycle.md",
+        "concepts/workloads/pods/pod-lifecycle.md",
+        "tasks/run-application/force-delete-stateful-set-pod.md",
+        "concepts/workloads/pods/pod-lifecycle.md",
+        "concepts/workloads/pods/pod-lifecycle.md",
+        "concepts/workloads/pods/disruptions.md",
+        "concepts/cluster-administration/node-shutdown.md",
+        "concepts/workloads/pods/pod-lifecycle.md"
+      ]
+    },
+    {
+      "id": "q005",
+      "question": "In a Pod's toleration, if I don't specify which operator to use, which one is applied?",
+      "source_file": "concepts/scheduling-eviction/taint-and-toleration.md",
+      "rank": 1,
+      "top_pages": [
+        "concepts/scheduling-eviction/taint-and-toleration.md",
+        "concepts/scheduling-eviction/taint-and-toleration.md",
+        "concepts/workloads/pods/advanced-pod-config.md",
+        "concepts/scheduling-eviction/taint-and-toleration.md",
+        "concepts/scheduling-eviction/assign-pod-node.md",
+        "concepts/scheduling-eviction/taint-and-toleration.md",
+        "concepts/scheduling-eviction/assign-pod-node.md",
+        "concepts/scheduling-eviction/taint-and-toleration.md",
+        "concepts/workloads/controllers/daemonset.md",
+        "tasks/run-application/configure-pdb.md"
+      ]
+    },
+    {
+      "id": "q007",
+      "question": "If I run the hostname command inside one of my containers, what will it print?",
+      "source_file": "concepts/containers/container-environment.md",
+      "rank": null,
+      "top_pages": [
+        "concepts/services-networking/dns-pod-service.md",
+        "concepts/workloads/pods/pod-hostname.md",
+        "concepts/workloads/pods/pod-hostname.md",
+        "concepts/workloads/pods/pod-hostname.md",
+        "tasks/debug/debug-application/debug-service.md",
+        "tasks/configure-pod-container/create-hostprocess-pod.md",
+        "concepts/services-networking/dns-pod-service.md",
+        "tasks/configure-pod-container/create-hostprocess-pod.md",
+        "concepts/containers/images.md",
+        "tasks/configure-pod-container/create-hostprocess-pod.md"
+      ]
+    },
+    {
+      "id": "q009",
+      "question": "Someone on my team deleted the default service account in one of our namespaces. Do we have to recreate it by hand?",
+      "source_file": "concepts/security/service-accounts.md",
+      "rank": 1,
+      "top_pages": [
+        "concepts/security/service-accounts.md",
+        "tasks/configure-pod-container/configure-service-account.md",
+        "tasks/configure-pod-container/configure-service-account.md",
+        "tasks/configure-pod-container/configure-service-account.md",
+        "tasks/administer-cluster/namespaces.md",
+        "concepts/security/multi-tenancy.md",
+        "tasks/network/extend-service-ip-ranges.md",
+        "tasks/access-application-cluster/service-access-application-cluster.md",
+        "concepts/workloads/pods/user-namespaces.md",
+        "concepts/storage/storage-classes.md"
+      ]
+    },
+    {
+      "id": "q013",
+      "question": "Our nodes keep running out of process IDs. What low system-wide default do some Linux installations ship with?",
+      "source_file": "concepts/policy/pid-limiting.md",
+      "rank": 1,
+      "top_pages": [
+        "concepts/policy/pid-limiting.md",
+        "concepts/policy/pid-limiting.md",
+        "concepts/windows/user-guide.md",
+        "tasks/administer-cluster/dns-debugging-resolution.md",
+        "concepts/configuration/windows-resource-management.md",
+        "tasks/administer-cluster/reserve-compute-resources.md",
+        "concepts/security/linux-kernel-security-constraints.md",
+        "concepts/security/linux-security.md",
+        "concepts/security/linux-kernel-security-constraints.md",
+        "tasks/configure-pod-container/security-context.md"
+      ]
+    },
+    {
+      "id": "q015",
+      "question": "How much configuration data can I fit into a single ConfigMap?",
+      "source_file": "concepts/configuration/configmap.md",
+      "rank": 1,
+      "top_pages": [
+        "concepts/configuration/configmap.md",
+        "concepts/configuration/configmap.md",
+        "concepts/configuration/configmap.md",
+        "tasks/configure-pod-container/configure-pod-configmap.md",
+        "tasks/configure-pod-container/configure-pod-configmap.md",
+        "concepts/extend-kubernetes/api-extension/custom-resources.md",
+        "concepts/storage/volumes.md",
+        "concepts/configuration/configmap.md",
+        "tasks/configure-pod-container/configure-pod-configmap.md",
+        "concepts/configuration/configmap.md"
+      ]
+    },
+    {
+      "id": "q017",
+      "question": "I haven't created any network policies in a namespace yet. Is traffic to and from its Pods blocked or allowed?",
+      "source_file": "concepts/services-networking/network-policies.md",
+      "rank": 1,
+      "top_pages": [
+        "concepts/services-networking/network-policies.md",
+        "concepts/security/multi-tenancy.md",
+        "concepts/services-networking/network-policies.md",
+        "concepts/services-networking/network-policies.md",
+        "concepts/services-networking/network-policies.md",
+        "tasks/configure-pod-container/enforce-standards-namespace-labels.md",
+        "tasks/administer-cluster/securing-a-cluster.md",
+        "tasks/debug/debug-application/debug-service.md",
+        "tasks/configure-pod-container/migrate-from-psp.md",
+        "concepts/services-networking/network-policies.md"
+      ]
+    },
+    {
+      "id": "q019",
+      "question": "My Ingress has no catch-all backend configured. What decides how requests that don't match any rule are handled?",
+      "source_file": "concepts/services-networking/ingress.md",
+      "rank": 1,
+      "top_pages": [
+        "concepts/services-networking/ingress.md",
+        "concepts/services-networking/ingress.md",
+        "concepts/services-networking/ingress.md",
+        "concepts/services-networking/ingress.md",
+        "concepts/services-networking/ingress.md",
+        "concepts/services-networking/ingress.md",
+        "concepts/services-networking/ingress.md",
+        "concepts/services-networking/ingress-controllers.md",
+        "concepts/services-networking/network-policies.md",
+        "concepts/services-networking/ingress.md"
+      ]
+    },
+    {
+      "id": "q021",
+      "question": "I want to run CRI-O rootless inside a user namespace. What's the oldest CRI-O version that supports that?",
+      "source_file": "tasks/administer-cluster/kubelet-in-userns.md",
+      "rank": 1,
+      "top_pages": [
+        "tasks/administer-cluster/kubelet-in-userns.md",
+        "concepts/workloads/pods/user-namespaces.md",
+        "concepts/workloads/pods/user-namespaces.md",
+        "tasks/configure-pod-container/user-namespaces.md",
+        "tasks/administer-cluster/kubelet-in-userns.md",
+        "concepts/workloads/pods/user-namespaces.md",
+        "tasks/administer-cluster/kubelet-in-userns.md",
+        "concepts/workloads/pods/user-namespaces.md",
+        "tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning.md",
+        "tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents.md"
+      ]
+    },
+    {
+      "id": "q023",
+      "question": "Which DNS server gets installed when I set up a cluster with kubeadm?",
+      "source_file": "tasks/access-application-cluster/configure-dns-cluster.md",
+      "rank": 1,
+      "top_pages": [
+        "tasks/access-application-cluster/configure-dns-cluster.md",
+        "tasks/administer-cluster/dns-custom-nameservers.md",
+        "concepts/services-networking/cluster-ip-allocation.md",
+        "concepts/services-networking/dns-pod-service.md",
+        "tasks/administer-cluster/dns-debugging-resolution.md",
+        "concepts/services-networking/service.md",
+        "concepts/services-networking/dns-pod-service.md",
+        "concepts/services-networking/dns-pod-service.md",
+        "concepts/architecture/_index.md",
+        "tasks/administer-cluster/dns-debugging-resolution.md"
+      ]
+    },
+    {
+      "id": "q025",
+      "question": "I generated a token to join a worker node yesterday and kubeadm now rejects it. How long are join tokens valid by default?",
+      "source_file": "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+      "rank": 2,
+      "top_pages": [
+        "tasks/administer-cluster/kubeadm/adding-windows-nodes.md",
+        "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+        "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+        "tasks/debug/debug-cluster/_index.md",
+        "tasks/configure-pod-container/configure-service-account.md",
+        "tasks/administer-cluster/kubeadm/adding-windows-nodes.md",
+        "tasks/administer-cluster/kubeadm/kubeadm-certs.md",
+        "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+        "tasks/administer-cluster/kubeadm/kubeadm-certs.md",
+        "tasks/administer-cluster/kubeadm/kubeadm-upgrade.md"
+      ]
+    },
+    {
+      "id": "q027",
+      "question": "Do I need to deploy my own signer to get certificate signing requests signed in my cluster, or is one built in?",
+      "source_file": "tasks/tls/managing-tls-in-a-cluster.md",
+      "rank": 2,
+      "top_pages": [
+        "tasks/administer-cluster/kubeadm/kubeadm-certs.md",
+        "tasks/tls/managing-tls-in-a-cluster.md",
+        "tasks/tls/managing-tls-in-a-cluster.md",
+        "tasks/tls/managing-tls-in-a-cluster.md",
+        "tasks/administer-cluster/certificates.md",
+        "tasks/administer-cluster/certificates.md",
+        "tasks/tls/managing-tls-in-a-cluster.md",
+        "tasks/tls/managing-tls-in-a-cluster.md",
+        "tasks/administer-cluster/certificates.md",
+        "tasks/administer-cluster/kubeadm/kubeadm-certs.md"
+      ]
+    },
+    {
+      "id": "q029",
+      "question": "If I don't pick an update strategy for my DaemonSet, how are its Pods replaced after I change the Pod template?",
+      "source_file": "tasks/manage-daemon/update-daemon-set.md",
+      "rank": 2,
+      "top_pages": [
+        "concepts/workloads/controllers/daemonset.md",
+        "tasks/manage-daemon/update-daemon-set.md",
+        "concepts/workloads/pods/pod-lifecycle.md",
+        "concepts/workloads/controllers/statefulset.md",
+        "concepts/workloads/pods/_index.md",
+        "concepts/workloads/controllers/deployment.md",
+        "concepts/workloads/pods/_index.md",
+        "tasks/manage-daemon/update-daemon-set.md",
+        "concepts/workloads/controllers/statefulset.md",
+        "concepts/workloads/controllers/statefulset.md"
+      ]
+    },
+    {
+      "id": "q033",
+      "question": "Tab completion for kubectl isn't working in my fish shell. Which kubectl version do I need?",
+      "source_file": "tasks/tools/included/optional-kubectl-configs-fish.md",
+      "rank": 1,
+      "top_pages": [
+        "tasks/tools/included/optional-kubectl-configs-fish.md",
+        "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+        "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+        "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
+        "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
+        "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+        "tasks/tools/included/optional-kubectl-configs-zsh.md",
+        "tasks/tools/install-kubectl-macos.md",
+        "tasks/tools/install-kubectl-linux.md",
+        "tasks/tools/install-kubectl-windows.md"
+      ]
+    },
+    {
+      "id": "q035",
+      "question": "We relied on PodSecurityPolicy to fill in default security settings on our Pods. Will Pod Security Admission do the same?",
+      "source_file": "tasks/configure-pod-container/migrate-from-psp.md",
+      "rank": 1,
+      "top_pages": [
+        "tasks/configure-pod-container/migrate-from-psp.md",
+        "tasks/configure-pod-container/migrate-from-psp.md",
+        "tasks/configure-pod-container/enforce-standards-admission-controller.md",
+        "concepts/security/pod-security-policy.md",
+        "tasks/configure-pod-container/migrate-from-psp.md",
+        "tasks/configure-pod-container/migrate-from-psp.md",
+        "tasks/configure-pod-container/enforce-standards-namespace-labels.md",
+        "concepts/security/security-checklist.md",
+        "concepts/security/security-checklist.md",
+        "tasks/configure-pod-container/migrate-from-psp.md"
+      ]
+    },
+    {
+      "id": "q037",
+      "question": "If I haven't configured anything, are my Secrets encrypted when the API server writes them to etcd?",
+      "source_file": "tasks/administer-cluster/encrypt-data.md",
+      "rank": 1,
+      "top_pages": [
+        "tasks/administer-cluster/encrypt-data.md",
+        "tasks/administer-cluster/kms-provider.md",
+        "tasks/administer-cluster/encrypt-data.md",
+        "tasks/administer-cluster/securing-a-cluster.md",
+        "tasks/administer-cluster/encrypt-data.md",
+        "tasks/administer-cluster/configure-upgrade-etcd.md",
+        "tasks/administer-cluster/decrypt-data.md",
+        "concepts/security/api-server-bypass-risks.md",
+        "tasks/administer-cluster/encrypt-data.md",
+        "tasks/administer-cluster/decrypt-data.md"
+      ]
+    },
+    {
+      "id": "q041",
+      "question": "kubectl tab completion doesn't work properly in the Bash that ships with macOS. What does it need?",
+      "source_file": "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+      "rank": 1,
+      "top_pages": [
+        "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+        "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+        "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
+        "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
+        "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+        "tasks/tools/included/optional-kubectl-configs-fish.md",
+        "tasks/tools/included/optional-kubectl-configs-zsh.md",
+        "tasks/tools/install-kubectl-macos.md",
+        "tasks/tools/install-kubectl-macos.md",
+        "tasks/tools/install-kubectl-macos.md"
+      ]
+    },
+    {
+      "id": "q043",
+      "question": "When I create a Secret from a file with kubectl and don't name the key, what key is the data stored under?",
+      "source_file": "tasks/configmap-secret/managing-secret-using-kubectl.md",
+      "rank": 3,
+      "top_pages": [
+        "tasks/configmap-secret/managing-secret-using-kustomize.md",
+        "tasks/configmap-secret/managing-secret-using-config-file.md",
+        "tasks/configmap-secret/managing-secret-using-kubectl.md",
+        "concepts/configuration/secret.md",
+        "concepts/configuration/secret.md",
+        "tasks/inject-data-application/distribute-credentials-secure.md",
+        "tasks/configmap-secret/managing-secret-using-config-file.md",
+        "tasks/inject-data-application/distribute-credentials-secure.md",
+        "tasks/inject-data-application/distribute-credentials-secure.md",
+        "tasks/configmap-secret/managing-secret-using-kubectl.md"
+      ]
+    },
+    {
+      "id": "q045",
+      "question": "My DaemonSet only runs on labelled nodes. If I add the label to another node later, do I need to do anything for a daemon Pod to start there?",
+      "source_file": "tasks/manage-daemon/pods-some-nodes.md",
+      "rank": 1,
+      "top_pages": [
+        "tasks/manage-daemon/pods-some-nodes.md",
+        "concepts/workloads/controllers/daemonset.md",
+        "concepts/workloads/controllers/daemonset.md",
+        "concepts/architecture/nodes.md",
+        "concepts/workloads/controllers/daemonset.md",
+        "tasks/manage-daemon/create-daemon-set.md",
+        "tasks/manage-daemon/create-daemon-set.md",
+        "tasks/manage-daemon/pods-some-nodes.md",
+        "concepts/workloads/controllers/daemonset.md",
+        "concepts/workloads/controllers/daemonset.md"
+      ]
+    }
+  ]
+}
