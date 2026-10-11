@@ -65,7 +65,22 @@ Paired bootstrap, semantic entropy minus baseline (pooled): naive entropy +0.111
 - **Selective answering by semantic entropy (pooled):** accuracy is 57.1% answering all, 60.5% at 87.8% coverage, 66.7% at 49.0–61.2% coverage, and 72.2% at 36.7% coverage. The coverage floor is 16.3%: 8 questions tie at entropy 0, and only 50% of those are right.
 - **Confident errors:** 4 of those 8 zero-entropy answers are wrong the same way every time (q002 "409 Conflict", q034 "Yes", q048 "5", q053 "1 replica"). Consistent misconceptions are exactly what sampling-based uncertainty cannot catch.
 
-**Manual check (by reading the samples, not automated; no labels or scores changed):** of the 13 questions at semantic entropy 1.332, 9 had samples with the same meaning to a human reader placed in different clusters. In 4 of them (q007, q015, q022, q042) all 5 samples meant the same thing; in 5 (q009, q013, q014, q024, q046) there was real disagreement but agreeing samples were still split. Only 4 (q006, q010, q030, q047) truly disagreed. None of the 8 zero-entropy questions had samples with different meanings merged. Finding: the NLI clustering over-splits long, explanatory answers that make the same claim, which inflates semantic entropy mostly on correct answers (1 of the 4 entirely split questions is bad, against 3 of the 4 truly disagreeing ones). This blunts its ability to flag bad answers, so the AUROC above likely understates what better clustering could achieve.
+**Manual check (by reading the samples, not automated; no labels or scores changed):** of the 13 questions at semantic entropy 1.332, 9 had samples with the same meaning to a human reader placed in different clusters. In 4 of them (q007, q015, q022, q042) all 5 samples meant the same thing; in 5 (q009, q013, q014, q024, q046) there was real disagreement but agreeing samples were still split. Only 4 (q006, q010, q030, q047) truly disagreed. None of the 8 zero-entropy questions had samples with different meanings merged. Finding: the NLI clustering over-splits long, explanatory answers that make the same claim, which inflates semantic entropy mostly on correct answers (1 of the 4 entirely split questions is bad, against 3 of the 4 truly disagreeing ones). This blunts its ability to flag bad answers, so the AUROC above may understate (untested) what better clustering could achieve. The manual check was done after seeing the labels, so it may be biased on borderline cases.
+
+**Reclustering with first sentences only (post-hoc, exploratory):** after the manual check, one variant was defined and committed before running (`025a639`): each saved sample is cut to its first sentence (at the first ". ", "? ", "! " or newline) and reclustered with the same NLI model and question prefix. No new model answers were generated, and labels are unchanged. Same bootstrap (1,000 resamples, seed 0).
+
+| | Test (n=25) | Dev + test pooled (n=49) |
+|---|---|---|
+| Original semantic entropy | 0.571 [0.333, 0.841] | 0.620 [0.459, 0.784] |
+| First-sentence semantic entropy | 0.675 [0.451, 0.901] | 0.700 [0.540, 0.843] |
+| Paired difference | +0.104 [+0.013, +0.215] | +0.080 [+0.015, +0.161] |
+
+- **Ties (pooled, first-sentence):** 0.000: 9, 0.500: 11, 0.673: 2, 0.950: 5, 1.055: 2, 1.332: 15, 1.609: 5.
+- **The gain is not where the manual check expected:** only 1 of the 13 former 1.332 questions changed (q009, down to 0.500). The four questions where all samples meant the same thing (q007, q015, q022, q042) are still split. Overall 12 of 49 scores changed: 8 correct answers moved down, mostly questions whose samples begin with "No."/"Yes.", and 2 bad answers moved up (q034, q041).
+- **Part of the gain is an artifact:** q034 (bad) rose from 0 to 0.673 because two samples reduced to "Yes." were no longer clustered with the longer "Yes – …" samples that mean the same thing.
+- **No merging errors:** the four questions that truly disagree and the eight original zero-entropy questions show no different answers merged.
+
+Although the paired intervals exclude zero, this variant was chosen after inspecting the data, the sample is small, and part of the improvement comes from a clustering artifact, so it is not evidence that first-sentence clustering is better. No other variant was tried. Results: `results/metrics/reliability_closed_book_recluster_first_sentence.json`.
 
 Exploratory only: 5 samples and 25–49 questions are too few for firm conclusions, and every AUROC interval includes 0.5. Results: `results/metrics/reliability_closed_book.json`, samples in `results/reliability/closed_book_samples.jsonl`.
 

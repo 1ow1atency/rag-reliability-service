@@ -1,0 +1,459 @@
+{
+  "post_hoc": true,
+  "exploratory": true,
+  "mode": "closed_book",
+  "variant": "first_sentence",
+  "definition": "first sentence of each saved sample (cut at '. ', '? ', '! ' or newline), same NLI clustering",
+  "results": {
+    "test": {
+      "n": 25,
+      "positives_bad": 14,
+      "negatives_good": 11,
+      "bootstrap_resamples_used": 1000,
+      "auroc": {
+        "original": {
+          "auroc": 0.5714285714285714,
+          "ci95": [
+            0.33333333333333337,
+            0.8409600815850816
+          ]
+        },
+        "first_sentence": {
+          "auroc": 0.6753246753246753,
+          "ci95": [
+            0.45126623376623376,
+            0.9006899350649349
+          ]
+        }
+      },
+      "first_sentence_minus_original": {
+        "observed": 0.10389610389610393,
+        "mean": 0.10040761150012699,
+        "ci95": [
+          0.012820512820512883,
+          0.2150069444444444
+        ]
+      },
+      "ties": [
+        {
+          "value": 0.0,
+          "n": 5,
+          "bad": 2
+        },
+        {
+          "value": 0.500402424,
+          "n": 5,
+          "bad": 1
+        },
+        {
+          "value": 0.673011667,
+          "n": 1,
+          "bad": 1
+        },
+        {
+          "value": 0.950270539,
+          "n": 2,
+          "bad": 1
+        },
+        {
+          "value": 1.054920168,
+          "n": 1,
+          "bad": 1
+        },
+        {
+          "value": 1.33217904,
+          "n": 9,
+          "bad": 7
+        },
+        {
+          "value": 1.609437912,
+          "n": 2,
+          "bad": 1
+        }
+      ]
+    },
+    "dev_test_pooled": {
+      "n": 49,
+      "positives_bad": 21,
+      "negatives_good": 28,
+      "bootstrap_resamples_used": 1000,
+      "auroc": {
+        "original": {
+          "auroc": 0.6198979591836735,
+          "ci95": [
+            0.45918367346938777,
+            0.7840185284640172
+          ]
+        },
+        "first_sentence": {
+          "auroc": 0.6998299319727892,
+          "ci95": [
+            0.5397900776472204,
+            0.8425549242424242
+          ]
+        }
+      },
+      "first_sentence_minus_original": {
+        "observed": 0.07993197278911568,
+        "mean": 0.07802705334375754,
+        "ci95": [
+          0.015302257266543051,
+          0.1608431122448979
+        ]
+      },
+      "ties": [
+        {
+          "value": 0.0,
+          "n": 9,
+          "bad": 3
+        },
+        {
+          "value": 0.500402424,
+          "n": 11,
+          "bad": 1
+        },
+        {
+          "value": 0.673011667,
+          "n": 2,
+          "bad": 1
+        },
+        {
+          "value": 0.950270539,
+          "n": 5,
+          "bad": 2
+        },
+        {
+          "value": 1.054920168,
+          "n": 2,
+          "bad": 2
+        },
+        {
+          "value": 1.33217904,
+          "n": 15,
+          "bad": 8
+        },
+        {
+          "value": 1.609437912,
+          "n": 5,
+          "bad": 4
+        }
+      ]
+    }
+  },
+  "former_1332_moves": {
+    "lower": [
+      "q009"
+    ],
+    "higher": [],
+    "unchanged": [
+      "q006",
+      "q007",
+      "q010",
+      "q013",
+      "q014",
+      "q015",
+      "q022",
+      "q024",
+      "q030",
+      "q042",
+      "q046",
+      "q047"
+    ]
+  },
+  "per_question": {
+    "q001": {
+      "original": 0.500402424,
+      "first_sentence": 0.500402424,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q002": {
+      "original": 0.0,
+      "first_sentence": 0.0,
+      "bad": 1,
+      "split": "test"
+    },
+    "q003": {
+      "original": 0.950270539,
+      "first_sentence": 0.950270539,
+      "bad": 1,
+      "split": "dev"
+    },
+    "q004": {
+      "original": 0.500402424,
+      "first_sentence": 0.500402424,
+      "bad": 1,
+      "split": "test"
+    },
+    "q005": {
+      "original": 0.500402424,
+      "first_sentence": 0.500402424,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q006": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 1,
+      "split": "test"
+    },
+    "q007": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q008": {
+      "original": 0.950270539,
+      "first_sentence": 0.950270539,
+      "bad": 0,
+      "split": "test"
+    },
+    "q009": {
+      "original": 1.33217904,
+      "first_sentence": 0.500402424,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q010": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 1,
+      "split": "test"
+    },
+    "q012": {
+      "original": 1.054920168,
+      "first_sentence": 0.0,
+      "bad": 0,
+      "split": "test"
+    },
+    "q013": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q014": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 1,
+      "split": "test"
+    },
+    "q015": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q017": {
+      "original": 1.054920168,
+      "first_sentence": 0.500402424,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q018": {
+      "original": 1.609437912,
+      "first_sentence": 1.609437912,
+      "bad": 1,
+      "split": "test"
+    },
+    "q019": {
+      "original": 0.950270539,
+      "first_sentence": 0.950270539,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q020": {
+      "original": 1.609437912,
+      "first_sentence": 1.33217904,
+      "bad": 0,
+      "split": "test"
+    },
+    "q021": {
+      "original": 1.609437912,
+      "first_sentence": 1.609437912,
+      "bad": 1,
+      "split": "dev"
+    },
+    "q022": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 1,
+      "split": "test"
+    },
+    "q023": {
+      "original": 0.0,
+      "first_sentence": 0.0,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q024": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 1,
+      "split": "test"
+    },
+    "q025": {
+      "original": 0.0,
+      "first_sentence": 0.0,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q026": {
+      "original": 0.0,
+      "first_sentence": 0.0,
+      "bad": 0,
+      "split": "test"
+    },
+    "q027": {
+      "original": 1.054920168,
+      "first_sentence": 1.33217904,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q028": {
+      "original": 1.609437912,
+      "first_sentence": 1.609437912,
+      "bad": 0,
+      "split": "test"
+    },
+    "q029": {
+      "original": 0.500402424,
+      "first_sentence": 0.950270539,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q030": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 1,
+      "split": "test"
+    },
+    "q032": {
+      "original": 0.500402424,
+      "first_sentence": 0.500402424,
+      "bad": 0,
+      "split": "test"
+    },
+    "q033": {
+      "original": 1.054920168,
+      "first_sentence": 1.054920168,
+      "bad": 1,
+      "split": "dev"
+    },
+    "q034": {
+      "original": 0.0,
+      "first_sentence": 0.673011667,
+      "bad": 1,
+      "split": "test"
+    },
+    "q035": {
+      "original": 0.950270539,
+      "first_sentence": 0.673011667,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q036": {
+      "original": 0.673011667,
+      "first_sentence": 0.500402424,
+      "bad": 0,
+      "split": "test"
+    },
+    "q037": {
+      "original": 1.054920168,
+      "first_sentence": 0.500402424,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q038": {
+      "original": 0.500402424,
+      "first_sentence": 0.0,
+      "bad": 0,
+      "split": "test"
+    },
+    "q040": {
+      "original": 0.500402424,
+      "first_sentence": 0.500402424,
+      "bad": 0,
+      "split": "test"
+    },
+    "q041": {
+      "original": 0.950270539,
+      "first_sentence": 1.33217904,
+      "bad": 1,
+      "split": "dev"
+    },
+    "q042": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 0,
+      "split": "test"
+    },
+    "q043": {
+      "original": 0.500402424,
+      "first_sentence": 0.500402424,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q044": {
+      "original": 0.500402424,
+      "first_sentence": 0.500402424,
+      "bad": 0,
+      "split": "test"
+    },
+    "q045": {
+      "original": 0.0,
+      "first_sentence": 0.0,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q046": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 1,
+      "split": "test"
+    },
+    "q047": {
+      "original": 1.33217904,
+      "first_sentence": 1.33217904,
+      "bad": 0,
+      "split": "dev"
+    },
+    "q048": {
+      "original": 0.0,
+      "first_sentence": 0.0,
+      "bad": 1,
+      "split": "test"
+    },
+    "q049": {
+      "original": 1.609437912,
+      "first_sentence": 1.609437912,
+      "bad": 1,
+      "split": "dev"
+    },
+    "q050": {
+      "original": 0.950270539,
+      "first_sentence": 0.950270539,
+      "bad": 1,
+      "split": "test"
+    },
+    "q051": {
+      "original": 1.609437912,
+      "first_sentence": 1.609437912,
+      "bad": 1,
+      "split": "dev"
+    },
+    "q052": {
+      "original": 1.054920168,
+      "first_sentence": 1.054920168,
+      "bad": 1,
+      "split": "test"
+    },
+    "q053": {
+      "original": 0.0,
+      "first_sentence": 0.0,
+      "bad": 1,
+      "split": "dev"
+    }
+  }
+}
