@@ -12,6 +12,22 @@ Documentation corpus from [github.com/kubernetes/website](https://github.com/kub
 - 44 were drafted by an AI model and then reviewed by the project author. Each drafted answerable question was evidence-checked: its supporting sentence was confirmed at the recorded line of its source page at the pinned docs commit above. The drafts, including the evidence sentences and line numbers, are kept in `data/eval/candidates.jsonl`.
 - `scripts/validate_eval.py` checks the format, the dev/test split and that each answerable question's source file exists.
 
+## Run the service
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+.venv/bin/python scripts/fetch_docs.py          # pinned docs snapshot -> data/raw
+.venv/bin/python -m src.ingest.chunking         # chunks -> data/processed
+cp .env.example .env                            # then set GROQ_API_KEY in .env (or export it)
+.venv/bin/uvicorn src.service.app:app --host 127.0.0.1 --port 8000
+```
+
+```bash
+curl http://127.0.0.1:8000/health
+curl -X POST http://127.0.0.1:8000/ask -H 'Content-Type: application/json' \
+     -d '{"question": "How long are kubeadm join tokens valid by default?"}'
+```
+
 ## Retrieval results
 
 The retrieval setup was chosen on dev and locked in `configs/final_retrieval.json` (commit `27b08b8`) before a single run on test: fixed 512-token chunks (510-token cap), hybrid RRF (k=60) over dense and BM25 top 50, top 20 reranked with `BAAI/bge-reranker-base`, top 3 returned. Chunk-level hit = a top-k chunk from the right page contains the question's evidence sentence; answerable questions with an evidence sentence only (17 dev, 19 test).
