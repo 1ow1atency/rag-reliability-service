@@ -55,3 +55,18 @@ def test_sampling_retries_failed_calls_and_counts_their_tokens(monkeypatch, tmp_
             {"id": "q003", "version": "v0", "status": "ok"}]
     path.write_text("".join(json.dumps(r) + "\n" for r in rows))
     assert list(se_mod.load_done(path, "v1")) == ["q001"]
+
+
+def test_ties_and_selective_curve_keep_tied_questions_together():
+    import numpy as np
+
+    from src.reliability.analyze import selective_curve, tie_table
+
+    score = np.array([0.0, 0.0, 0.0, 0.5, 1.332, 1.332])
+    bad = np.array([1, 0, 0, 0, 1, 1])
+    assert tie_table(score, bad) == [{"value": 0.0, "n": 3, "bad": 1},
+                                     {"value": 0.5, "n": 1, "bad": 0},
+                                     {"value": 1.332, "n": 2, "bad": 2}]
+    curve = selective_curve(1 - bad, score)
+    # The lowest threshold already answers all three tied questions: the coverage floor is 3/6.
+    assert [(p["answered"], round(p["accuracy"], 3)) for p in curve] == [(3, 0.667), (4, 0.75), (6, 0.5)]

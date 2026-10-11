@@ -47,6 +47,26 @@ With RAG, 16 of the 17 answerable test questions whose evidence chunk was in the
 
 **Known failure cases (dev):** RAG replied `NOT_IN_DOCS` to three answerable dev questions. Only q035 is a true over-abstention: its evidence sentence was in the first retrieved chunk ("Pod Security Admission is a non-mutating admission controller"), but the model did not infer the "no" answer. For q037 (the evidence sentence was not in the top 3) and q005 (the stated default was in a chunk that was not retrieved), abstaining was the grounded behaviour, and closed-book answered both correctly from memory.
 
+## Reliability signals (exploratory, 5 samples)
+
+Does sampling uncertainty flag closed-book answers that are wrong? For each of the 49 questions, `openai/gpt-oss-20b` answered 5 more times at temperature 1.0 (same locked prompt). The samples were clustered by meaning with `microsoft/deberta-large-mnli` bidirectional entailment, and three scores were computed: semantic entropy, naive entropy (over exact strings) and 1 − agreement rate. The clustering and scoring code is copied from the semantic-entropy-hallucination project. A "bad" answer is the temperature-0 answer judged INCORRECT (answerable) or ANSWERED (unanswerable), using the locked prompt version only; there were no NOT_ATTEMPTED answers to exclude. The run used 50,771 tokens over 245 calls.
+
+AUROC for flagging bad answers (higher score = more likely bad), 95% bootstrap CI (1,000 question resamples, seed 0):
+
+| Score | Test (n=25: 14 bad, 11 good) | Dev + test pooled (n=49: 21 bad, 28 good) |
+|---|---|---|
+| Semantic entropy | 0.571 [0.333, 0.841] | 0.620 [0.459, 0.784] |
+| Naive entropy | 0.435 [0.223, 0.647] | 0.509 [0.373, 0.648] |
+| 1 − agreement rate | 0.549 [0.320, 0.828] | 0.604 [0.452, 0.766] |
+
+Paired bootstrap, semantic entropy minus baseline (pooled): naive entropy +0.111 [−0.042, +0.264], 1 − agreement +0.016 [−0.016, +0.054]. Every interval includes zero.
+
+- **Ties dominate:** with 5 samples, semantic entropy takes only 7 distinct values (pooled: 13 of 49 questions at 1.332, 8 at 0). Naive entropy puts 31 of 49 questions at its maximum (1.609), because almost every sample is worded differently.
+- **Selective answering by semantic entropy (pooled):** accuracy is 57.1% answering all, 60.5% at 87.8% coverage, 66.7% at 49.0–61.2% coverage, and 72.2% at 36.7% coverage. The coverage floor is 16.3%: 8 questions tie at entropy 0, and only 50% of those are right.
+- **Confident errors:** 4 of those 8 zero-entropy answers are wrong the same way every time (q002 "409 Conflict", q034 "Yes", q048 "5", q053 "1 replica"). Consistent misconceptions are exactly what sampling-based uncertainty cannot catch.
+
+Exploratory only: 5 samples and 25–49 questions are too few for firm conclusions, and every AUROC interval includes 0.5. Results: `results/metrics/reliability_closed_book.json`, samples in `results/reliability/closed_book_samples.jsonl`.
+
 ## Limitations
 
 - Glossary definitions pulled in by Hugo shortcodes (`glossary_definition`) are not in the corpus, so the opening definition is missing on the 25 pages that use them.

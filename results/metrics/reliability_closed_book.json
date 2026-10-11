@@ -1,0 +1,879 @@
+{
+  "exploratory": true,
+  "mode": "closed_book",
+  "samples_per_question": 5,
+  "label_source": "results/generation/<split>_closed_book.jsonl, prompt version 7cb1b414db4c only",
+  "bad_definition": "INCORRECT on answerable or ANSWERED on unanswerable; NOT_ATTEMPTED excluded",
+  "excluded_counts": {},
+  "n_bootstrap": 1000,
+  "bootstrap_seed": 0,
+  "results": {
+    "test": {
+      "n": 25,
+      "positives_bad": 14,
+      "negatives_good": 11,
+      "accuracy_answer_all": 0.44,
+      "ties": {
+        "semantic_entropy": [
+          {
+            "value": 0.0,
+            "n": 4,
+            "bad": 3
+          },
+          {
+            "value": 0.500402424,
+            "n": 5,
+            "bad": 1
+          },
+          {
+            "value": 0.673011667,
+            "n": 1,
+            "bad": 0
+          },
+          {
+            "value": 0.950270539,
+            "n": 2,
+            "bad": 1
+          },
+          {
+            "value": 1.054920168,
+            "n": 2,
+            "bad": 1
+          },
+          {
+            "value": 1.33217904,
+            "n": 8,
+            "bad": 7
+          },
+          {
+            "value": 1.609437912,
+            "n": 3,
+            "bad": 1
+          }
+        ],
+        "naive_entropy": [
+          {
+            "value": 0.673011667,
+            "n": 1,
+            "bad": 0
+          },
+          {
+            "value": 0.950270539,
+            "n": 2,
+            "bad": 2
+          },
+          {
+            "value": 1.33217904,
+            "n": 8,
+            "bad": 5
+          },
+          {
+            "value": 1.609437912,
+            "n": 14,
+            "bad": 7
+          }
+        ],
+        "one_minus_agreement": [
+          {
+            "value": 0.0,
+            "n": 4,
+            "bad": 3
+          },
+          {
+            "value": 0.2,
+            "n": 5,
+            "bad": 1
+          },
+          {
+            "value": 0.4,
+            "n": 3,
+            "bad": 1
+          },
+          {
+            "value": 0.6,
+            "n": 10,
+            "bad": 8
+          },
+          {
+            "value": 0.8,
+            "n": 3,
+            "bad": 1
+          }
+        ]
+      },
+      "bootstrap_resamples_used": 1000,
+      "auroc": {
+        "semantic_entropy": {
+          "auroc": 0.5714285714285714,
+          "ci95": [
+            0.33333333333333337,
+            0.8409600815850816
+          ]
+        },
+        "naive_entropy": {
+          "auroc": 0.4350649350649351,
+          "ci95": [
+            0.22327884615384616,
+            0.6474358974358975
+          ]
+        },
+        "one_minus_agreement": {
+          "auroc": 0.5487012987012987,
+          "ci95": [
+            0.31970918174962293,
+            0.8279740259740257
+          ]
+        }
+      },
+      "semantic_entropy_minus": {
+        "naive_entropy": {
+          "observed": 0.1363636363636363,
+          "mean": 0.1448375790927339,
+          "ci95": [
+            -0.07797055375180367,
+            0.39336842105263164
+          ]
+        },
+        "one_minus_agreement": {
+          "observed": 0.022727272727272707,
+          "mean": 0.02141327198815976,
+          "ci95": [
+            -0.013333333333333308,
+            0.08667013888888889
+          ]
+        }
+      },
+      "selective_semantic_entropy": [
+        {
+          "threshold": 0.0,
+          "answered": 4,
+          "coverage": 0.16,
+          "accuracy": 0.25
+        },
+        {
+          "threshold": 0.500402424,
+          "answered": 9,
+          "coverage": 0.36,
+          "accuracy": 0.5555555555555556
+        },
+        {
+          "threshold": 0.673011667,
+          "answered": 10,
+          "coverage": 0.4,
+          "accuracy": 0.6
+        },
+        {
+          "threshold": 0.950270539,
+          "answered": 12,
+          "coverage": 0.48,
+          "accuracy": 0.5833333333333334
+        },
+        {
+          "threshold": 1.054920168,
+          "answered": 14,
+          "coverage": 0.56,
+          "accuracy": 0.5714285714285714
+        },
+        {
+          "threshold": 1.33217904,
+          "answered": 22,
+          "coverage": 0.88,
+          "accuracy": 0.4090909090909091
+        },
+        {
+          "threshold": 1.609437912,
+          "answered": 25,
+          "coverage": 1.0,
+          "accuracy": 0.44
+        }
+      ]
+    },
+    "dev_test_pooled": {
+      "n": 49,
+      "positives_bad": 21,
+      "negatives_good": 28,
+      "accuracy_answer_all": 0.5714285714285714,
+      "ties": {
+        "semantic_entropy": [
+          {
+            "value": 0.0,
+            "n": 8,
+            "bad": 4
+          },
+          {
+            "value": 0.500402424,
+            "n": 9,
+            "bad": 1
+          },
+          {
+            "value": 0.673011667,
+            "n": 1,
+            "bad": 0
+          },
+          {
+            "value": 0.950270539,
+            "n": 6,
+            "bad": 3
+          },
+          {
+            "value": 1.054920168,
+            "n": 6,
+            "bad": 2
+          },
+          {
+            "value": 1.33217904,
+            "n": 13,
+            "bad": 7
+          },
+          {
+            "value": 1.609437912,
+            "n": 6,
+            "bad": 4
+          }
+        ],
+        "naive_entropy": [
+          {
+            "value": 0.0,
+            "n": 1,
+            "bad": 0
+          },
+          {
+            "value": 0.500402424,
+            "n": 1,
+            "bad": 0
+          },
+          {
+            "value": 0.673011667,
+            "n": 1,
+            "bad": 0
+          },
+          {
+            "value": 0.950270539,
+            "n": 3,
+            "bad": 2
+          },
+          {
+            "value": 1.054920168,
+            "n": 1,
+            "bad": 0
+          },
+          {
+            "value": 1.33217904,
+            "n": 11,
+            "bad": 6
+          },
+          {
+            "value": 1.609437912,
+            "n": 31,
+            "bad": 13
+          }
+        ],
+        "one_minus_agreement": [
+          {
+            "value": 0.0,
+            "n": 8,
+            "bad": 4
+          },
+          {
+            "value": 0.2,
+            "n": 9,
+            "bad": 1
+          },
+          {
+            "value": 0.4,
+            "n": 7,
+            "bad": 3
+          },
+          {
+            "value": 0.6,
+            "n": 19,
+            "bad": 9
+          },
+          {
+            "value": 0.8,
+            "n": 6,
+            "bad": 4
+          }
+        ]
+      },
+      "bootstrap_resamples_used": 1000,
+      "auroc": {
+        "semantic_entropy": {
+          "auroc": 0.6198979591836735,
+          "ci95": [
+            0.45918367346938777,
+            0.7840185284640172
+          ]
+        },
+        "naive_entropy": {
+          "auroc": 0.5085034013605443,
+          "ci95": [
+            0.37253353973168213,
+            0.6477466977466977
+          ]
+        },
+        "one_minus_agreement": {
+          "auroc": 0.6037414965986394,
+          "ci95": [
+            0.4517399875952507,
+            0.7661126893939394
+          ]
+        }
+      },
+      "semantic_entropy_minus": {
+        "naive_entropy": {
+          "observed": 0.11139455782312924,
+          "mean": 0.11469189597378991,
+          "ci95": [
+            -0.04187500000000005,
+            0.26432702020202015
+          ]
+        },
+        "one_minus_agreement": {
+          "observed": 0.016156462585034115,
+          "mean": 0.016233459424080735,
+          "ci95": [
+            -0.01551724137931032,
+            0.053533562166285444
+          ]
+        }
+      },
+      "selective_semantic_entropy": [
+        {
+          "threshold": 0.0,
+          "answered": 8,
+          "coverage": 0.16326530612244897,
+          "accuracy": 0.5
+        },
+        {
+          "threshold": 0.500402424,
+          "answered": 17,
+          "coverage": 0.3469387755102041,
+          "accuracy": 0.7058823529411765
+        },
+        {
+          "threshold": 0.673011667,
+          "answered": 18,
+          "coverage": 0.3673469387755102,
+          "accuracy": 0.7222222222222222
+        },
+        {
+          "threshold": 0.950270539,
+          "answered": 24,
+          "coverage": 0.4897959183673469,
+          "accuracy": 0.6666666666666666
+        },
+        {
+          "threshold": 1.054920168,
+          "answered": 30,
+          "coverage": 0.6122448979591837,
+          "accuracy": 0.6666666666666666
+        },
+        {
+          "threshold": 1.33217904,
+          "answered": 43,
+          "coverage": 0.8775510204081632,
+          "accuracy": 0.6046511627906976
+        },
+        {
+          "threshold": 1.609437912,
+          "answered": 49,
+          "coverage": 1.0,
+          "accuracy": 0.5714285714285714
+        }
+      ]
+    }
+  },
+  "records": [
+    {
+      "id": "q001",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.500402424,
+      "naive_entropy": 1.054920168,
+      "one_minus_agreement": 0.2
+    },
+    {
+      "id": "q002",
+      "split": "test",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 0.0,
+      "naive_entropy": 0.950270539,
+      "one_minus_agreement": 0.0
+    },
+    {
+      "id": "q003",
+      "split": "dev",
+      "answerable": false,
+      "label": "ANSWERED",
+      "bad": 1,
+      "semantic_entropy": 0.950270539,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.4
+    },
+    {
+      "id": "q004",
+      "split": "test",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 0.500402424,
+      "naive_entropy": 1.33217904,
+      "one_minus_agreement": 0.2
+    },
+    {
+      "id": "q005",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.500402424,
+      "naive_entropy": 0.500402424,
+      "one_minus_agreement": 0.2
+    },
+    {
+      "id": "q006",
+      "split": "test",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.33217904,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q007",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q008",
+      "split": "test",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.950270539,
+      "naive_entropy": 1.33217904,
+      "one_minus_agreement": 0.4
+    },
+    {
+      "id": "q009",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q010",
+      "split": "test",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q012",
+      "split": "test",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 1.054920168,
+      "naive_entropy": 1.33217904,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q013",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q014",
+      "split": "test",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q015",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q017",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 1.054920168,
+      "naive_entropy": 1.33217904,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q018",
+      "split": "test",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 1.609437912,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.8
+    },
+    {
+      "id": "q019",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.950270539,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.4
+    },
+    {
+      "id": "q020",
+      "split": "test",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 1.609437912,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.8
+    },
+    {
+      "id": "q021",
+      "split": "dev",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 1.609437912,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.8
+    },
+    {
+      "id": "q022",
+      "split": "test",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q023",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.0,
+      "naive_entropy": 0.0,
+      "one_minus_agreement": 0.0
+    },
+    {
+      "id": "q024",
+      "split": "test",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.33217904,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q025",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.0,
+      "naive_entropy": 0.950270539,
+      "one_minus_agreement": 0.0
+    },
+    {
+      "id": "q026",
+      "split": "test",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.0,
+      "naive_entropy": 0.673011667,
+      "one_minus_agreement": 0.0
+    },
+    {
+      "id": "q027",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 1.054920168,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q028",
+      "split": "test",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 1.609437912,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.8
+    },
+    {
+      "id": "q029",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.500402424,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.2
+    },
+    {
+      "id": "q030",
+      "split": "test",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.33217904,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q032",
+      "split": "test",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.500402424,
+      "naive_entropy": 1.33217904,
+      "one_minus_agreement": 0.2
+    },
+    {
+      "id": "q033",
+      "split": "dev",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 1.054920168,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q034",
+      "split": "test",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 0.0,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.0
+    },
+    {
+      "id": "q035",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.950270539,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.4
+    },
+    {
+      "id": "q036",
+      "split": "test",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.673011667,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.4
+    },
+    {
+      "id": "q037",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 1.054920168,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q038",
+      "split": "test",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.500402424,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.2
+    },
+    {
+      "id": "q040",
+      "split": "test",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.500402424,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.2
+    },
+    {
+      "id": "q041",
+      "split": "dev",
+      "answerable": true,
+      "label": "INCORRECT",
+      "bad": 1,
+      "semantic_entropy": 0.950270539,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.4
+    },
+    {
+      "id": "q042",
+      "split": "test",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q043",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.500402424,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.2
+    },
+    {
+      "id": "q044",
+      "split": "test",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.500402424,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.2
+    },
+    {
+      "id": "q045",
+      "split": "dev",
+      "answerable": true,
+      "label": "CORRECT",
+      "bad": 0,
+      "semantic_entropy": 0.0,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.0
+    },
+    {
+      "id": "q046",
+      "split": "test",
+      "answerable": false,
+      "label": "ANSWERED",
+      "bad": 1,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q047",
+      "split": "dev",
+      "answerable": false,
+      "label": "ABSTAINED",
+      "bad": 0,
+      "semantic_entropy": 1.33217904,
+      "naive_entropy": 1.33217904,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q048",
+      "split": "test",
+      "answerable": false,
+      "label": "ANSWERED",
+      "bad": 1,
+      "semantic_entropy": 0.0,
+      "naive_entropy": 0.950270539,
+      "one_minus_agreement": 0.0
+    },
+    {
+      "id": "q049",
+      "split": "dev",
+      "answerable": false,
+      "label": "ANSWERED",
+      "bad": 1,
+      "semantic_entropy": 1.609437912,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.8
+    },
+    {
+      "id": "q050",
+      "split": "test",
+      "answerable": false,
+      "label": "ANSWERED",
+      "bad": 1,
+      "semantic_entropy": 0.950270539,
+      "naive_entropy": 1.33217904,
+      "one_minus_agreement": 0.4
+    },
+    {
+      "id": "q051",
+      "split": "dev",
+      "answerable": false,
+      "label": "ANSWERED",
+      "bad": 1,
+      "semantic_entropy": 1.609437912,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.8
+    },
+    {
+      "id": "q052",
+      "split": "test",
+      "answerable": false,
+      "label": "ANSWERED",
+      "bad": 1,
+      "semantic_entropy": 1.054920168,
+      "naive_entropy": 1.609437912,
+      "one_minus_agreement": 0.6
+    },
+    {
+      "id": "q053",
+      "split": "dev",
+      "answerable": false,
+      "label": "ANSWERED",
+      "bad": 1,
+      "semantic_entropy": 0.0,
+      "naive_entropy": 1.33217904,
+      "one_minus_agreement": 0.0
+    }
+  ]
+}
