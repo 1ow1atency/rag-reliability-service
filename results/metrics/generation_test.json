@@ -1,0 +1,155 @@
+{
+  "split": "test",
+  "version": "7cb1b414db4c",
+  "n_questions": 25,
+  "answer_model": "openai/gpt-oss-20b",
+  "judge_model": "openai/gpt-oss-120b",
+  "retrieval_config": "configs/final_retrieval.json",
+  "results_files": {
+    "closed_book": "results/generation/test_closed_book.jsonl",
+    "rag": "results/generation/test_rag.jsonl"
+  },
+  "modes": {
+    "closed_book": {
+      "labels": {
+        "answerable": {
+          "CORRECT": 11,
+          "INCORRECT": 10,
+          "NOT_ATTEMPTED": 0
+        },
+        "unanswerable": {
+          "ABSTAINED": 0,
+          "ANSWERED": 4
+        },
+        "n_answerable": 21,
+        "n_unanswerable": 4
+      },
+      "tokens": {
+        "answer_calls": 25,
+        "answer_tokens": 5285,
+        "answer_tokens_per_call": 211.4,
+        "answer_prompt_tokens_per_question": 133.28,
+        "answer_completion_tokens_per_question": 78.12,
+        "answer_tokens_per_question": 211.4,
+        "judge_calls": 25,
+        "judge_tokens": 7844,
+        "judge_tokens_per_call": 313.76
+      },
+      "entropy_estimate": {
+        "samples_per_question": 5,
+        "questions": 49,
+        "answer_tokens": 51793
+      },
+      "answerable_outcomes": {
+        "CORRECT": [
+          "q008",
+          "q012",
+          "q020",
+          "q026",
+          "q028",
+          "q032",
+          "q036",
+          "q038",
+          "q040",
+          "q042",
+          "q044"
+        ],
+        "INCORRECT": [
+          "q002",
+          "q004",
+          "q006",
+          "q010",
+          "q014",
+          "q018",
+          "q022",
+          "q024",
+          "q030",
+          "q034"
+        ],
+        "NOT_ATTEMPTED": [],
+        "FAILED": []
+      }
+    },
+    "rag": {
+      "labels": {
+        "answerable": {
+          "CORRECT": 17,
+          "INCORRECT": 3,
+          "NOT_ATTEMPTED": 1
+        },
+        "unanswerable": {
+          "ABSTAINED": 4,
+          "ANSWERED": 0
+        },
+        "n_answerable": 21,
+        "n_unanswerable": 4,
+        "answerable_by_retrieval": {
+          "evidence_in_top3": {
+            "n": 17,
+            "CORRECT": 16,
+            "INCORRECT": 1,
+            "NOT_ATTEMPTED": 0
+          },
+          "evidence_not_in_top3": {
+            "n": 2,
+            "CORRECT": 1,
+            "INCORRECT": 0,
+            "NOT_ATTEMPTED": 1
+          },
+          "no_evidence_sentence": {
+            "n": 2,
+            "CORRECT": 0,
+            "INCORRECT": 2,
+            "NOT_ATTEMPTED": 0
+          }
+        }
+      },
+      "tokens": {
+        "answer_calls": 25,
+        "answer_tokens": 39795,
+        "answer_tokens_per_call": 1591.8,
+        "answer_prompt_tokens_per_question": 1543.76,
+        "answer_completion_tokens_per_question": 48.04,
+        "answer_tokens_per_question": 1591.8,
+        "judge_calls": 25,
+        "judge_tokens": 7520,
+        "judge_tokens_per_call": 300.8
+      },
+      "entropy_estimate": {
+        "samples_per_question": 5,
+        "questions": 49,
+        "answer_tokens": 389991
+      },
+      "answerable_outcomes": {
+        "CORRECT": [
+          "q006",
+          "q008",
+          "q012",
+          "q014",
+          "q018",
+          "q020",
+          "q022",
+          "q024",
+          "q026",
+          "q028",
+          "q030",
+          "q034",
+          "q036",
+          "q038",
+          "q040",
+          "q042",
+          "q044"
+        ],
+        "INCORRECT": [
+          "q002",
+          "q004",
+          "q032"
+        ],
+        "NOT_ATTEMPTED": [
+          "q010"
+        ],
+        "FAILED": []
+      }
+    }
+  }
+}

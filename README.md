@@ -24,6 +24,23 @@ The retrieval setup was chosen on dev and locked in `configs/final_retrieval.jso
 
 The samples are small (17 dev / 19 test questions, so one question moves recall by 5–6 points), and on test the heading-chunk setup matches the final config within one question while handing the model about 35% fewer tokens, so the 512-token chunks' gain does not clearly pay for their token cost. Full results: `results/metrics/` (`chunker_comparison_dev.json`, `retrieval_test_final.json`).
 
+## Generation results
+
+Answers come from `openai/gpt-oss-20b` at temperature 0, either closed-book (question only) or with RAG (the top 3 chunks from the locked retrieval config, labelled with their page paths, and an instruction to answer only from them or reply `NOT_IN_DOCS`). `openai/gpt-oss-120b` at temperature 0 judges each answer: CORRECT / INCORRECT / NOT_ATTEMPTED against the gold answer, or ABSTAINED / ANSWERED for unanswerable questions. **Dev was used to tune the prompts**; they were locked in commit `73e6cf1` before the single test run.
+
+Test split (25 questions: 21 answerable, 4 unanswerable):
+
+| Mode | Correct | Incorrect | Not attempted | Unanswerable abstained | Unanswerable answered |
+|---|---|---|---|---|---|
+| Closed-book | 11/21 (52%) | 10/21 (48%) | 0/21 | 0/4 | 4/4 |
+| RAG | 17/21 (81%) | 3/21 (14%) | 1/21 (5%) | 4/4 | 0/4 |
+
+With RAG, 16 of the 17 answerable test questions whose evidence chunk was in the top 3 were answered correctly. All four closed-book answers to unanswerable questions were made-up specific values (for example "110 containers" and "$300"). Results: `results/metrics/generation_test.json`, per-question rows in `results/generation/`.
+
+**Borderline judging rule:** for unanswerable questions, a confident claim that no such limit, value or guarantee exists (for example "There is no hard limit") counts as ANSWERED, not ABSTAINED, in both modes. On dev this applied to two closed-book answers (q003, q049); on test it did not occur.
+
+**Known failure cases (dev):** RAG replied `NOT_IN_DOCS` to three answerable dev questions. Only q035 is a true over-abstention: its evidence sentence was in the first retrieved chunk ("Pod Security Admission is a non-mutating admission controller"), but the model did not infer the "no" answer. For q037 (the evidence sentence was not in the top 3) and q005 (the stated default was in a chunk that was not retrieved), abstaining was the grounded behaviour, and closed-book answered both correctly from memory.
+
 ## Limitations
 
 - Glossary definitions pulled in by Hugo shortcodes (`glossary_definition`) are not in the corpus, so the opening definition is missing on the 25 pages that use them.
