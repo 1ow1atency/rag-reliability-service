@@ -1,0 +1,706 @@
+{
+  "split": "test",
+  "answerable_only": true,
+  "config": "configs/final_retrieval.json",
+  "setups": [
+    {
+      "label": "final (fixed_512 hybrid+bge)",
+      "chunker": "fixed_512",
+      "method": "hybrid+bge-reranker"
+    },
+    {
+      "label": "fixed_512 dense",
+      "chunker": "fixed_512",
+      "method": "dense"
+    },
+    {
+      "label": "heading hybrid+bge",
+      "chunker": "heading",
+      "method": "hybrid+bge-reranker"
+    }
+  ],
+  "hit_definitions": {
+    "page_level": "a top-k chunk comes from the question's source_file",
+    "chunk_level": "a top-k chunk from that page contains the whole evidence sentence (whitespace ignored)"
+  },
+  "n_questions": 21,
+  "n_with_evidence": 19,
+  "page_level_only_ids": [
+    "q002",
+    "q004"
+  ],
+  "evidence_split_across_chunks": {
+    "fixed_512": [],
+    "heading": []
+  },
+  "metrics": {
+    "final (fixed_512 hybrid+bge)": {
+      "page_level_all": {
+        "n": 21,
+        "recall@1": {
+          "hits": 20,
+          "total": 21,
+          "rate": 0.9523809523809523
+        },
+        "recall@3": {
+          "hits": 21,
+          "total": 21,
+          "rate": 1.0
+        },
+        "recall@5": {
+          "hits": 21,
+          "total": 21,
+          "rate": 1.0
+        },
+        "recall@10": {
+          "hits": 21,
+          "total": 21,
+          "rate": 1.0
+        },
+        "mrr@10": 0.9761904761904762
+      },
+      "page_level_with_evidence": {
+        "n": 19,
+        "recall@1": {
+          "hits": 18,
+          "total": 19,
+          "rate": 0.9473684210526315
+        },
+        "recall@3": {
+          "hits": 19,
+          "total": 19,
+          "rate": 1.0
+        },
+        "recall@5": {
+          "hits": 19,
+          "total": 19,
+          "rate": 1.0
+        },
+        "recall@10": {
+          "hits": 19,
+          "total": 19,
+          "rate": 1.0
+        },
+        "mrr@10": 0.9736842105263158
+      },
+      "chunk_level_with_evidence": {
+        "n": 19,
+        "recall@1": {
+          "hits": 14,
+          "total": 19,
+          "rate": 0.7368421052631579
+        },
+        "recall@3": {
+          "hits": 17,
+          "total": 19,
+          "rate": 0.8947368421052632
+        },
+        "recall@5": {
+          "hits": 18,
+          "total": 19,
+          "rate": 0.9473684210526315
+        },
+        "recall@10": {
+          "hits": 18,
+          "total": 19,
+          "rate": 0.9473684210526315
+        },
+        "mrr@10": 0.8289473684210527
+      },
+      "top3_tokens_per_question_mean": 1481.4285714285713
+    },
+    "fixed_512 dense": {
+      "page_level_all": {
+        "n": 21,
+        "recall@1": {
+          "hits": 15,
+          "total": 21,
+          "rate": 0.7142857142857143
+        },
+        "recall@3": {
+          "hits": 17,
+          "total": 21,
+          "rate": 0.8095238095238095
+        },
+        "recall@5": {
+          "hits": 17,
+          "total": 21,
+          "rate": 0.8095238095238095
+        },
+        "recall@10": {
+          "hits": 18,
+          "total": 21,
+          "rate": 0.8571428571428571
+        },
+        "mrr@10": 0.7687074829931972
+      },
+      "page_level_with_evidence": {
+        "n": 19,
+        "recall@1": {
+          "hits": 13,
+          "total": 19,
+          "rate": 0.6842105263157895
+        },
+        "recall@3": {
+          "hits": 15,
+          "total": 19,
+          "rate": 0.7894736842105263
+        },
+        "recall@5": {
+          "hits": 15,
+          "total": 19,
+          "rate": 0.7894736842105263
+        },
+        "recall@10": {
+          "hits": 16,
+          "total": 19,
+          "rate": 0.8421052631578947
+        },
+        "mrr@10": 0.7443609022556391
+      },
+      "chunk_level_with_evidence": {
+        "n": 19,
+        "recall@1": {
+          "hits": 10,
+          "total": 19,
+          "rate": 0.5263157894736842
+        },
+        "recall@3": {
+          "hits": 14,
+          "total": 19,
+          "rate": 0.7368421052631579
+        },
+        "recall@5": {
+          "hits": 14,
+          "total": 19,
+          "rate": 0.7368421052631579
+        },
+        "recall@10": {
+          "hits": 16,
+          "total": 19,
+          "rate": 0.8421052631578947
+        },
+        "mrr@10": 0.6466165413533834
+      },
+      "top3_tokens_per_question_mean": 1418.047619047619
+    },
+    "heading hybrid+bge": {
+      "page_level_all": {
+        "n": 21,
+        "recall@1": {
+          "hits": 20,
+          "total": 21,
+          "rate": 0.9523809523809523
+        },
+        "recall@3": {
+          "hits": 21,
+          "total": 21,
+          "rate": 1.0
+        },
+        "recall@5": {
+          "hits": 21,
+          "total": 21,
+          "rate": 1.0
+        },
+        "recall@10": {
+          "hits": 21,
+          "total": 21,
+          "rate": 1.0
+        },
+        "mrr@10": 0.9761904761904762
+      },
+      "page_level_with_evidence": {
+        "n": 19,
+        "recall@1": {
+          "hits": 18,
+          "total": 19,
+          "rate": 0.9473684210526315
+        },
+        "recall@3": {
+          "hits": 19,
+          "total": 19,
+          "rate": 1.0
+        },
+        "recall@5": {
+          "hits": 19,
+          "total": 19,
+          "rate": 1.0
+        },
+        "recall@10": {
+          "hits": 19,
+          "total": 19,
+          "rate": 1.0
+        },
+        "mrr@10": 0.9736842105263158
+      },
+      "chunk_level_with_evidence": {
+        "n": 19,
+        "recall@1": {
+          "hits": 13,
+          "total": 19,
+          "rate": 0.6842105263157895
+        },
+        "recall@3": {
+          "hits": 18,
+          "total": 19,
+          "rate": 0.9473684210526315
+        },
+        "recall@5": {
+          "hits": 18,
+          "total": 19,
+          "rate": 0.9473684210526315
+        },
+        "recall@10": {
+          "hits": 19,
+          "total": 19,
+          "rate": 1.0
+        },
+        "mrr@10": 0.8245614035087719
+      },
+      "top3_tokens_per_question_mean": 958.7619047619048
+    }
+  },
+  "per_question": [
+    {
+      "id": "q002",
+      "question": "I tried to evict a Pod through the API and two different disruption budgets both select it. What HTTP response do I get?",
+      "source_file": "concepts/scheduling-eviction/api-eviction.md",
+      "has_evidence": false,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": null,
+        "fixed_512 dense": null,
+        "heading hybrid+bge": null
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 993,
+        "heading hybrid+bge": 962
+      }
+    },
+    {
+      "id": "q004",
+      "question": "By default, how often will the node controller start evicting Pods from a newly unhealthy node?",
+      "source_file": "concepts/architecture/nodes.md",
+      "has_evidence": false,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": null,
+        "fixed_512 dense": null,
+        "heading hybrid+bge": null
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 1529,
+        "heading hybrid+bge": 920
+      }
+    },
+    {
+      "id": "q006",
+      "question": "My CronJob's Jobs aren't being created and I suspect the CronJob's name is too long. What's the longest name it can safely have?",
+      "source_file": "concepts/workloads/controllers/cron-jobs.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 1323,
+        "heading hybrid+bge": 1057
+      }
+    },
+    {
+      "id": "q008",
+      "question": "After I switch on coordinated leader election, which control plane components start using it automatically?",
+      "source_file": "concepts/cluster-administration/coordinated-leader-election.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 1530,
+        "heading hybrid+bge": 508
+      }
+    },
+    {
+      "id": "q010",
+      "question": "We're putting a Service in front of Pods on Windows nodes. How many backend Pods can one Service have before we go beyond what Windows networking supports?",
+      "source_file": "concepts/services-networking/windows-networking.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 2,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 4,
+        "fixed_512 dense": 2,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1528,
+        "fixed_512 dense": 1530,
+        "heading hybrid+bge": 1190
+      }
+    },
+    {
+      "id": "q012",
+      "question": "My Pod uses two volumes and is stuck: the first volume was created somewhere without room for the second. Will the scheduler sort this out on its own?",
+      "source_file": "concepts/storage/storage-capacity.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1529,
+        "fixed_512 dense": 1132,
+        "heading hybrid+bge": 701
+      }
+    },
+    {
+      "id": "q014",
+      "question": "My container crashed and restarted. How many previous instances of it, with their logs, does the kubelet keep by default?",
+      "source_file": "concepts/cluster-administration/logging.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": null,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": null,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 1530,
+        "heading hybrid+bge": 773
+      }
+    },
+    {
+      "id": "q018",
+      "question": "We run cAdvisor as its own DaemonSet and are moving our nodes to cgroup v2. What's the minimum cAdvisor version we need?",
+      "source_file": "concepts/architecture/cgroups.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 2
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 1530,
+        "heading hybrid+bge": 955
+      }
+    },
+    {
+      "id": "q020",
+      "question": "My Pod uses a generic ephemeral volume. When I delete the Pod, what happens to the volume claim behind it?",
+      "source_file": "concepts/storage/ephemeral-volumes.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1529,
+        "fixed_512 dense": 1530,
+        "heading hybrid+bge": 763
+      }
+    },
+    {
+      "id": "q022",
+      "question": "How are official Kubernetes release binaries signed, so I can check that a download is genuine?",
+      "source_file": "tasks/administer-cluster/verify-signed-artifacts.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1515,
+        "fixed_512 dense": 1530,
+        "heading hybrid+bge": 1422
+      }
+    },
+    {
+      "id": "q024",
+      "question": "Following the cfssl instructions to create the API server's key and certificate, which files do they end up in?",
+      "source_file": "tasks/administer-cluster/certificates.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 2,
+        "fixed_512 dense": 7,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 1530,
+        "heading hybrid+bge": 1100
+      }
+    },
+    {
+      "id": "q026",
+      "question": "I'm creating hundreds of Jobs in a loop and some requests get temporarily rejected. What HTTP status means the API server is rate limiting me?",
+      "source_file": "tasks/job/parallel-processing-expansion.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": null,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": null,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1239,
+        "fixed_512 dense": 1528,
+        "heading hybrid+bge": 691
+      }
+    },
+    {
+      "id": "q028",
+      "question": "How does Node Problem Detector let the cluster know about problems it finds on a node?",
+      "source_file": "tasks/debug/debug-cluster/monitor-node-health.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1256,
+        "fixed_512 dense": 1529,
+        "heading hybrid+bge": 520
+      }
+    },
+    {
+      "id": "q030",
+      "question": "What's the minimum kubectl version I need to resize a running Pod's CPU and memory in place?",
+      "source_file": "tasks/configure-pod-container/resize-pod-resources.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 2,
+        "heading hybrid+bge": 2
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": null,
+        "fixed_512 dense": 2,
+        "heading hybrid+bge": 2
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 1530,
+        "heading hybrid+bge": 1436
+      }
+    },
+    {
+      "id": "q032",
+      "question": "Our namespace has a default memory limit. If I deploy a container without its own memory limit, what limit does it get?",
+      "source_file": "tasks/administer-cluster/manage-resources/memory-default-namespace.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 2,
+        "heading hybrid+bge": 6
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1503,
+        "fixed_512 dense": 1503,
+        "heading hybrid+bge": 846
+      }
+    },
+    {
+      "id": "q034",
+      "question": "I changed just one hard eviction threshold in my kubelet config file. Do the other thresholds keep their default values?",
+      "source_file": "tasks/administer-cluster/kubelet-config-file.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 2,
+        "fixed_512 dense": 7,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 2,
+        "fixed_512 dense": 7,
+        "heading hybrid+bge": 2
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 1530,
+        "heading hybrid+bge": 1111
+      }
+    },
+    {
+      "id": "q036",
+      "question": "Is there a kubectl tool that rewrites my old manifests to use a newer API version?",
+      "source_file": "tasks/tools/included/kubectl-convert-overview.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1123,
+        "fixed_512 dense": 866,
+        "heading hybrid+bge": 723
+      }
+    },
+    {
+      "id": "q038",
+      "question": "I only set a GPU limit on my container and no request. What request does Kubernetes use?",
+      "source_file": "tasks/manage-gpus/scheduling-gpus.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 1530,
+        "heading hybrid+bge": 923
+      }
+    },
+    {
+      "id": "q040",
+      "question": "One of my nodes went NotReady. How long before the Pods on it get evicted?",
+      "source_file": "tasks/debug/debug-cluster/_index.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": null,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": null,
+        "heading hybrid+bge": 1
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 1299,
+        "heading hybrid+bge": 1159
+      }
+    },
+    {
+      "id": "q042",
+      "question": "I set arguments for my container but no command. Which command actually runs?",
+      "source_file": "tasks/inject-data-application/define-command-argument-container.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 2
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1528,
+        "fixed_512 dense": 1250,
+        "heading hybrid+bge": 1214
+      }
+    },
+    {
+      "id": "q044",
+      "question": "I wrote a kubectl plugin named after a built-in kubectl command, but it never runs. Why?",
+      "source_file": "tasks/extend-kubectl/kubectl-plugins.md",
+      "has_evidence": true,
+      "page_rank": {
+        "final (fixed_512 hybrid+bge)": 1,
+        "fixed_512 dense": 1,
+        "heading hybrid+bge": 1
+      },
+      "chunk_rank": {
+        "final (fixed_512 hybrid+bge)": 2,
+        "fixed_512 dense": 2,
+        "heading hybrid+bge": 2
+      },
+      "top3_tokens": {
+        "final (fixed_512 hybrid+bge)": 1530,
+        "fixed_512 dense": 1527,
+        "heading hybrid+bge": 1160
+      }
+    }
+  ]
+}
