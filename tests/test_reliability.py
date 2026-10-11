@@ -70,3 +70,15 @@ def test_ties_and_selective_curve_keep_tied_questions_together():
     curve = selective_curve(1 - bad, score)
     # The lowest threshold already answers all three tied questions: the coverage floor is 3/6.
     assert [(p["answered"], round(p["accuracy"], 3)) for p in curve] == [(3, 0.667), (4, 0.75), (6, 0.5)]
+
+
+def test_first_sentence_cut():
+    from src.reliability.recluster import first_sentence
+
+    assert first_sentence("No. The control plane recreates it.") == "No."
+    assert first_sentence("Is it? Yes it is.") == "Is it?"
+    assert first_sentence("Yes! Really.") == "Yes!"
+    assert first_sentence("Use GPG\nThen verify. More.") == "Use GPG"
+    assert first_sentence("  1 MiB of data  ") == "1 MiB of data"            # no separator: whole text
+    assert first_sentence("Version 1.32.0 or later.") == "Version 1.32.0 or later."  # '.' without space: no cut
+    assert first_sentence("e.g. server.pem and server-key.pem") == "e.g."     # rule applied literally
