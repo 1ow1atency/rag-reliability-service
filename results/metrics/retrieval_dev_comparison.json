@@ -8,6 +8,47 @@
     "rrf_k": 60,
     "depth_per_retriever": 50
   },
+  "rerank": {
+    "base": "hybrid",
+    "depth": 20,
+    "top_k_kept": 10,
+    "models": {
+      "hybrid+MiniLM": {
+        "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+        "loaded": true,
+        "device": "mps:0",
+        "chunk_rank_changes_vs_hybrid": {
+          "improved": 6,
+          "worse": 5,
+          "same": 6
+        },
+        "timing": {
+          "n_queries": 19,
+          "from_cache": 19,
+          "mean_s": 0.1640578663607716,
+          "median_s": 0.15995266698882915,
+          "max_s": 0.20998600000166334
+        }
+      },
+      "hybrid+bge-reranker": {
+        "model": "BAAI/bge-reranker-base",
+        "loaded": true,
+        "device": "mps:0",
+        "chunk_rank_changes_vs_hybrid": {
+          "improved": 7,
+          "worse": 3,
+          "same": 7
+        },
+        "timing": {
+          "n_queries": 19,
+          "from_cache": 19,
+          "mean_s": 0.9585254211055335,
+          "median_s": 0.9522129169781692,
+          "max_s": 0.9838884170167148
+        }
+      }
+    }
+  },
   "hit_definitions": {
     "page_level": "a top-k chunk comes from the question's source_file",
     "chunk_level": "a top-k chunk from that page contains the evidence sentence (whitespace ignored)"
@@ -241,9 +282,158 @@
         },
         "mrr@10": 0.6115779645191409
       }
+    },
+    "hybrid+MiniLM": {
+      "page_level_all": {
+        "n": 19,
+        "recall@1": {
+          "hits": 12,
+          "total": 19,
+          "rate": 0.631578947368421
+        },
+        "recall@3": {
+          "hits": 18,
+          "total": 19,
+          "rate": 0.9473684210526315
+        },
+        "recall@5": {
+          "hits": 18,
+          "total": 19,
+          "rate": 0.9473684210526315
+        },
+        "recall@10": {
+          "hits": 19,
+          "total": 19,
+          "rate": 1.0
+        },
+        "mrr@10": 0.7807017543859649
+      },
+      "page_level_with_evidence": {
+        "n": 17,
+        "recall@1": {
+          "hits": 10,
+          "total": 17,
+          "rate": 0.5882352941176471
+        },
+        "recall@3": {
+          "hits": 16,
+          "total": 17,
+          "rate": 0.9411764705882353
+        },
+        "recall@5": {
+          "hits": 16,
+          "total": 17,
+          "rate": 0.9411764705882353
+        },
+        "recall@10": {
+          "hits": 17,
+          "total": 17,
+          "rate": 1.0
+        },
+        "mrr@10": 0.7549019607843137
+      },
+      "chunk_level_with_evidence": {
+        "n": 17,
+        "recall@1": {
+          "hits": 8,
+          "total": 17,
+          "rate": 0.47058823529411764
+        },
+        "recall@3": {
+          "hits": 13,
+          "total": 17,
+          "rate": 0.7647058823529411
+        },
+        "recall@5": {
+          "hits": 14,
+          "total": 17,
+          "rate": 0.8235294117647058
+        },
+        "recall@10": {
+          "hits": 17,
+          "total": 17,
+          "rate": 1.0
+        },
+        "mrr@10": 0.6334967320261439
+      }
+    },
+    "hybrid+bge-reranker": {
+      "page_level_all": {
+        "n": 19,
+        "recall@1": {
+          "hits": 13,
+          "total": 19,
+          "rate": 0.6842105263157895
+        },
+        "recall@3": {
+          "hits": 18,
+          "total": 19,
+          "rate": 0.9473684210526315
+        },
+        "recall@5": {
+          "hits": 18,
+          "total": 19,
+          "rate": 0.9473684210526315
+        },
+        "recall@10": {
+          "hits": 19,
+          "total": 19,
+          "rate": 1.0
+        },
+        "mrr@10": 0.8233082706766917
+      },
+      "page_level_with_evidence": {
+        "n": 17,
+        "recall@1": {
+          "hits": 12,
+          "total": 17,
+          "rate": 0.7058823529411765
+        },
+        "recall@3": {
+          "hits": 16,
+          "total": 17,
+          "rate": 0.9411764705882353
+        },
+        "recall@5": {
+          "hits": 16,
+          "total": 17,
+          "rate": 0.9411764705882353
+        },
+        "recall@10": {
+          "hits": 17,
+          "total": 17,
+          "rate": 1.0
+        },
+        "mrr@10": 0.8319327731092436
+      },
+      "chunk_level_with_evidence": {
+        "n": 17,
+        "recall@1": {
+          "hits": 9,
+          "total": 17,
+          "rate": 0.5294117647058824
+        },
+        "recall@3": {
+          "hits": 15,
+          "total": 17,
+          "rate": 0.8823529411764706
+        },
+        "recall@5": {
+          "hits": 16,
+          "total": 17,
+          "rate": 0.9411764705882353
+        },
+        "recall@10": {
+          "hits": 17,
+          "total": 17,
+          "rate": 1.0
+        },
+        "mrr@10": 0.6995798319327732
+      }
     }
   },
   "disagreement_ids": [
+    "q007",
     "q043"
   ],
   "per_question": [
@@ -255,12 +445,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 2
       },
       "chunk_rank": {
         "dense": null,
         "bm25": null,
-        "hybrid": null
+        "hybrid": null,
+        "hybrid+MiniLM": null,
+        "hybrid+bge-reranker": null
       },
       "top_pages": {
         "dense": [
@@ -298,6 +492,30 @@
           "tasks/configure-pod-container/configure-liveness-readiness-startup-probes.md",
           "concepts/workloads/pods/pod-lifecycle.md",
           "concepts/workloads/pods/pod-lifecycle.md"
+        ],
+        "hybrid+MiniLM": [
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "tasks/run-application/force-delete-stateful-set-pod.md",
+          "tasks/configure-pod-container/configure-liveness-readiness-startup-probes.md",
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "concepts/cluster-administration/node-shutdown.md",
+          "tasks/run-application/force-delete-stateful-set-pod.md",
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "concepts/workloads/pods/pod-lifecycle.md"
+        ],
+        "hybrid+bge-reranker": [
+          "concepts/cluster-administration/node-shutdown.md",
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "tasks/configure-pod-container/configure-liveness-readiness-startup-probes.md",
+          "concepts/scheduling-eviction/api-eviction.md",
+          "tasks/run-application/force-delete-stateful-set-pod.md",
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "concepts/workloads/pods/pod-lifecycle.md"
         ]
       }
     },
@@ -309,12 +527,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": null,
         "bm25": null,
-        "hybrid": null
+        "hybrid": null,
+        "hybrid+MiniLM": null,
+        "hybrid+bge-reranker": null
       },
       "top_pages": {
         "dense": [
@@ -352,6 +574,30 @@
           "concepts/extend-kubernetes/operator.md",
           "concepts/security/security-checklist.md",
           "concepts/scheduling-eviction/taint-and-toleration.md"
+        ],
+        "hybrid+MiniLM": [
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/scheduling-eviction/assign-pod-node.md",
+          "concepts/workloads/pods/advanced-pod-config.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md"
+        ],
+        "hybrid+bge-reranker": [
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/scheduling-eviction/assign-pod-node.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/resource-management/dynamic-resource-allocation/device-taints.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/security/security-checklist.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md",
+          "concepts/scheduling-eviction/taint-and-toleration.md"
         ]
       }
     },
@@ -363,12 +609,16 @@
       "page_rank": {
         "dense": null,
         "bm25": null,
-        "hybrid": 9
+        "hybrid": 9,
+        "hybrid+MiniLM": 6,
+        "hybrid+bge-reranker": 2
       },
       "chunk_rank": {
         "dense": null,
         "bm25": null,
-        "hybrid": 9
+        "hybrid": 9,
+        "hybrid+MiniLM": 6,
+        "hybrid+bge-reranker": 2
       },
       "top_pages": {
         "dense": [
@@ -406,6 +656,30 @@
           "concepts/services-networking/dns-pod-service.md",
           "concepts/containers/container-environment.md",
           "tasks/debug/debug-application/debug-service.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/debug/debug-application/debug-service.md",
+          "tasks/inject-data-application/define-environment-variable-container.md",
+          "concepts/workloads/pods/pod-hostname.md",
+          "concepts/services-networking/dns-pod-service.md",
+          "tasks/run-application/run-replicated-stateful-application.md",
+          "concepts/containers/container-environment.md",
+          "concepts/workloads/pods/user-namespaces.md",
+          "concepts/workloads/pods/pod-hostname.md",
+          "tasks/configure-pod-container/create-hostprocess-pod.md",
+          "tasks/configure-pod-container/share-process-namespace.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/debug/debug-application/debug-service.md",
+          "concepts/containers/container-environment.md",
+          "concepts/workloads/pods/user-namespaces.md",
+          "concepts/services-networking/dns-pod-service.md",
+          "concepts/workloads/pods/pod-hostname.md",
+          "tasks/inject-data-application/define-environment-variable-container.md",
+          "tasks/run-application/run-replicated-stateful-application.md",
+          "concepts/workloads/pods/pod-hostname.md",
+          "concepts/services-networking/dns-pod-service.md",
+          "concepts/services-networking/dns-pod-service.md"
         ]
       }
     },
@@ -417,12 +691,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 3,
-        "hybrid": 3
+        "hybrid": 3,
+        "hybrid+MiniLM": 2,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 1,
         "bm25": null,
-        "hybrid": 3
+        "hybrid": 3,
+        "hybrid+MiniLM": 2,
+        "hybrid+bge-reranker": 1
       },
       "top_pages": {
         "dense": [
@@ -460,6 +738,30 @@
           "concepts/security/rbac-good-practices.md",
           "tasks/configure-pod-container/configure-service-account.md",
           "concepts/security/service-accounts.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/configure-pod-container/configure-service-account.md",
+          "concepts/security/service-accounts.md",
+          "tasks/configure-pod-container/configure-service-account.md",
+          "concepts/security/hardening-guide/authentication-mechanisms.md",
+          "concepts/security/rbac-good-practices.md",
+          "concepts/security/service-accounts.md",
+          "concepts/configuration/secret.md",
+          "tasks/network/extend-service-ip-ranges.md",
+          "concepts/security/service-accounts.md",
+          "concepts/security/rbac-good-practices.md"
+        ],
+        "hybrid+bge-reranker": [
+          "concepts/security/service-accounts.md",
+          "concepts/configuration/secret.md",
+          "tasks/configure-pod-container/configure-service-account.md",
+          "tasks/configure-pod-container/configure-service-account.md",
+          "concepts/security/hardening-guide/authentication-mechanisms.md",
+          "concepts/security/service-accounts.md",
+          "tasks/administer-cluster/namespaces.md",
+          "concepts/security/rbac-good-practices.md",
+          "concepts/security/service-accounts.md",
+          "concepts/security/rbac-good-practices.md"
         ]
       }
     },
@@ -471,12 +773,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 2,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "top_pages": {
         "dense": [
@@ -514,6 +820,30 @@
           "concepts/workloads/pods/advanced-pod-config.md",
           "concepts/windows/user-guide.md",
           "concepts/security/linux-kernel-security-constraints.md"
+        ],
+        "hybrid+MiniLM": [
+          "concepts/policy/pid-limiting.md",
+          "concepts/workloads/pods/user-namespaces.md",
+          "concepts/security/linux-kernel-security-constraints.md",
+          "tasks/administer-cluster/dns-debugging-resolution.md",
+          "concepts/workloads/pods/user-namespaces.md",
+          "concepts/policy/pid-limiting.md",
+          "tasks/manage-daemon/update-daemon-set.md",
+          "tasks/configure-pod-container/security-context.md",
+          "concepts/configuration/windows-resource-management.md",
+          "concepts/security/linux-kernel-security-constraints.md"
+        ],
+        "hybrid+bge-reranker": [
+          "concepts/policy/pid-limiting.md",
+          "concepts/policy/pid-limiting.md",
+          "tasks/configure-pod-container/security-context.md",
+          "concepts/security/linux-kernel-security-constraints.md",
+          "tasks/administer-cluster/reserve-compute-resources.md",
+          "tasks/administer-cluster/dns-debugging-resolution.md",
+          "tasks/manage-daemon/update-daemon-set.md",
+          "tasks/configure-pod-container/security-context.md",
+          "concepts/workloads/pods/user-namespaces.md",
+          "concepts/workloads/pods/user-namespaces.md"
         ]
       }
     },
@@ -525,12 +855,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 4,
-        "hybrid": 4
+        "hybrid": 4,
+        "hybrid+MiniLM": 3,
+        "hybrid+bge-reranker": 2
       },
       "chunk_rank": {
         "dense": 1,
         "bm25": null,
-        "hybrid": 7
+        "hybrid": 7,
+        "hybrid+MiniLM": 8,
+        "hybrid+bge-reranker": 2
       },
       "top_pages": {
         "dense": [
@@ -568,6 +902,30 @@
           "tasks/manage-kubernetes-objects/kustomization.md",
           "concepts/extend-kubernetes/api-extension/custom-resources.md",
           "tasks/manage-kubernetes-objects/kustomization.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/configure-pod-container/configure-pod-configmap.md",
+          "concepts/storage/volumes.md",
+          "concepts/configuration/configmap.md",
+          "concepts/extend-kubernetes/api-extension/custom-resources.md",
+          "concepts/configuration/configmap.md",
+          "tasks/configure-pod-container/configure-pod-configmap.md",
+          "concepts/configuration/configmap.md",
+          "concepts/configuration/configmap.md",
+          "tasks/configure-pod-container/configure-pod-configmap.md",
+          "tasks/configure-pod-container/configure-pod-configmap.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/configure-pod-container/configure-pod-configmap.md",
+          "concepts/configuration/configmap.md",
+          "tasks/configure-pod-container/configure-pod-configmap.md",
+          "tasks/manage-kubernetes-objects/kustomization.md",
+          "concepts/storage/volumes.md",
+          "concepts/configuration/configmap.md",
+          "tasks/configure-pod-container/configure-pod-configmap.md",
+          "concepts/extend-kubernetes/api-extension/custom-resources.md",
+          "tasks/configure-pod-container/configure-pod-configmap.md",
+          "tasks/configure-pod-container/configure-pod-configmap.md"
         ]
       }
     },
@@ -579,12 +937,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 5,
         "bm25": 1,
-        "hybrid": 2
+        "hybrid": 2,
+        "hybrid+MiniLM": 5,
+        "hybrid+bge-reranker": 3
       },
       "top_pages": {
         "dense": [
@@ -622,6 +984,30 @@
           "concepts/services-networking/network-policies.md",
           "concepts/services-networking/network-policies.md",
           "concepts/services-networking/network-policies.md"
+        ],
+        "hybrid+MiniLM": [
+          "concepts/services-networking/network-policies.md",
+          "concepts/services-networking/network-policies.md",
+          "concepts/security/multi-tenancy.md",
+          "concepts/services-networking/network-policies.md",
+          "concepts/services-networking/network-policies.md",
+          "tasks/administer-cluster/securing-a-cluster.md",
+          "concepts/services-networking/network-policies.md",
+          "tasks/configure-pod-container/enforce-standards-namespace-labels.md",
+          "concepts/services-networking/network-policies.md",
+          "tasks/debug/debug-application/debug-service.md"
+        ],
+        "hybrid+bge-reranker": [
+          "concepts/services-networking/network-policies.md",
+          "concepts/services-networking/network-policies.md",
+          "concepts/services-networking/network-policies.md",
+          "concepts/services-networking/network-policies.md",
+          "concepts/security/multi-tenancy.md",
+          "concepts/services-networking/network-policies.md",
+          "concepts/services-networking/network-policies.md",
+          "concepts/services-networking/network-policies.md",
+          "concepts/services-networking/network-policies.md",
+          "concepts/services-networking/network-policies.md"
         ]
       }
     },
@@ -633,12 +1019,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 1,
         "bm25": 3,
-        "hybrid": 2
+        "hybrid": 2,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "top_pages": {
         "dense": [
@@ -676,6 +1066,30 @@
           "concepts/services-networking/ingress.md",
           "concepts/services-networking/ingress.md",
           "concepts/services-networking/ingress.md"
+        ],
+        "hybrid+MiniLM": [
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/network-policies.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md"
+        ],
+        "hybrid+bge-reranker": [
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md",
+          "concepts/services-networking/ingress.md"
         ]
       }
     },
@@ -687,12 +1101,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 7,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "top_pages": {
         "dense": [
@@ -730,6 +1148,30 @@
           "concepts/storage/volumes.md",
           "tasks/administer-cluster/kubelet-in-userns.md",
           "concepts/storage/ephemeral-storage.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/administer-cluster/kubelet-in-userns.md",
+          "tasks/administer-cluster/kubelet-in-userns.md",
+          "tasks/administer-cluster/kubelet-in-userns.md",
+          "tasks/administer-cluster/kubelet-in-userns.md",
+          "tasks/administer-cluster/kubelet-in-userns.md",
+          "concepts/workloads/pods/user-namespaces.md",
+          "concepts/storage/ephemeral-storage.md",
+          "concepts/workloads/pods/user-namespaces.md",
+          "tasks/configure-pod-container/user-namespaces.md",
+          "tasks/administer-cluster/kubelet-in-userns.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/administer-cluster/kubelet-in-userns.md",
+          "concepts/workloads/pods/user-namespaces.md",
+          "tasks/administer-cluster/kubelet-in-userns.md",
+          "concepts/storage/volumes.md",
+          "tasks/administer-cluster/kubelet-in-userns.md",
+          "concepts/architecture/cgroups.md",
+          "tasks/configure-pod-container/user-namespaces.md",
+          "concepts/workloads/pods/user-namespaces.md",
+          "tasks/administer-cluster/kubelet-in-userns.md",
+          "concepts/workloads/pods/user-namespaces.md"
         ]
       }
     },
@@ -741,12 +1183,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "top_pages": {
         "dense": [
@@ -784,6 +1230,30 @@
           "tasks/administer-cluster/kubeadm/kubeadm-reconfigure.md",
           "tasks/administer-cluster/dns-custom-nameservers.md",
           "concepts/architecture/_index.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/access-application-cluster/configure-dns-cluster.md",
+          "tasks/administer-cluster/dns-custom-nameservers.md",
+          "concepts/services-networking/service.md",
+          "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+          "concepts/services-networking/cluster-ip-allocation.md",
+          "tasks/tools/_index.md",
+          "tasks/administer-cluster/kubeadm/kubeadm-reconfigure.md",
+          "tasks/administer-cluster/dns-debugging-resolution.md",
+          "tasks/administer-cluster/dns-custom-nameservers.md",
+          "tasks/administer-cluster/dns-debugging-resolution.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/access-application-cluster/configure-dns-cluster.md",
+          "tasks/administer-cluster/dns-debugging-resolution.md",
+          "tasks/administer-cluster/kubeadm/kubeadm-reconfigure.md",
+          "tasks/administer-cluster/dns-custom-nameservers.md",
+          "concepts/services-networking/service.md",
+          "tasks/administer-cluster/kubeadm/kubeadm-upgrade.md",
+          "tasks/administer-cluster/dns-custom-nameservers.md",
+          "concepts/services-networking/cluster-ip-allocation.md",
+          "concepts/services-networking/dns-pod-service.md",
+          "tasks/administer-cluster/dns-custom-nameservers.md"
         ]
       }
     },
@@ -795,12 +1265,16 @@
       "page_rank": {
         "dense": 2,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 2,
+        "hybrid+bge-reranker": 2
       },
       "chunk_rank": {
         "dense": 2,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 2,
+        "hybrid+bge-reranker": 2
       },
       "top_pages": {
         "dense": [
@@ -838,6 +1312,30 @@
           "tasks/configure-pod-container/configure-service-account.md",
           "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
           "tasks/administer-cluster/kubeadm/kubeadm-certs.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/administer-cluster/kubeadm/adding-windows-nodes.md",
+          "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+          "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+          "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+          "tasks/administer-cluster/kubeadm/kubeadm-certs.md",
+          "tasks/configure-pod-container/configure-service-account.md",
+          "tasks/administer-cluster/kubeadm/adding-windows-nodes.md",
+          "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+          "tasks/administer-cluster/kubeadm/kubeadm-certs.md",
+          "tasks/administer-cluster/kubeadm/kubeadm-certs.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/administer-cluster/kubeadm/adding-windows-nodes.md",
+          "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+          "tasks/administer-cluster/kubeadm/kubeadm-certs.md",
+          "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+          "tasks/administer-cluster/kubeadm/adding-linux-nodes.md",
+          "concepts/security/service-accounts.md",
+          "tasks/administer-cluster/kubeadm/upgrading-linux-nodes.md",
+          "tasks/administer-cluster/kubeadm/kubeadm-certs.md",
+          "tasks/configure-pod-container/configure-service-account.md",
+          "tasks/administer-cluster/kubeadm/kubeadm-certs.md"
         ]
       }
     },
@@ -849,12 +1347,16 @@
       "page_rank": {
         "dense": 2,
         "bm25": 1,
-        "hybrid": 2
+        "hybrid": 2,
+        "hybrid+MiniLM": 2,
+        "hybrid+bge-reranker": 2
       },
       "chunk_rank": {
         "dense": 3,
         "bm25": 7,
-        "hybrid": 4
+        "hybrid": 4,
+        "hybrid+MiniLM": 9,
+        "hybrid+bge-reranker": 3
       },
       "top_pages": {
         "dense": [
@@ -892,6 +1394,30 @@
           "tasks/tls/managing-tls-in-a-cluster.md",
           "tasks/tls/managing-tls-in-a-cluster.md",
           "tasks/tls/managing-tls-in-a-cluster.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/administer-cluster/kubeadm/kubeadm-certs.md",
+          "tasks/tls/managing-tls-in-a-cluster.md",
+          "tasks/tls/managing-tls-in-a-cluster.md",
+          "tasks/administer-cluster/kubeadm/kubeadm-certs.md",
+          "tasks/tls/certificate-issue-client-csr.md",
+          "tasks/tls/certificate-rotation.md",
+          "concepts/storage/projected-volumes.md",
+          "concepts/configuration/secret.md",
+          "tasks/tls/managing-tls-in-a-cluster.md",
+          "tasks/tls/managing-tls-in-a-cluster.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/administer-cluster/kubeadm/kubeadm-certs.md",
+          "tasks/tls/managing-tls-in-a-cluster.md",
+          "tasks/tls/managing-tls-in-a-cluster.md",
+          "tasks/administer-cluster/kubeadm/kubeadm-certs.md",
+          "concepts/configuration/secret.md",
+          "tasks/tls/managing-tls-in-a-cluster.md",
+          "tasks/tls/managing-tls-in-a-cluster.md",
+          "tasks/tls/certificate-rotation.md",
+          "concepts/storage/projected-volumes.md",
+          "tasks/tls/certificate-issue-client-csr.md"
         ]
       }
     },
@@ -903,12 +1429,16 @@
       "page_rank": {
         "dense": 2,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 2,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 2,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 2,
+        "hybrid+bge-reranker": 1
       },
       "top_pages": {
         "dense": [
@@ -946,6 +1476,30 @@
           "tasks/manage-daemon/update-daemon-set.md",
           "tasks/manage-daemon/update-daemon-set.md",
           "concepts/workloads/controllers/statefulset.md"
+        ],
+        "hybrid+MiniLM": [
+          "concepts/workloads/controllers/daemonset.md",
+          "tasks/manage-daemon/update-daemon-set.md",
+          "concepts/workloads/pods/_index.md",
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "concepts/workloads/controllers/statefulset.md",
+          "concepts/workloads/pods/_index.md",
+          "concepts/workloads/controllers/deployment.md",
+          "concepts/workloads/controllers/statefulset.md",
+          "concepts/workloads/controllers/statefulset.md",
+          "tasks/manage-daemon/update-daemon-set.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/manage-daemon/update-daemon-set.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "concepts/workloads/pods/pod-lifecycle.md",
+          "concepts/workloads/pods/_index.md",
+          "concepts/workloads/pods/_index.md",
+          "tasks/manage-daemon/update-daemon-set.md",
+          "concepts/workloads/controllers/deployment.md",
+          "concepts/workloads/controllers/statefulset.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "concepts/workloads/controllers/deployment.md"
         ]
       }
     },
@@ -957,12 +1511,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "top_pages": {
         "dense": [
@@ -1000,6 +1558,30 @@
           "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
           "tasks/tools/install-kubectl-linux.md",
           "tasks/tools/included/optional-kubectl-configs-bash-mac.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/tools/included/optional-kubectl-configs-fish.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/tools/included/optional-kubectl-configs-zsh.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/tools/included/optional-kubectl-configs-pwsh.md",
+          "tasks/debug/debug-cluster/troubleshoot-kubectl.md",
+          "tasks/tools/install-kubectl-macos.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/tools/included/optional-kubectl-configs-fish.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/debug/debug-cluster/troubleshoot-kubectl.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/tools/install-kubectl-macos.md",
+          "tasks/tools/install-kubectl-windows.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
+          "tasks/tools/install-kubectl-linux.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-linux.md"
         ]
       }
     },
@@ -1011,12 +1593,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 1,
         "bm25": 3,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "top_pages": {
         "dense": [
@@ -1054,6 +1640,30 @@
           "tasks/configure-pod-container/migrate-from-psp.md",
           "concepts/security/pod-security-admission.md",
           "tasks/configure-pod-container/enforce-standards-namespace-labels.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/configure-pod-container/migrate-from-psp.md",
+          "tasks/configure-pod-container/migrate-from-psp.md",
+          "tasks/configure-pod-container/migrate-from-psp.md",
+          "concepts/security/pod-security-policy.md",
+          "tasks/configure-pod-container/migrate-from-psp.md",
+          "concepts/workloads/pods/user-namespaces.md",
+          "tasks/configure-pod-container/migrate-from-psp.md",
+          "concepts/security/security-checklist.md",
+          "tasks/configure-pod-container/enforce-standards-admission-controller.md",
+          "tasks/configure-pod-container/enforce-standards-namespace-labels.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/configure-pod-container/migrate-from-psp.md",
+          "concepts/security/security-checklist.md",
+          "concepts/security/pod-security-policy.md",
+          "tasks/configure-pod-container/migrate-from-psp.md",
+          "tasks/configure-pod-container/migrate-from-psp.md",
+          "tasks/configure-pod-container/migrate-from-psp.md",
+          "concepts/workloads/pods/user-namespaces.md",
+          "tasks/configure-pod-container/enforce-standards-admission-controller.md",
+          "concepts/security/pod-security-standards.md",
+          "tasks/configure-pod-container/enforce-standards-namespace-labels.md"
         ]
       }
     },
@@ -1065,12 +1675,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 2,
-        "hybrid": 2
+        "hybrid": 2,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 5,
         "bm25": null,
-        "hybrid": 7
+        "hybrid": 7,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 4
       },
       "top_pages": {
         "dense": [
@@ -1108,6 +1722,30 @@
           "concepts/security/security-checklist.md",
           "tasks/administer-cluster/securing-a-cluster.md",
           "tasks/administer-cluster/decrypt-data.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/administer-cluster/encrypt-data.md",
+          "tasks/administer-cluster/kms-provider.md",
+          "tasks/administer-cluster/encrypt-data.md",
+          "tasks/administer-cluster/decrypt-data.md",
+          "tasks/administer-cluster/encrypt-data.md",
+          "tasks/administer-cluster/decrypt-data.md",
+          "tasks/administer-cluster/securing-a-cluster.md",
+          "tasks/administer-cluster/kms-provider.md",
+          "tasks/administer-cluster/encrypt-data.md",
+          "tasks/administer-cluster/encrypt-data.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/administer-cluster/encrypt-data.md",
+          "tasks/administer-cluster/kms-provider.md",
+          "tasks/administer-cluster/decrypt-data.md",
+          "tasks/administer-cluster/encrypt-data.md",
+          "concepts/configuration/secret.md",
+          "tasks/administer-cluster/encrypt-data.md",
+          "tasks/manage-kubernetes-objects/storage-version-migration.md",
+          "tasks/administer-cluster/encrypt-data.md",
+          "tasks/administer-cluster/decrypt-data.md",
+          "tasks/administer-cluster/securing-a-cluster.md"
         ]
       }
     },
@@ -1119,12 +1757,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "top_pages": {
         "dense": [
@@ -1162,6 +1804,30 @@
           "tasks/tools/install-kubectl-macos.md",
           "tasks/tools/install-kubectl-macos.md",
           "tasks/tools/included/optional-kubectl-configs-bash-linux.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
+          "tasks/tools/included/optional-kubectl-configs-zsh.md",
+          "tasks/tools/install-kubectl-macos.md",
+          "tasks/tools/install-kubectl-macos.md",
+          "tasks/tools/install-kubectl-macos.md",
+          "tasks/tools/included/optional-kubectl-configs-fish.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-mac.md",
+          "tasks/tools/included/optional-kubectl-configs-bash-linux.md",
+          "tasks/tools/install-kubectl-macos.md",
+          "tasks/tools/install-kubectl-macos.md",
+          "tasks/tools/install-kubectl-macos.md",
+          "tasks/tools/install-kubectl-linux.md",
+          "tasks/tools/included/optional-kubectl-configs-zsh.md"
         ]
       }
     },
@@ -1173,12 +1839,16 @@
       "page_rank": {
         "dense": 3,
         "bm25": null,
-        "hybrid": 4
+        "hybrid": 4,
+        "hybrid+MiniLM": 3,
+        "hybrid+bge-reranker": 7
       },
       "chunk_rank": {
         "dense": 10,
         "bm25": null,
-        "hybrid": 4
+        "hybrid": 4,
+        "hybrid+MiniLM": 3,
+        "hybrid+bge-reranker": 7
       },
       "top_pages": {
         "dense": [
@@ -1216,6 +1886,30 @@
           "concepts/configuration/secret.md",
           "concepts/configuration/secret.md",
           "tasks/configmap-secret/managing-secret-using-kubectl.md"
+        ],
+        "hybrid+MiniLM": [
+          "concepts/configuration/secret.md",
+          "concepts/configuration/secret.md",
+          "tasks/configmap-secret/managing-secret-using-kubectl.md",
+          "concepts/configuration/secret.md",
+          "tasks/configmap-secret/managing-secret-using-kustomize.md",
+          "concepts/configuration/secret.md",
+          "tasks/inject-data-application/distribute-credentials-secure.md",
+          "tasks/administer-cluster/encrypt-data.md",
+          "tasks/inject-data-application/distribute-credentials-secure.md",
+          "tasks/configure-pod-container/configure-pod-configmap.md"
+        ],
+        "hybrid+bge-reranker": [
+          "concepts/configuration/secret.md",
+          "concepts/configuration/secret.md",
+          "concepts/configuration/secret.md",
+          "tasks/administer-cluster/encrypt-data.md",
+          "concepts/configuration/secret.md",
+          "tasks/manage-kubernetes-objects/storage-version-migration.md",
+          "tasks/configmap-secret/managing-secret-using-kubectl.md",
+          "tasks/configmap-secret/managing-secret-using-config-file.md",
+          "tasks/configmap-secret/managing-secret-using-kubectl.md",
+          "tasks/configmap-secret/managing-secret-using-kustomize.md"
         ]
       }
     },
@@ -1227,12 +1921,16 @@
       "page_rank": {
         "dense": 1,
         "bm25": 1,
-        "hybrid": 1
+        "hybrid": 1,
+        "hybrid+MiniLM": 1,
+        "hybrid+bge-reranker": 1
       },
       "chunk_rank": {
         "dense": 8,
         "bm25": null,
-        "hybrid": 6
+        "hybrid": 6,
+        "hybrid+MiniLM": 3,
+        "hybrid+bge-reranker": 3
       },
       "top_pages": {
         "dense": [
@@ -1270,6 +1968,30 @@
           "concepts/workloads/controllers/daemonset.md",
           "concepts/workloads/controllers/daemonset.md",
           "tasks/manage-daemon/create-daemon-set.md"
+        ],
+        "hybrid+MiniLM": [
+          "tasks/manage-daemon/pods-some-nodes.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "tasks/manage-daemon/pods-some-nodes.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "concepts/architecture/nodes.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "concepts/scheduling-eviction/assign-pod-node.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "concepts/scheduling-eviction/assign-pod-node.md"
+        ],
+        "hybrid+bge-reranker": [
+          "tasks/manage-daemon/pods-some-nodes.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "tasks/manage-daemon/pods-some-nodes.md",
+          "concepts/architecture/nodes.md",
+          "concepts/scheduling-eviction/assign-pod-node.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "concepts/workloads/controllers/daemonset.md",
+          "concepts/workloads/controllers/_index.md"
         ]
       }
     }

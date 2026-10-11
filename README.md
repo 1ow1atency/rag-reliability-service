@@ -15,3 +15,4 @@ Documentation corpus from [github.com/kubernetes/website](https://github.com/kub
 ## Limitations
 
 - Glossary definitions pulled in by Hugo shortcodes (`glossary_definition`) are not in the corpus, so the opening definition is missing on the 25 pages that use them.
+- Some questions have more than one valid page (for example q007, which `concepts/workloads/pods/pod-hostname.md` also answers), so page-level recall slightly undercounts.
