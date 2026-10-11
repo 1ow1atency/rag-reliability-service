@@ -3,6 +3,8 @@
 Copied from the semantic-entropy-hallucination project (src/groq_chat.py), with prompt and
 total token counts added to ChatResult. Settings are unchanged: max_completion_tokens=4096,
 hidden low-effort reasoning, and a reply that is empty or hit the token limit is a failure.
+GROQ_API_KEY is read from the environment only; this module does not load .env (the eval
+scripts call load_dotenv() in their own entry points).
 """
 
 import logging
@@ -10,7 +12,6 @@ import os
 import time
 from dataclasses import dataclass
 
-from dotenv import load_dotenv
 from groq import Groq, RateLimitError
 
 MAX_RATE_LIMIT_WAITS = 10
@@ -22,7 +23,6 @@ MAX_COMPLETION_TOKENS = 4096
 
 logger = logging.getLogger(__name__)
 
-load_dotenv()
 _client = None
 
 # Counters for reporting: every request sent to Groq, and how many of those got a 429.
@@ -66,7 +66,7 @@ def _get_client() -> Groq:
     if _client is None:
         api_key = os.getenv("GROQ_API_KEY")
         if not api_key:
-            raise RuntimeError("GROQ_API_KEY is not set. Add it to your .env file.")
+            raise RuntimeError("GROQ_API_KEY is not set in the environment.")
         # Retries are handled here and by callers, not by the SDK.
         _client = Groq(api_key=api_key, max_retries=0)
     return _client

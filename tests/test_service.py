@@ -95,3 +95,25 @@ def test_groq_failure_returns_502_without_leaking_the_key(monkeypatch):
             r = client.post("/ask", json={"question": "How long?"})
         assert r.status_code == 502
         assert "gsk_secret_value" not in r.text
+
+
+def test_service_index_check_fails_fast_instead_of_building(tmp_path):
+    from src.retrieval.bm25 import BM25Retriever
+    from src.retrieval.pipeline import IndexMissing, build_retrievers, load_config
+
+    # Missing chunk file: raises before touching any model or index.
+    with pytest.raises(IndexMissing, match="build_index.py"):
+        build_retrievers(load_config(), res=None, chunker="does_not_exist", build=False)
+
+    # BM25 load-only: missing cache, then a cache that no longer matches the chunks file.
+    chunks = tmp_path / "chunks_x.jsonl"
+    chunks.write_text('{"chunk_id": "a#0", "doc_path": "a", "text": "pods and nodes", "n_tokens": 3}\n')
+    with pytest.raises(FileNotFoundError, match="not found"):
+        BM25Retriever(chunks).load()
+    BM25Retriever(chunks).build()
+    loaded = BM25Retriever(chunks)
+    loaded.load()
+    assert loaded.search("pods", k=1)[0]["chunk_id"] == "a#0"
+    chunks.write_text(chunks.read_text() + '{"chunk_id": "b#0", "doc_path": "b", "text": "more", "n_tokens": 1}\n')
+    with pytest.raises(FileNotFoundError, match="stale"):
+        BM25Retriever(chunks).load()

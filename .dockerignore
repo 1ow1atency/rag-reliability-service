@@ -1,0 +1,11 @@
+.env
+.venv
+.git
+data/raw
+data/qdrant
+results
+__pycache__
+**/__pycache__
+.pytest_cache
+# Not needed in the image: indexes are rebuilt from the pinned docs commit inside the build.
+data/processed

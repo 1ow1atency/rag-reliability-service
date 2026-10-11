@@ -41,9 +41,22 @@ class BM25Retriever:
         self.chunks: list[dict] = []
         self.bm25: BM25Okapi | None = None
 
+    def cache_key(self) -> dict:
+        return {"chunks_sha256": file_sha256(self.chunks_path), "tokenizer": TOKENIZER_VERSION}
+
+    def load(self) -> None:
+        """Load the cached index; raise FileNotFoundError if it is missing or stale (never builds)."""
+        if not self.chunks_path.exists() or not self.cache_path.exists():
+            raise FileNotFoundError(f"BM25 index not found for {self.chunks_path.name}")
+        with self.cache_path.open("rb") as f:
+            cached = pickle.load(f)
+        if cached["key"] != self.cache_key():
+            raise FileNotFoundError(f"BM25 index for {self.chunks_path.name} is stale (chunks file changed)")
+        self.chunks, self.bm25 = cached["chunks"], cached["bm25"]
+
     def build(self, force: bool = False) -> bool:
         """Load the cached index if it matches the chunks file; otherwise build it. True if built."""
-        key = {"chunks_sha256": file_sha256(self.chunks_path), "tokenizer": TOKENIZER_VERSION}
+        key = self.cache_key()
         if not force and self.cache_path.exists():
             with self.cache_path.open("rb") as f:
                 cached = pickle.load(f)

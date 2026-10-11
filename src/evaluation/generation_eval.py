@@ -15,6 +15,8 @@ import statistics
 import subprocess
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 from src.evaluation import judge as judge_mod
 from src.evaluation.retrieval_eval import clean_evidence, first_evidence_rank, first_hit_rank, load_evidence
 from src.generation import answer as answer_mod
@@ -221,6 +223,7 @@ def print_outcomes(results: dict[str, list[dict]]) -> dict:
 
 
 def main() -> None:
+    load_dotenv()  # eval scripts may read GROQ_API_KEY from .env; the service does not
     parser = argparse.ArgumentParser()
     parser.add_argument("--split", choices=["dev", "test"], required=True)
     split = parser.parse_args().split

@@ -31,8 +31,16 @@ class Resources:
         self.client.close()
 
 
-def build_retrievers(config: dict, res: Resources, chunker: str | None = None) -> dict:
-    """Dense, BM25, hybrid and reranked retrievers for a chunker (default: the config's)."""
+class IndexMissing(RuntimeError):
+    """A chunk file or index needed by the pipeline does not exist (or is out of date)."""
+
+
+def build_retrievers(config: dict, res: Resources, chunker: str | None = None, build: bool = True) -> dict:
+    """Dense, BM25, hybrid and reranked retrievers for a chunker (default: the config's).
+
+    build=True (eval scripts) builds any missing index. build=False (the service) only loads
+    them and raises IndexMissing instead of building, so startup fails fast.
+    """
     from src.retrieval.bm25 import BM25Retriever
     from src.retrieval.dense import DenseRetriever
     from src.retrieval.hybrid import HybridRetriever
@@ -40,11 +48,22 @@ def build_retrievers(config: dict, res: Resources, chunker: str | None = None) -
 
     chunker = chunker or config["chunker"]["name"]
     chunks_path = ROOT / "data" / "processed" / f"chunks_{chunker}.jsonl"
+    hint = "run: python scripts/build_index.py"
+    if not build and not chunks_path.exists():
+        raise IndexMissing(f"chunk file {chunks_path.relative_to(ROOT)} not found; {hint}")
     dense = DenseRetriever(chunks_path, f"chunks_{chunker}_bge_small",
                            model_name=config["dense"]["model"], model=res.embedder, client=res.client)
-    dense.build()
     bm25 = BM25Retriever(chunks_path)
-    bm25.build()
+    if build:
+        dense.build()
+        bm25.build()
+    else:
+        if not dense.is_cached():
+            raise IndexMissing(f"dense index {dense.collection} missing or stale; {hint}")
+        try:
+            bm25.load()
+        except FileNotFoundError as e:
+            raise IndexMissing(f"{e}; {hint}") from None
     hybrid = HybridRetriever(dense, bm25, depth=config["hybrid"]["depth_per_retriever"], k=config["hybrid"]["rrf_k"])
     reranked = RerankRetriever(hybrid, res.reranker, depth=config["rerank"]["depth"])
     return {"dense": dense, "bm25": bm25, "hybrid": hybrid, "hybrid+bge-reranker": reranked}

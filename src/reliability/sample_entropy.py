@@ -17,6 +17,8 @@ import json
 import logging
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 from src.evaluation.generation_eval import load_done as load_generation_rows
 from src.evaluation.generation_eval import results_path as generation_results_path
 from src.evaluation.generation_eval import run_version as generation_version
@@ -128,6 +130,7 @@ def select_questions(ids: list[str] | None, split: str | None) -> list[dict]:
 
 
 def main() -> None:
+    load_dotenv()  # eval scripts may read GROQ_API_KEY from .env; the service does not
     logging.basicConfig(level=logging.WARNING, format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=answer_mod.MODES, required=True)

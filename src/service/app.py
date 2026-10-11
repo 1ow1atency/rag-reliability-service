@@ -52,7 +52,11 @@ class Pipeline:
 
         self.config = config or load_config()
         self.resources = Resources(self.config)
-        self.hybrid = build_retrievers(self.config, self.resources)["hybrid"]
+        try:  # never build indexes at startup: fail fast if scripts/build_index.py has not been run
+            self.hybrid = build_retrievers(self.config, self.resources, build=False)["hybrid"]
+        except Exception:
+            self.resources.client.close()
+            raise
         self.rerank_depth = self.config["rerank"]["depth"]
         self.top_k = self.config["top_k"]
         model = self.resources.reranker.model
