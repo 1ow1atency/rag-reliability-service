@@ -63,7 +63,10 @@ class CrossEncoderReranker:
 
     def score(self, query: str, texts: list[str]) -> list[float]:
         keys = [_key(query, t) for t in texts]
+        timing_key = _key(query, *keys)  # timing depends on the exact candidate set, not just the query
         missing = [i for i, k in enumerate(keys) if k not in self.scores]
+        if not missing and timing_key not in self.timings:
+            missing = list(range(len(texts)))  # scores cached but never timed for this set: time a full pass
         if missing:
             start = time.perf_counter()
             new = self.model.predict([(query, texts[i]) for i in missing], batch_size=BATCH_SIZE)
@@ -71,9 +74,10 @@ class CrossEncoderReranker:
             self.last_cached = False
             for i, s in zip(missing, new):
                 self.scores[keys[i]] = float(s)
-            self.timings[_key(query)] = self.last_seconds
+            if len(missing) == len(texts):
+                self.timings[timing_key] = self.last_seconds
         else:
-            self.last_seconds = self.timings.get(_key(query))
+            self.last_seconds = self.timings[timing_key]
             self.last_cached = True
         return [self.scores[k] for k in keys]
 

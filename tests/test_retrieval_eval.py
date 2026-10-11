@@ -42,3 +42,22 @@ def test_evidence_match_ignores_whitespace_and_requires_right_page():
     ]
     assert first_evidence_rank(question, evidence, retrieved) == 3
     assert first_evidence_rank(question, evidence, retrieved[:2]) is None
+
+
+def test_evidence_is_whole_detects_split_across_chunks():
+    from src.evaluation.retrieval_eval import evidence_is_whole
+
+    page = "tasks/administer-cluster/kubeadm/adding-linux-nodes.md"
+    evidence = "By default, node join tokens expire after 24 hours."
+    split = [
+        {"doc_path": page, "text": "Some intro. By default, node join tokens"},
+        {"doc_path": page, "text": "expire after 24 hours. If you are joining a node"},
+    ]
+    assert not evidence_is_whole(evidence, page, split)
+
+    # Whole in one (wrapped) chunk of the right page counts; the same text on another page does not.
+    whole = split + [{"doc_path": page, "text": "tokens.\nBy default, node join tokens\nexpire after 24 hours."}]
+    assert evidence_is_whole(evidence, page, whole)
+    elsewhere = split + [{"doc_path": "tasks/other.md", "text": evidence}]
+    assert not evidence_is_whole(evidence, page, elsewhere)
+    assert evidence_is_whole(evidence, "data/raw/k8s-website/content/en/docs/" + page, whole)

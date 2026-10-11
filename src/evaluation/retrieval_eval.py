@@ -53,6 +53,18 @@ def clean_evidence(evidence: str) -> str:
     return normalize_ws(clean_markdown(evidence)[1])
 
 
+def evidence_is_whole(evidence: str, source_file: str, chunks: list[dict]) -> bool:
+    """True if some chunk from source_file contains the whole cleaned evidence (whitespace ignored).
+
+    False means the sentence is split across chunk boundaries (or missing), so no
+    retrieval can score a chunk-level hit for it.
+    """
+    page = normalize_doc_path(source_file)
+    return any(
+        evidence in normalize_ws(c["text"]) for c in chunks if normalize_doc_path(c["doc_path"]) == page
+    )
+
+
 def first_hit_rank(question: dict, retrieved: list[dict]) -> int | None:
     """Rank of the first chunk from the question's page, or None."""
     target = normalize_doc_path(question["source_file"])
@@ -161,12 +173,8 @@ def main() -> None:
     evidence = {q["id"]: clean_evidence(evidence_raw[q["id"]]) for q in questions if q["id"] in evidence_raw}
 
     # Sanity check: an evidence sentence split across chunk boundaries can never be a chunk-level hit.
-    source = {q["id"]: normalize_doc_path(q["source_file"]) for q in questions}
-    unreachable = [
-        qid for qid, ev in evidence.items()
-        if not any(ev in normalize_ws(c["text"]) for c in bm25.chunks
-                   if normalize_doc_path(c["doc_path"]) == source[qid])
-    ]
+    source = {q["id"]: q["source_file"] for q in questions}
+    unreachable = [qid for qid, ev in evidence.items() if not evidence_is_whole(ev, source[qid], bm25.chunks)]
 
     per_question = []
     for q in questions:

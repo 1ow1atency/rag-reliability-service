@@ -36,13 +36,24 @@ def load_chunks(path: Path) -> list[dict]:
 
 
 class DenseRetriever:
-    def __init__(self, chunks_path: Path, collection: str, model_name: str = MODEL_NAME):
+    def __init__(
+        self,
+        chunks_path: Path,
+        collection: str,
+        model_name: str = MODEL_NAME,
+        model: SentenceTransformer | None = None,
+        client: QdrantClient | None = None,
+    ):
+        """Pass `model` and `client` to share them across collections (local-mode Qdrant
+        allows only one client per storage folder in a process)."""
         self.chunks_path = Path(chunks_path)
         self.collection = collection
         self.model_name = model_name
-        self.model = SentenceTransformer(model_name)
-        QDRANT_DIR.mkdir(parents=True, exist_ok=True)
-        self.client = QdrantClient(path=str(QDRANT_DIR))
+        self.model = model or SentenceTransformer(model_name)
+        if client is None:
+            QDRANT_DIR.mkdir(parents=True, exist_ok=True)
+            client = QdrantClient(path=str(QDRANT_DIR))
+        self.client = client
 
     # ---------- indexing ----------
 
