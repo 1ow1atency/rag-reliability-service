@@ -69,6 +69,23 @@ kubectl -n rag top pod
 kubectl delete namespace rag                                         # clean up
 ```
 
+## Load test (stub LLM: reranking only, not end-to-end)
+
+Round 1 on OrbStack's single-node Kubernetes, with `LLM_STUB=1` (retrieval and reranking only, no Groq calls). The load generator (`scripts/load_test.py`) runs inside the cluster as a Job and calls the Service by DNS with a new connection per request. Each pod is limited to 2 CPU / 2.5 Gi; HPA off; 90 s per cell. The load generator and the cluster share the Mac's CPUs. Raw data: `results/metrics/k8s_load_test.json` (`round1`).
+
+| Replicas | Clients | OK | Errors | p50 | p95 | Requests/s | Peak working set (max pod) | Restarts / OOMKilled |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 1 | 9 | 0 | 11.0 s | 11.4 s | 0.091 | 2,373 Mi | 0 / no |
+| 1 | 3 | 6 | 0 | 49.7 s | 51.3 s | 0.060 | 2,467 Mi | 0 / no |
+| 1 | 6 | 0 | 2,308* | n/a | n/a | 0 | killed at the 2.5 Gi limit | 3 / **OOMKilled, all requests failed** |
+| 3 | 1 | 9 | 0 | 11.0 s | 11.7 s | 0.091 | 2,191 Mi | 0 / no |
+| 3 | 3 | 13 | 0 | 18.9 s | 34.3 s | 0.134 | 2,205 Mi | 0 / no |
+| 3 | 6 | 16 | 0 | 59.6 s | 89.2 s | 0.099 | 2,372 Mi | 0 / no |
+
+\* Inflated by immediate retries: the load generator retries without backoff, so most errors are "Connection refused" while the OOM-killed pod restarted. Every request in that cell failed; it was not rerun.
+
+**Experiment B (HPA scaling) was skipped in round 1:** a-r1-c3 and a-r1-c6 showed that 1 replica cannot hold 3 or more concurrent reranks within the 2.5 Gi limit, so starting the HPA at 1 replica with 4 constant clients would mostly measure OOM kills, not scaling.
+
 ## Retrieval results
 
 The retrieval setup was chosen on dev and locked in `configs/final_retrieval.json` (commit `27b08b8`) before a single run on test: fixed 512-token chunks (510-token cap), hybrid RRF (k=60) over dense and BM25 top 50, top 20 reranked with `BAAI/bge-reranker-base`, top 3 returned. Chunk-level hit = a top-k chunk from the right page contains the question's evidence sentence; answerable questions with an evidence sentence only (17 dev, 19 test).
