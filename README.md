@@ -28,6 +28,19 @@ curl -X POST http://127.0.0.1:8000/ask -H 'Content-Type: application/json' \
      -d '{"question": "How long are kubeadm join tokens valid by default?"}'
 ```
 
+## Run with Docker
+
+```bash
+cp .env.example .env                 # then set GROQ_API_KEY in .env (or export it in your shell)
+docker compose build
+docker compose up -d
+docker compose ps                    # wait for (healthy)
+curl http://127.0.0.1:8000/health
+curl -X POST http://127.0.0.1:8000/ask -H 'Content-Type: application/json' \
+     -d '{"question": "How long are kubeadm join tokens valid by default?"}'
+docker compose down
+```
+
 ## Retrieval results
 
 The retrieval setup was chosen on dev and locked in `configs/final_retrieval.json` (commit `27b08b8`) before a single run on test: fixed 512-token chunks (510-token cap), hybrid RRF (k=60) over dense and BM25 top 50, top 20 reranked with `BAAI/bge-reranker-base`, top 3 returned. Chunk-level hit = a top-k chunk from the right page contains the question's evidence sentence; answerable questions with an evidence sentence only (17 dev, 19 test).

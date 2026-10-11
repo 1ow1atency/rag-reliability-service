@@ -1,0 +1,19 @@
+# Pinned runtime + index-build dependencies for the Docker image (versions from the dev venv).
+# torch is installed separately from the CPU-only wheel index (see Dockerfile) and is not listed here,
+# so pip does not replace it with a CUDA build.
+fastapi==0.143.0
+starlette==1.7.0
+uvicorn==0.54.0
+pydantic==2.14.0
+groq==1.7.0
+sentence-transformers==6.1.0
+transformers==5.19.0
+tokenizers==0.23.2
+huggingface-hub==1.33.0
+safetensors==0.8.0
+qdrant-client==1.19.1
+rank-bm25==0.2.2
+numpy==2.4.6
+scipy==1.17.1
+scikit-learn==1.9.1
+tqdm==4.70.1

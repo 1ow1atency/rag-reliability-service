@@ -1,0 +1,11 @@
+services:
+  rag:
+    build: .
+    image: rag-reliability-service:latest
+    ports:
+      - "8000:8000"
+    environment:
+      # From the shell environment, or from a local .env file that Compose reads for variable
+      # substitution. The .env file itself is excluded from the build context (.dockerignore).
+      GROQ_API_KEY: ${GROQ_API_KEY:?set GROQ_API_KEY in your shell or in a local .env file}
+    restart: unless-stopped
