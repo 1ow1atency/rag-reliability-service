@@ -65,6 +65,8 @@ Paired bootstrap, semantic entropy minus baseline (pooled): naive entropy +0.111
 - **Selective answering by semantic entropy (pooled):** accuracy is 57.1% answering all, 60.5% at 87.8% coverage, 66.7% at 49.0–61.2% coverage, and 72.2% at 36.7% coverage. The coverage floor is 16.3%: 8 questions tie at entropy 0, and only 50% of those are right.
 - **Confident errors:** 4 of those 8 zero-entropy answers are wrong the same way every time (q002 "409 Conflict", q034 "Yes", q048 "5", q053 "1 replica"). Consistent misconceptions are exactly what sampling-based uncertainty cannot catch.
 
+**Manual check (by reading the samples, not automated; no labels or scores changed):** of the 13 questions at semantic entropy 1.332, 9 had samples with the same meaning to a human reader placed in different clusters. In 4 of them (q007, q015, q022, q042) all 5 samples meant the same thing; in 5 (q009, q013, q014, q024, q046) there was real disagreement but agreeing samples were still split. Only 4 (q006, q010, q030, q047) truly disagreed. None of the 8 zero-entropy questions had samples with different meanings merged. Finding: the NLI clustering over-splits long, explanatory answers that make the same claim, which inflates semantic entropy mostly on correct answers (1 of the 4 entirely split questions is bad, against 3 of the 4 truly disagreeing ones). This blunts its ability to flag bad answers, so the AUROC above likely understates what better clustering could achieve.
+
 Exploratory only: 5 samples and 25–49 questions are too few for firm conclusions, and every AUROC interval includes 0.5. Results: `results/metrics/reliability_closed_book.json`, samples in `results/reliability/closed_book_samples.jsonl`.
 
 ## Limitations
