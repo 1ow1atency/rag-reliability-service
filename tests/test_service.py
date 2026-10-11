@@ -117,3 +117,69 @@ def test_service_index_check_fails_fast_instead_of_building(tmp_path):
     chunks.write_text(chunks.read_text() + '{"chunk_id": "b#0", "doc_path": "b", "text": "more", "n_tokens": 1}\n')
     with pytest.raises(FileNotFoundError, match="stale"):
         BM25Retriever(chunks).load()
+
+
+def test_health_answers_while_a_slow_ask_is_running(key):
+    """/ask runs in the threadpool, so a blocked /ask must not block /health."""
+    import threading
+    import time
+
+    entered, release = threading.Event(), threading.Event()
+
+    class SlowPipeline(FakePipeline):
+        def retrieve(self, question):
+            entered.set()
+            release.wait(timeout=10)  # held until /health has been checked
+            return self.chunks
+
+    client = TestClient(create_app(pipeline_factory=SlowPipeline, llm=lambda q, c: FakeAnswer("30 seconds")))
+    with client:
+        result = {}
+        ask = threading.Thread(target=lambda: result.update(r=client.post("/ask", json={"question": "q"})))
+        ask.start()
+        assert entered.wait(timeout=5), "/ask never reached the pipeline"
+
+        health = {}
+        probe = threading.Thread(target=lambda: health.update(r=client.get("/health"), t=time.perf_counter()))
+        t0 = time.perf_counter()
+        probe.start()
+        probe.join(timeout=2)
+        blocked = probe.is_alive()
+        release.set()
+        ask.join(timeout=10)
+        probe.join(timeout=10)
+
+    assert not blocked, "/health was blocked by the running /ask"
+    assert health["r"].status_code == 200 and health["t"] - t0 < 2
+    assert result["r"].status_code == 200
+
+
+def test_llm_stub_is_off_by_default_and_skips_groq_when_on(monkeypatch):
+    import src.service.app as app_mod
+
+    groq_calls = []
+    monkeypatch.setattr(app_mod, "groq_answer", lambda q, c: groq_calls.append(q) or FakeAnswer("24 hours"))
+
+    # Default (LLM_STUB unset, or anything other than "1"): the real Groq path, key required.
+    for value in [None, "0", "true"]:
+        if value is None:
+            monkeypatch.delenv("LLM_STUB", raising=False)
+        else:
+            monkeypatch.setenv("LLM_STUB", value)
+        monkeypatch.setenv("GROQ_API_KEY", "test-key")
+        with TestClient(create_app(pipeline_factory=FakePipeline)) as client:
+            assert client.get("/health").json() == {"status": "ok"}
+            assert client.post("/ask", json={"question": "q"}).json()["answer"] == "24 hours"
+        monkeypatch.delenv("GROQ_API_KEY")
+        with TestClient(create_app(pipeline_factory=FakePipeline)) as client:
+            assert client.post("/ask", json={"question": "q"}).status_code == 503
+    assert len(groq_calls) == 3
+
+    # LLM_STUB=1: fixed reply, Groq never called, no key needed; retrieval and rerank still run.
+    monkeypatch.setenv("LLM_STUB", "1")
+    with TestClient(create_app(pipeline_factory=FakePipeline)) as client:
+        assert client.get("/health").json() == {"status": "ok", "llm_stub": True}
+        body = client.post("/ask", json={"question": "q"}).json()
+    assert body["answer"] == app_mod.STUB_REPLY and body["abstained"] is False
+    assert [s["page"] for s in body["sources"]] == ["concepts/p1.md", "concepts/p2.md", "concepts/p4.md"]
+    assert len(groq_calls) == 3

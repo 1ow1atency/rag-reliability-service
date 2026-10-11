@@ -8,6 +8,9 @@ Pipeline (configs/final_retrieval.json): hybrid RRF over dense + BM25 on fixed_5
 temperature 0 (src/generation/answer.py). Models and indexes load once at startup.
 GROQ_API_KEY is read from the environment when a request needs it and is never logged or returned.
 
+LLM_STUB=1 (load testing only; default off): /ask returns a fixed reply instead of calling Groq,
+and no GROQ_API_KEY is needed. Retrieval and reranking still run, and /health reports llm_stub.
+
 Run: uvicorn src.service.app:app --port 8000
 """
 
@@ -23,6 +26,7 @@ from src.generation.answer import NOT_IN_DOCS
 from src.retrieval.rerank import rerank
 
 SNIPPET_CHARS = 300
+STUB_REPLY = "LLM_STUB: fixed reply for load testing; Groq was not called."
 
 
 class AskRequest(BaseModel):
@@ -78,12 +82,27 @@ def groq_answer(question: str, chunks: list[dict]):
     return answer("rag", question, chunks)
 
 
+def stub_answer(question: str, chunks: list[dict]):
+    from src.generation.answer import Answer
+
+    return Answer(text=STUB_REPLY, finish_reason="stub")
+
+
+def llm_stub_enabled() -> bool:
+    return os.environ.get("LLM_STUB") == "1"
+
+
 def is_abstention(text: str) -> bool:
     return text.strip().rstrip(".").strip() == NOT_IN_DOCS
 
 
 def create_app(pipeline_factory: Callable[[], object] = Pipeline,
-               llm: Callable[[str, list[dict]], object] = groq_answer) -> FastAPI:
+               llm: Callable[[str, list[dict]], object] | None = None) -> FastAPI:
+    """llm=None picks the real Groq call, or the fixed stub reply when LLM_STUB=1 at app creation."""
+    stub = llm is None and llm_stub_enabled()
+    if llm is None:
+        llm = stub_answer if stub else groq_answer
+
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         app.state.ready = False
@@ -100,13 +119,13 @@ def create_app(pipeline_factory: Callable[[], object] = Pipeline,
     def health():
         if not getattr(app.state, "ready", False):
             raise HTTPException(status_code=503, detail="loading indexes and models")
-        return {"status": "ok"}
+        return {"status": "ok", "llm_stub": True} if stub else {"status": "ok"}
 
     @app.post("/ask", response_model=AskResponse)
     def ask(req: AskRequest):
         if not getattr(app.state, "ready", False):
             raise HTTPException(status_code=503, detail="loading indexes and models")
-        if not os.environ.get("GROQ_API_KEY"):
+        if not stub and not os.environ.get("GROQ_API_KEY"):
             raise HTTPException(status_code=503, detail="GROQ_API_KEY is not set in the server environment")
 
         pipeline = app.state.pipeline

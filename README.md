@@ -41,6 +41,13 @@ curl -X POST http://127.0.0.1:8000/ask -H 'Content-Type: application/json' \
 docker compose down
 ```
 
+**`LLM_STUB=1` is for load testing only** (default off): `/ask` still runs retrieval and reranking but returns a fixed reply instead of calling Groq, and `/health` reports `"llm_stub": true`.
+
+```bash
+LLM_STUB=1 docker compose up -d                                        # Docker
+LLM_STUB=1 .venv/bin/uvicorn src.service.app:app --port 8000          # local
+```
+
 ## Retrieval results
 
 The retrieval setup was chosen on dev and locked in `configs/final_retrieval.json` (commit `27b08b8`) before a single run on test: fixed 512-token chunks (510-token cap), hybrid RRF (k=60) over dense and BM25 top 50, top 20 reranked with `BAAI/bge-reranker-base`, top 3 returned. Chunk-level hit = a top-k chunk from the right page contains the question's evidence sentence; answerable questions with an evidence sentence only (17 dev, 19 test).
