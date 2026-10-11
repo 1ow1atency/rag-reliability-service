@@ -48,6 +48,27 @@ LLM_STUB=1 docker compose up -d                                        # Docker
 LLM_STUB=1 .venv/bin/uvicorn src.service.app:app --port 8000          # local
 ```
 
+## Run on Kubernetes
+
+OrbStack's built-in cluster (it uses the local Docker image, so build it first):
+
+```bash
+docker compose build
+kubectl config use-context orbstack
+kubectl apply -k k8s/metrics-server                                   # pinned v0.9.0, for kubectl top and the HPA
+kubectl apply -f k8s/namespace.yaml
+kubectl -n rag create secret generic groq-api --from-env-file=.env   # or --from-literal=GROQ_API_KEY="$GROQ_API_KEY"
+kubectl apply -f k8s/
+kubectl -n rag rollout status deploy/rag
+kubectl -n rag port-forward svc/rag 8001:8000
+curl http://127.0.0.1:8001/health
+curl -X POST http://127.0.0.1:8001/ask -H 'Content-Type: application/json' \
+     -d '{"question": "How long are kubeadm join tokens valid by default?"}'
+kubectl -n rag get hpa,pods
+kubectl -n rag top pod
+kubectl delete namespace rag                                         # clean up
+```
+
 ## Retrieval results
 
 The retrieval setup was chosen on dev and locked in `configs/final_retrieval.json` (commit `27b08b8`) before a single run on test: fixed 512-token chunks (510-token cap), hybrid RRF (k=60) over dense and BM25 top 50, top 20 reranked with `BAAI/bge-reranker-base`, top 3 returned. Chunk-level hit = a top-k chunk from the right page contains the question's evidence sentence; answerable questions with an evidence sentence only (17 dev, 19 test).

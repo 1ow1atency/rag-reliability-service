@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag
+  namespace: rag
+  labels:
+    app: rag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag
+  template:
+    metadata:
+      labels:
+        app: rag
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001      # the "app" user created in the Dockerfile
+        runAsGroup: 10001
+      containers:
+        - name: rag
+          image: rag-reliability-service:latest
+          imagePullPolicy: Never   # OrbStack's cluster uses the local Docker image store
+          ports:
+            - name: http
+              containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: rag-config
+          env:
+            - name: GROQ_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: groq-api
+                  key: GROQ_API_KEY
+          resources:
+            requests:
+              cpu: "1"
+              memory: 1.5Gi
+            limits:
+              cpu: "2"
+              memory: 2.5Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          # /health is ok only after the models and indexes have loaded.
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 36     # up to 3 minutes to load
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3

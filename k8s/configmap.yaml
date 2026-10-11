@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rag-config
+  namespace: rag
+data:
+  # Load testing only: "1" returns a fixed reply instead of calling Groq. Default off.
+  LLM_STUB: "0"
+  # Matches the container CPU limit (2), so torch does not oversubscribe the throttled CPUs.
+  OMP_NUM_THREADS: "2"
