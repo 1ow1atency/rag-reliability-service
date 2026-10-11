@@ -182,6 +182,44 @@ def print_problems(results: dict[str, list[dict]]) -> None:
                   + (f"  evidence_in_top3={r.get('evidence_in_top3')}" if r["answerable"] else ""))
 
 
+def print_unanswerable_answered(results: dict[str, list[dict]]) -> None:
+    """Full reply text for every unanswerable question the judge labelled ANSWERED."""
+    rows = [r for rows in results.values() for r in rows if not r["answerable"] and r["label"] == "ANSWERED"]
+    print(f"\nUnanswerable questions labelled ANSWERED (full replies): {len(rows)}")
+    for r in rows:
+        print(f"\n  [{r['mode']}] {r['id']}  {r['question']}")
+        print("    reply:")
+        for line in (r["answer"] or "").splitlines() or [""]:
+            print(f"      {line}")
+
+
+def outcome_lists(results: dict[str, list[dict]]) -> dict[str, dict[str, list[str]]]:
+    """Answerable question ids per mode, grouped by label."""
+    return {
+        m: {lab: [r["id"] for r in rows if r["answerable"] and r["label"] == lab]
+            for lab in (*judge_mod.ANSWERABLE_LABELS, FAILED)}
+        for m, rows in results.items()
+    }
+
+
+def print_outcomes(results: dict[str, list[dict]]) -> dict:
+    lists = outcome_lists(results)
+    print("\nAnswerable questions by outcome:")
+    for m, by_label in lists.items():
+        print(f"  {m}")
+        for lab, ids in by_label.items():
+            if ids or lab != FAILED:
+                print(f"    {lab:<13} ({len(ids):>2}): {', '.join(ids) or '-'}")
+    modes = list(lists)
+    if len(modes) == 2:
+        a, b = modes
+        only_a = sorted(set(lists[a]["CORRECT"]) - set(lists[b]["CORRECT"]))
+        only_b = sorted(set(lists[b]["CORRECT"]) - set(lists[a]["CORRECT"]))
+        print(f"  correct only in {a}: {', '.join(only_a) or '-'}")
+        print(f"  correct only in {b}: {', '.join(only_b) or '-'}")
+    return lists
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--split", choices=["dev", "test"], required=True)
@@ -212,7 +250,11 @@ def main() -> None:
             res.close()
 
     print_problems(results)
+    print_unanswerable_answered(results)
+    outcomes = print_outcomes(results)
     report = print_report(split, results)
+    for m in report:
+        report[m]["answerable_outcomes"] = outcomes[m]
     if split == "test":
         METRICS_OUT.parent.mkdir(parents=True, exist_ok=True)
         METRICS_OUT.write_text(json.dumps({
