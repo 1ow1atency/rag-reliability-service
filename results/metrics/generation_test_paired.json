@@ -1,0 +1,100 @@
+{
+  "split": "test",
+  "version": "7cb1b414db4c",
+  "hand_written_ids": [
+    "q002",
+    "q004"
+  ],
+  "correct_by_id": {
+    "rag": {
+      "q002": false,
+      "q004": false,
+      "q006": true,
+      "q008": true,
+      "q010": false,
+      "q012": true,
+      "q014": true,
+      "q018": true,
+      "q020": true,
+      "q022": true,
+      "q024": true,
+      "q026": true,
+      "q028": true,
+      "q030": true,
+      "q032": false,
+      "q034": true,
+      "q036": true,
+      "q038": true,
+      "q040": true,
+      "q042": true,
+      "q044": true
+    },
+    "closed_book": {
+      "q002": false,
+      "q004": false,
+      "q006": false,
+      "q008": true,
+      "q010": false,
+      "q012": true,
+      "q014": false,
+      "q018": false,
+      "q020": true,
+      "q022": false,
+      "q024": false,
+      "q026": true,
+      "q028": true,
+      "q030": false,
+      "q032": true,
+      "q034": false,
+      "q036": true,
+      "q038": true,
+      "q040": true,
+      "q042": true,
+      "q044": true
+    }
+  },
+  "all_answerable": {
+    "n": 21,
+    "rag_correct": 17,
+    "closed_correct": 11,
+    "rag_accuracy": 0.8095238095238095,
+    "closed_accuracy": 0.5238095238095238,
+    "paired": {
+      "both_correct": 10,
+      "rag_only": 7,
+      "closed_only": 1,
+      "both_wrong": 3
+    },
+    "bootstrap": {
+      "diff": 0.2857142857142857,
+      "ci95": [
+        0.04761904761904767,
+        0.5238095238095238
+      ],
+      "n_boot": 10000,
+      "seed": 42
+    }
+  },
+  "without_hand_written": {
+    "n": 19,
+    "rag_correct": 17,
+    "closed_correct": 11,
+    "rag_accuracy": 0.8947368421052632,
+    "closed_accuracy": 0.5789473684210527,
+    "paired": {
+      "both_correct": 10,
+      "rag_only": 7,
+      "closed_only": 1,
+      "both_wrong": 1
+    },
+    "bootstrap": {
+      "diff": 0.3157894736842105,
+      "ci95": [
+        0.052631578947368474,
+        0.5789473684210527
+      ],
+      "n_boot": 10000,
+      "seed": 42
+    }
+  }
+}

@@ -37,6 +37,12 @@ Test split (25 questions: 21 answerable, 4 unanswerable):
 
 With RAG, 16 of the 17 answerable test questions whose evidence chunk was in the top 3 were answered correctly. All four closed-book answers to unanswerable questions were made-up specific values (for example "110 containers" and "$300"). Results: `results/metrics/generation_test.json`, per-question rows in `results/generation/`.
 
+**Paired comparison (test, answerable):** both correct 10, RAG only 7, closed-book only 1, both wrong 3. RAG − closed-book accuracy is +28.6 points (17/21 vs 11/21), 95% bootstrap CI [+4.8, +52.4] (10,000 question resamples, seed 42). The interval is wide because there are only 21 questions. Results: `results/metrics/generation_test_paired.json`.
+
+**q004's wording may be ambiguous:** "how often will the node controller start evicting Pods" can be read as a delay ("5 minutes", the answer both modes gave) rather than the eviction rate in the gold answer. Results are therefore reported both ways. Without the two hand-written test questions (q002, q004), both of which both modes got wrong: RAG 17/19 (89.5%), closed-book 11/19 (57.9%), difference +31.6 points, CI [+5.3, +57.9].
+
+**What closed-book accuracy measures:** the questions ask for docs-specific details (exact defaults, version numbers, file names, limits), so closed-book accuracy reflects recall of those details, not general Kubernetes knowledge.
+
 **Borderline judging rule:** for unanswerable questions, a confident claim that no such limit, value or guarantee exists (for example "There is no hard limit") counts as ANSWERED, not ABSTAINED, in both modes. On dev this applied to two closed-book answers (q003, q049); on test it did not occur.
 
 **Known failure cases (dev):** RAG replied `NOT_IN_DOCS` to three answerable dev questions. Only q035 is a true over-abstention: its evidence sentence was in the first retrieved chunk ("Pod Security Admission is a non-mutating admission controller"), but the model did not infer the "no" answer. For q037 (the evidence sentence was not in the top 3) and q005 (the stated default was in a chunk that was not retrieved), abstaining was the grounded behaviour, and closed-book answered both correctly from memory.
