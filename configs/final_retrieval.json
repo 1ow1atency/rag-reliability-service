@@ -1,0 +1,100 @@
+{
+  "name": "final_retrieval",
+  "locked_on": "2026-10-11",
+  "chosen_on": "dev split, 17 evidence questions",
+  "selection_metric": "chunk-level recall@k and MRR@10 (a top-k chunk from the right page contains the whole evidence sentence)",
+  "chunker": {
+    "name": "fixed_512",
+    "chunks_file": "data/processed/chunks_fixed_512.jsonl",
+    "max_tokens": 510,
+    "overlap": 0.15,
+    "tokenizer": "BAAI/bge-small-en-v1.5",
+    "note": "named fixed_512; capped at 510 tokens so chunk + [CLS]/[SEP] fits the 512-token model limit"
+  },
+  "dense": {
+    "model": "BAAI/bge-small-en-v1.5",
+    "query_prefix": "Represent this sentence for searching relevant passages: ",
+    "normalize_embeddings": true,
+    "distance": "cosine",
+    "collection": "chunks_fixed_512_bge_small"
+  },
+  "bm25": {
+    "implementation": "rank_bm25.BM25Okapi",
+    "tokenizer_version": 1
+  },
+  "hybrid": {
+    "method": "reciprocal_rank_fusion",
+    "rrf_k": 60,
+    "depth_per_retriever": 50
+  },
+  "rerank": {
+    "model": "BAAI/bge-reranker-base",
+    "depth": 20,
+    "max_length": 512
+  },
+  "top_k": 3,
+  "dev_result": {
+    "chunk_level": {
+      "recall@1": "12/17",
+      "recall@3": "16/17",
+      "recall@5": "17/17",
+      "recall@10": "17/17",
+      "mrr@10": 0.819
+    },
+    "top3_tokens_per_question_mean": 1427,
+    "rerank_ms_per_question_mean": 970,
+    "source": "results/metrics/chunker_comparison_dev.json"
+  },
+  "alternatives_compared": [
+    {
+      "chunker": "heading",
+      "method": "dense",
+      "source": "results/metrics/retrieval_dev_comparison.json"
+    },
+    {
+      "chunker": "heading",
+      "method": "bm25",
+      "source": "results/metrics/retrieval_dev_comparison.json"
+    },
+    {
+      "chunker": "heading",
+      "method": "hybrid",
+      "source": "results/metrics/retrieval_dev_comparison.json"
+    },
+    {
+      "chunker": "heading",
+      "method": "hybrid+cross-encoder/ms-marco-MiniLM-L-6-v2",
+      "source": "results/metrics/retrieval_dev_comparison.json"
+    },
+    {
+      "chunker": "heading",
+      "method": "hybrid+BAAI/bge-reranker-base",
+      "source": "results/metrics/retrieval_dev_comparison.json"
+    },
+    {
+      "chunker": "fixed_256",
+      "method": "dense",
+      "source": "results/metrics/chunker_comparison_dev.json"
+    },
+    {
+      "chunker": "fixed_256",
+      "method": "hybrid",
+      "source": "results/metrics/chunker_comparison_dev.json"
+    },
+    {
+      "chunker": "fixed_256",
+      "method": "hybrid+BAAI/bge-reranker-base",
+      "source": "results/metrics/chunker_comparison_dev.json"
+    },
+    {
+      "chunker": "fixed_512",
+      "method": "dense",
+      "source": "results/metrics/chunker_comparison_dev.json"
+    },
+    {
+      "chunker": "fixed_512",
+      "method": "hybrid",
+      "source": "results/metrics/chunker_comparison_dev.json"
+    }
+  ]
+}
