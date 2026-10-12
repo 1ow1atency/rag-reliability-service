@@ -1,0 +1,995 @@
+{
+  "diagnosis_only": true,
+  "no_changes": "no code, Dockerfile, Deployment, limits or HPA changed; LLM_STUB set to 1 for the measurements and back to 0 (verified)",
+  "setup": {
+    "requests": "20 sequential /ask requests (one at a time), cycling the 10 load-test questions; LLM_STUB=1 (no Groq calls)",
+    "k8s": {
+      "pod_limits": "cpu 2, memory 2.5Gi (2560 MiB)",
+      "OMP_NUM_THREADS": "2",
+      "nproc": 2,
+      "cpu.max": "200000 100000",
+      "torch.get_num_threads": 2,
+      "torch.get_num_interop_threads": 10,
+      "server_threads": 9,
+      "access": "kubectl port-forward (1 replica)"
+    },
+    "docker": {
+      "limits": "none (memory.max=max, cpu.max=max)",
+      "OMP_NUM_THREADS": "unset",
+      "nproc": 10,
+      "torch.get_num_threads": 10,
+      "access": "docker compose, port 8000"
+    },
+    "rerank_batch": {
+      "candidates_per_request": 20,
+      "predict_batch_size": "32 (CrossEncoder.predict default; the service does not pass one; rerank.py's BATCH_SIZE=32 is used only by the eval reranker)",
+      "max_length": "512 (rerank.py MAX_LENGTH)",
+      "padding": "to the longest pair in the batch",
+      "measured_forward_input_shape": [
+        20,
+        512
+      ],
+      "forward_passes_per_request": 1
+    },
+    "reranker_model": {
+      "name": "BAAI/bge-reranker-base",
+      "architecture": "xlm-roberta, 12 layers, hidden 768, 12 heads, ffn 3072",
+      "params_m": 278,
+      "dtype": "float32",
+      "weights_fp32_mib": 1061
+    }
+  },
+  "k8s_table": [
+    {
+      "checkpoint": "after startup",
+      "n_requests": 0,
+      "memory_current_mib": 1295,
+      "memory_peak_mib": 1793,
+      "anon_mib": 785,
+      "file_mib": 510,
+      "inactive_file_mib": 421,
+      "current_minus_inactive_file_mib": 874,
+      "process_rss_mib": 1233,
+      "process_rss_anon_mib": 784,
+      "process_rss_file_mib": 448,
+      "process_vmhwm_mib": 1253,
+      "kubectl_top_working_set": "1326156Ki"
+    },
+    {
+      "checkpoint": "after 1 request",
+      "n_requests": 1,
+      "memory_current_mib": 2429,
+      "memory_peak_mib": 2529,
+      "anon_mib": 1118,
+      "file_mib": 1307,
+      "inactive_file_mib": 421,
+      "current_minus_inactive_file_mib": 2008,
+      "process_rss_mib": 1724,
+      "process_rss_anon_mib": 1117,
+      "process_rss_file_mib": 607,
+      "process_vmhwm_mib": 1823,
+      "kubectl_top_working_set": "2486916Ki"
+    },
+    {
+      "checkpoint": "after 5 requests",
+      "n_requests": 5,
+      "memory_current_mib": 2330,
+      "memory_peak_mib": 2559,
+      "anon_mib": 1120,
+      "file_mib": 1206,
+      "inactive_file_mib": 331,
+      "current_minus_inactive_file_mib": 1999,
+      "process_rss_mib": 1686,
+      "process_rss_anon_mib": 1120,
+      "process_rss_file_mib": 566,
+      "process_vmhwm_mib": 1879,
+      "kubectl_top_working_set": "2385656Ki"
+    },
+    {
+      "checkpoint": "after 20 requests",
+      "n_requests": 20,
+      "memory_current_mib": 2103,
+      "memory_peak_mib": 2559,
+      "anon_mib": 1123,
+      "file_mib": 977,
+      "inactive_file_mib": 254,
+      "current_minus_inactive_file_mib": 1849,
+      "process_rss_mib": 1625,
+      "process_rss_anon_mib": 1122,
+      "process_rss_file_mib": 503,
+      "process_vmhwm_mib": 1879,
+      "kubectl_top_working_set": "2154476Ki"
+    }
+  ],
+  "docker_table": [
+    {
+      "checkpoint": "after startup",
+      "n_requests": 0,
+      "memory_current_mib": 1271,
+      "memory_peak_mib": 1417,
+      "anon_mib": 786,
+      "file_mib": 484,
+      "inactive_file_mib": 186,
+      "current_minus_inactive_file_mib": 1085,
+      "process_rss_mib": 1253,
+      "process_rss_anon_mib": 785,
+      "process_rss_file_mib": 468,
+      "process_vmhwm_mib": 1253,
+      "docker_stats_mem_usage": "1.06GiB / 7.817GiB"
+    },
+    {
+      "checkpoint": "after 1 request",
+      "n_requests": 1,
+      "memory_current_mib": 1998,
+      "memory_peak_mib": 2098,
+      "anon_mib": 1121,
+      "file_mib": 874,
+      "inactive_file_mib": 186,
+      "current_minus_inactive_file_mib": 1813,
+      "process_rss_mib": 1738,
+      "process_rss_anon_mib": 1120,
+      "process_rss_file_mib": 618,
+      "process_vmhwm_mib": 1838,
+      "docker_stats_mem_usage": "1.77GiB / 7.817GiB"
+    },
+    {
+      "checkpoint": "after 5 requests",
+      "n_requests": 5,
+      "memory_current_mib": 2317,
+      "memory_peak_mib": 2417,
+      "anon_mib": 1126,
+      "file_mib": 1188,
+      "inactive_file_mib": 723,
+      "current_minus_inactive_file_mib": 1594,
+      "process_rss_mib": 1779,
+      "process_rss_anon_mib": 1125,
+      "process_rss_file_mib": 653,
+      "process_vmhwm_mib": 1899,
+      "docker_stats_mem_usage": "1.558GiB / 7.817GiB"
+    },
+    {
+      "checkpoint": "after 20 requests",
+      "n_requests": 20,
+      "memory_current_mib": 2433,
+      "memory_peak_mib": 2532,
+      "anon_mib": 1131,
+      "file_mib": 1298,
+      "inactive_file_mib": 594,
+      "current_minus_inactive_file_mib": 1839,
+      "process_rss_mib": 1719,
+      "process_rss_anon_mib": 1130,
+      "process_rss_file_mib": 588,
+      "process_vmhwm_mib": 1946,
+      "docker_stats_mem_usage": "1.796GiB / 7.817GiB"
+    }
+  ],
+  "during_request_samples": {
+    "k8s": {
+      "request_1": {
+        "cgroup_anon_mib": [
+          785,
+          1209
+        ],
+        "process_rss_anon_mib": [
+          784,
+          1215
+        ],
+        "rerank_ms": 11857.4,
+        "samples": 120
+      },
+      "request_20": {
+        "cgroup_anon_mib": [
+          967,
+          1203
+        ],
+        "process_rss_anon_mib": [
+          967,
+          1207
+        ],
+        "rerank_ms": 12557.2,
+        "samples": 124
+      }
+    },
+    "docker": {
+      "request_1": {
+        "cgroup_anon_mib": [
+          786,
+          1169
+        ],
+        "process_rss_anon_mib": [
+          785,
+          1171
+        ],
+        "rerank_ms": 5618.5,
+        "samples": 59
+      },
+      "request_20": {
+        "cgroup_anon_mib": [
+          993,
+          1212
+        ],
+        "process_rss_anon_mib": [
+          980,
+          1222
+        ],
+        "rerank_ms": 7852.3,
+        "samples": 77
+      }
+    },
+    "note": "memory.stat anon and /proc/1 RssAnon sampled every 0.1 s inside the container during requests 1 and 20"
+  },
+  "rerank_ms": {
+    "k8s": [
+      11857.4,
+      10361.5,
+      10595.4,
+      10728.9,
+      10538.5,
+      10259.4,
+      10745.4,
+      10570.5,
+      10889.3,
+      10856.0,
+      11125.4,
+      11011.1,
+      10952.2,
+      11245.0,
+      11593.1,
+      11556.9,
+      11408.2,
+      11574.9,
+      11562.7,
+      12557.2
+    ],
+    "docker": [
+      5618.5,
+      5305.4,
+      5982.4,
+      6172.4,
+      6009.4,
+      5564.6,
+      5700.8,
+      5599.8,
+      5620.1,
+      5821.3,
+      5794.7,
+      5669.8,
+      6105.7,
+      6407.1,
+      6964.4,
+      6611.4,
+      7523.8,
+      7249.0,
+      7573.5,
+      7852.3
+    ]
+  },
+  "tool_comparison": {
+    "kubectl_top": "equals memory.current (all page cache included, inactive_file too): e.g. 1,326,156 Ki = 1,295 MiB at startup, 2,486,916 Ki = 2,429 MiB after 1 request, matching memory.current, not memory.current - inactive_file (874 / 2,008 MiB).",
+    "docker_stats": "equals memory.current - inactive_file: 1.06 GiB = 1,085 MiB, 1.77 GiB = 1,813 MiB, 1.558 GiB = 1,595 MiB, 1.796 GiB = 1,839 MiB.",
+    "conclusion": "On this OrbStack setup the two tools count page cache differently: kubectl top includes inactive file cache, docker stats subtracts it. So kubectl top over-states memory that is actually committed by 250-430 MiB here, and round-1 'peak working set' numbers include cache."
+  },
+  "growth": {
+    "anon_after_requests_k8s_mib": {
+      "1": 1118,
+      "5": 1120,
+      "20": 1123
+    },
+    "anon_after_requests_docker_mib": {
+      "1": 1121,
+      "5": 1126,
+      "20": 1131
+    },
+    "conclusion": "No leak: anonymous memory rises about 335 MiB on the first request (one-time setup and allocator caching, retained) and then stays flat (+5 to +10 MiB over 19 more requests). File-backed memory grows with page cache until the limit forces reclaim (k8s) or keeps growing (docker, no limit)."
+  },
+  "summary": {
+    "where_memory_goes": {
+      "model_weights_and_runtime": "about 785 MiB anonymous at startup plus about 450-600 MiB of the model files mapped into the process (RssFile); the weight files (~1.2 GiB on disk) also sit in page cache",
+      "first_request_one_time": "about +335 MiB anonymous retained after the first request (allocator caching / lazy init), then flat",
+      "activations_per_rerank": "one rerank is a single 20 x 512-token forward pass; anonymous memory peaks at about 1.20-1.22 GiB during it, i.e. roughly 0.24-0.42 GiB above the level just before the request (k8s request 20: 967 -> 1,203 MiB; request 1: 785 -> 1,209 MiB). Same in Docker with 10 threads.",
+      "page_cache": "file-backed memory rises to 1.0-1.3 GiB after the first request and fills the cgroup up to its limit: memory.peak reached 2,559 MiB (the 2,560 MiB limit) in k8s with only ONE request at a time, without any OOM, because inactive cache is reclaimed",
+      "growth": "none beyond the first request"
+    },
+    "round1_explained": "Committed memory for one in-flight rerank is about 1.2 GiB anonymous plus the mapped model pages (~0.5-0.6 GiB). Each additional concurrent rerank adds roughly another 0.25-0.4 GiB of activations (an estimate from these single-request peaks, not measured under concurrency). Three concurrent reranks therefore approach the 2.5 GiB limit (round 1: slow, 2,467 MiB, heavy reclaim of mapped model pages likely), and six exceed it (round 1: OOMKilled).",
+    "fix_supported_by_numbers": {
+      "limit_to_one_rerank_at_a_time_per_pod": "best supported: per-pod committed memory stays at about 1.2 GiB anon + mapped weights (~1.8 GiB), well under 2.5 GiB at any load; throughput should not drop because reranking is CPU-bound on 2 CPUs (round 1: 3 concurrent reranks on 1 pod gave 0.060 req/s vs 0.091 for 1).",
+      "smaller_rerank_batch": "partly supported: activation memory scales with batch size, so batches of 4-5 would cut the ~0.25-0.4 GiB per-rerank peak several-fold, but memory would still grow with concurrency; a useful complement, not a fix on its own.",
+      "higher_memory_limit": "least supported on its own: page cache fills any limit anyway, and covering 6 concurrent reranks would need roughly 3.5-4 GiB per pod, which 3 replicas on this 7.8 GiB node cannot fit."
+    },
+    "caveats": [
+      "single pod, sequential requests; concurrency effects are extrapolated from single-request peaks",
+      "0.1 s sampling can miss the very top of short spikes",
+      "the Docker container had no limits and 10 torch threads vs 2 in k8s; anonymous peaks were nevertheless similar"
+    ]
+  },
+  "raw": {
+    "k8s": {
+      "mode": "k8s",
+      "target": "rag-7db848fdc8-6qcxz",
+      "checkpoints": [
+        {
+          "checkpoint": "after startup",
+          "n_requests": 0,
+          "t": 1791800841.661577,
+          "mem": {
+            "current": 1358303232,
+            "peak": 1879941120,
+            "anon": 822849536,
+            "file": 534364160,
+            "kernel": 0,
+            "shmem": 4096,
+            "inactive_file": 441700352,
+            "active_file": 92659712,
+            "VmHWM": 1313468416,
+            "VmRSS": 1292718080,
+            "RssAnon": 822513664,
+            "RssFile": 470200320,
+            "RssShmem": 4096,
+            "Threads": 9,
+            "working_set_calc": 916602880
+          },
+          "tool": {
+            "metrics_server_working_set": "1326156Ki",
+            "metrics_timestamp": "2026-10-12T10:27:32Z",
+            "cgroup_at_read_time": {
+              "current": 1357971456,
+              "inactive_file": 441704448,
+              "working_set_calc": 916267008
+            }
+          }
+        },
+        {
+          "checkpoint": "after 1 request",
+          "n_requests": 1,
+          "t": 1791800866.805792,
+          "mem": {
+            "current": 2546831360,
+            "peak": 2651820032,
+            "anon": 1171910656,
+            "file": 1370161152,
+            "kernel": 0,
+            "shmem": 4096,
+            "inactive_file": 441749504,
+            "active_file": 928411648,
+            "VmHWM": 1911394304,
+            "VmRSS": 1807863808,
+            "RssAnon": 1171296256,
+            "RssFile": 636563456,
+            "RssShmem": 4096,
+            "Threads": 11,
+            "working_set_calc": 2105081856
+          },
+          "tool": {
+            "metrics_server_working_set": "2486916Ki",
+            "metrics_timestamp": "2026-10-12T10:27:47Z",
+            "cgroup_at_read_time": {
+              "current": 2547163136,
+              "inactive_file": 441749504,
+              "working_set_calc": 2105413632
+            }
+          }
+        },
+        {
+          "checkpoint": "after 5 requests",
+          "n_requests": 5,
+          "t": 1791800911.507831,
+          "mem": {
+            "current": 2442842112,
+            "peak": 2683506688,
+            "anon": 1174765568,
+            "file": 1264676864,
+            "kernel": 0,
+            "shmem": 4096,
+            "inactive_file": 346910720,
+            "active_file": 917766144,
+            "VmHWM": 1970147328,
+            "VmRSS": 1767677952,
+            "RssAnon": 1174450176,
+            "RssFile": 593223680,
+            "RssShmem": 4096,
+            "Threads": 11,
+            "working_set_calc": 2095931392
+          },
+          "tool": {
+            "metrics_server_working_set": "2385656Ki",
+            "metrics_timestamp": "2026-10-12T10:28:32Z",
+            "cgroup_at_read_time": {
+              "current": 2443067392,
+              "inactive_file": 346910720,
+              "working_set_calc": 2096156672
+            }
+          }
+        },
+        {
+          "checkpoint": "after 20 requests",
+          "n_requests": 20,
+          "t": 1791801082.8523378,
+          "mem": {
+            "current": 2205425664,
+            "peak": 2683506688,
+            "anon": 1177149440,
+            "file": 1024643072,
+            "kernel": 0,
+            "shmem": 4096,
+            "inactive_file": 266317824,
+            "active_file": 758321152,
+            "VmHWM": 1970147328,
+            "VmRSS": 1703489536,
+            "RssAnon": 1176551424,
+            "RssFile": 526934016,
+            "RssShmem": 4096,
+            "Threads": 11,
+            "working_set_calc": 1939107840
+          },
+          "tool": {
+            "metrics_server_working_set": "2154476Ki",
+            "metrics_timestamp": "2026-10-12T10:31:32Z",
+            "cgroup_at_read_time": {
+              "current": 2206244864,
+              "inactive_file": 266317824,
+              "working_set_calc": 1939927040
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "wall_ms": 12026.897582982201,
+          "server_ms": {
+            "retrieve": 140.0,
+            "rerank": 11857.4,
+            "generate": 0.0,
+            "total": 11997.4
+          },
+          "stub": true,
+          "during": {
+            "samples": 120,
+            "cgroup_anon_max": 1267658752,
+            "cgroup_anon_min": 822853632,
+            "process_rss_anon_max": 1273626624,
+            "process_rss_anon_min": 822546432
+          }
+        },
+        {
+          "wall_ms": 10416.906749975169,
+          "server_ms": {
+            "retrieve": 49.8,
+            "rerank": 10361.5,
+            "generate": 0.0,
+            "total": 10411.3
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 10633.458208001684,
+          "server_ms": {
+            "retrieve": 32.4,
+            "rerank": 10595.4,
+            "generate": 0.1,
+            "total": 10627.9
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 10789.784624997992,
+          "server_ms": {
+            "retrieve": 51.5,
+            "rerank": 10728.9,
+            "generate": 0.0,
+            "total": 10780.4
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 10580.469166015973,
+          "server_ms": {
+            "retrieve": 37.2,
+            "rerank": 10538.5,
+            "generate": 0.0,
+            "total": 10575.7
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 10318.662625009893,
+          "server_ms": {
+            "retrieve": 53.6,
+            "rerank": 10259.4,
+            "generate": 0.0,
+            "total": 10313.0
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 10782.306250010151,
+          "server_ms": {
+            "retrieve": 32.5,
+            "rerank": 10745.4,
+            "generate": 0.0,
+            "total": 10777.9
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 10612.157083000056,
+          "server_ms": {
+            "retrieve": 35.0,
+            "rerank": 10570.5,
+            "generate": 0.0,
+            "total": 10605.5
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 10920.035457995255,
+          "server_ms": {
+            "retrieve": 26.8,
+            "rerank": 10889.3,
+            "generate": 0.0,
+            "total": 10916.1
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 10885.640416992828,
+          "server_ms": {
+            "retrieve": 25.1,
+            "rerank": 10856.0,
+            "generate": 0.0,
+            "total": 10881.1
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 11166.21333299554,
+          "server_ms": {
+            "retrieve": 34.5,
+            "rerank": 11125.4,
+            "generate": 0.0,
+            "total": 11159.9
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 11065.126917004818,
+          "server_ms": {
+            "retrieve": 43.8,
+            "rerank": 11011.1,
+            "generate": 0.0,
+            "total": 11054.9
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 10983.132041001227,
+          "server_ms": {
+            "retrieve": 26.7,
+            "rerank": 10952.2,
+            "generate": 0.0,
+            "total": 10979.0
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 11273.267750017112,
+          "server_ms": {
+            "retrieve": 24.0,
+            "rerank": 11245.0,
+            "generate": 0.0,
+            "total": 11269.0
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 11627.706082974328,
+          "server_ms": {
+            "retrieve": 31.0,
+            "rerank": 11593.1,
+            "generate": 0.0,
+            "total": 11624.2
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 11599.797791976016,
+          "server_ms": {
+            "retrieve": 37.9,
+            "rerank": 11556.9,
+            "generate": 0.0,
+            "total": 11594.8
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 11446.006749989465,
+          "server_ms": {
+            "retrieve": 34.4,
+            "rerank": 11408.2,
+            "generate": 0.0,
+            "total": 11442.6
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 11607.337749999715,
+          "server_ms": {
+            "retrieve": 29.6,
+            "rerank": 11574.9,
+            "generate": 0.0,
+            "total": 11604.4
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 11598.10041601304,
+          "server_ms": {
+            "retrieve": 27.5,
+            "rerank": 11562.7,
+            "generate": 0.0,
+            "total": 11590.2
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 12637.007791985525,
+          "server_ms": {
+            "retrieve": 58.1,
+            "rerank": 12557.2,
+            "generate": 0.1,
+            "total": 12615.4
+          },
+          "stub": true,
+          "during": {
+            "samples": 124,
+            "cgroup_anon_max": 1261412352,
+            "cgroup_anon_min": 1014079488,
+            "process_rss_anon_max": 1265287168,
+            "process_rss_anon_min": 1013760000
+          }
+        }
+      ]
+    },
+    "docker": {
+      "mode": "docker",
+      "target": "965acca3685a7784851129f155ef24fdd91ce68e27b2c0bc7cbab4eec1e7710e",
+      "checkpoints": [
+        {
+          "checkpoint": "after startup",
+          "n_requests": 0,
+          "t": 1791801141.091611,
+          "mem": {
+            "current": 1332629504,
+            "peak": 1486221312,
+            "anon": 823865344,
+            "file": 507670528,
+            "kernel": 0,
+            "shmem": 4096,
+            "inactive_file": 194707456,
+            "active_file": 312963072,
+            "VmHWM": 1314213888,
+            "VmRSS": 1314213888,
+            "RssAnon": 823529472,
+            "RssFile": 490680320,
+            "RssShmem": 4096,
+            "Threads": 41,
+            "working_set_calc": 1137922048
+          },
+          "tool": {
+            "docker_stats_mem": "1.06GiB / 7.817GiB",
+            "cgroup_at_same_time": {
+              "current": 1332305920,
+              "inactive_file": 194707456,
+              "working_set_calc": 1137598464
+            }
+          }
+        },
+        {
+          "checkpoint": "after 1 request",
+          "n_requests": 1,
+          "t": 1791801148.580024,
+          "mem": {
+            "current": 2095423488,
+            "peak": 2200416256,
+            "anon": 1175441408,
+            "file": 916307968,
+            "kernel": 0,
+            "shmem": 4096,
+            "inactive_file": 194707456,
+            "active_file": 721600512,
+            "VmHWM": 1927495680,
+            "VmRSS": 1822703616,
+            "RssAnon": 1174847488,
+            "RssFile": 647852032,
+            "RssShmem": 4096,
+            "Threads": 51,
+            "working_set_calc": 1900716032
+          },
+          "tool": {
+            "docker_stats_mem": "1.77GiB / 7.817GiB",
+            "cgroup_at_same_time": {
+              "current": 2095443968,
+              "inactive_file": 194707456,
+              "working_set_calc": 1900736512
+            }
+          }
+        },
+        {
+          "checkpoint": "after 5 requests",
+          "n_requests": 5,
+          "t": 1791801173.680276,
+          "mem": {
+            "current": 2430046208,
+            "peak": 2534764544,
+            "anon": 1180663808,
+            "file": 1245593600,
+            "kernel": 0,
+            "shmem": 4096,
+            "inactive_file": 758640640,
+            "active_file": 486952960,
+            "VmHWM": 1990918144,
+            "VmRSS": 1865170944,
+            "RssAnon": 1180061696,
+            "RssFile": 685105152,
+            "RssShmem": 4096,
+            "Threads": 50,
+            "working_set_calc": 1671405568
+          },
+          "tool": {
+            "docker_stats_mem": "1.558GiB / 7.817GiB",
+            "cgroup_at_same_time": {
+              "current": 2433171456,
+              "inactive_file": 760295424,
+              "working_set_calc": 1672876032
+            }
+          }
+        },
+        {
+          "checkpoint": "after 20 requests",
+          "n_requests": 20,
+          "t": 1791801272.8775759,
+          "mem": {
+            "current": 2551132160,
+            "peak": 2654945280,
+            "anon": 1185857536,
+            "file": 1361313792,
+            "kernel": 0,
+            "shmem": 4096,
+            "inactive_file": 622841856,
+            "active_file": 738467840,
+            "VmHWM": 2040897536,
+            "VmRSS": 1802039296,
+            "RssAnon": 1185271808,
+            "RssFile": 616763392,
+            "RssShmem": 4096,
+            "Threads": 51,
+            "working_set_calc": 1928290304
+          },
+          "tool": {
+            "docker_stats_mem": "1.796GiB / 7.817GiB",
+            "cgroup_at_same_time": {
+              "current": 2551218176,
+              "inactive_file": 622841856,
+              "working_set_calc": 1928376320
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "wall_ms": 5820.834250014741,
+          "server_ms": {
+            "retrieve": 184.0,
+            "rerank": 5618.5,
+            "generate": 0.6,
+            "total": 5803.1
+          },
+          "stub": true,
+          "during": {
+            "samples": 59,
+            "cgroup_anon_max": 1225678848,
+            "cgroup_anon_min": 823840768,
+            "process_rss_anon_max": 1227460608,
+            "process_rss_anon_min": 823529472
+          }
+        },
+        {
+          "wall_ms": 5416.871041990817,
+          "server_ms": {
+            "retrieve": 107.8,
+            "rerank": 5305.4,
+            "generate": 0.0,
+            "total": 5413.2
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 6035.153999982867,
+          "server_ms": {
+            "retrieve": 44.6,
+            "rerank": 5982.4,
+            "generate": 0.0,
+            "total": 6027.0
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 6344.590916996822,
+          "server_ms": {
+            "retrieve": 165.0,
+            "rerank": 6172.4,
+            "generate": 0.1,
+            "total": 6337.5
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 6095.410374982748,
+          "server_ms": {
+            "retrieve": 83.4,
+            "rerank": 6009.4,
+            "generate": 0.0,
+            "total": 6092.9
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 5630.1037080120295,
+          "server_ms": {
+            "retrieve": 63.9,
+            "rerank": 5564.6,
+            "generate": 0.0,
+            "total": 5628.6
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 5759.017958975164,
+          "server_ms": {
+            "retrieve": 57.2,
+            "rerank": 5700.8,
+            "generate": 0.0,
+            "total": 5758.0
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 5657.460291986354,
+          "server_ms": {
+            "retrieve": 56.4,
+            "rerank": 5599.8,
+            "generate": 0.0,
+            "total": 5656.1
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 5688.7664170062635,
+          "server_ms": {
+            "retrieve": 67.1,
+            "rerank": 5620.1,
+            "generate": 0.0,
+            "total": 5687.3
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 5864.280667010462,
+          "server_ms": {
+            "retrieve": 41.5,
+            "rerank": 5821.3,
+            "generate": 0.0,
+            "total": 5862.8
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 5947.002832981525,
+          "server_ms": {
+            "retrieve": 151.1,
+            "rerank": 5794.7,
+            "generate": 0.0,
+            "total": 5945.9
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 5725.341292010853,
+          "server_ms": {
+            "retrieve": 54.1,
+            "rerank": 5669.8,
+            "generate": 0.0,
+            "total": 5723.9
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 6162.217417004285,
+          "server_ms": {
+            "retrieve": 53.8,
+            "rerank": 6105.7,
+            "generate": 0.0,
+            "total": 6159.6
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 6483.040416002041,
+          "server_ms": {
+            "retrieve": 72.5,
+            "rerank": 6407.1,
+            "generate": 0.0,
+            "total": 6479.6
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 7057.557457999792,
+          "server_ms": {
+            "retrieve": 89.9,
+            "rerank": 6964.4,
+            "generate": 0.0,
+            "total": 7054.3
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 6675.374291982735,
+          "server_ms": {
+            "retrieve": 61.3,
+            "rerank": 6611.4,
+            "generate": 0.0,
+            "total": 6672.7
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 7611.734834004892,
+          "server_ms": {
+            "retrieve": 77.5,
+            "rerank": 7523.8,
+            "generate": 0.1,
+            "total": 7601.4
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 7496.903457998997,
+          "server_ms": {
+            "retrieve": 242.6,
+            "rerank": 7249.0,
+            "generate": 0.0,
+            "total": 7491.6
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 7657.4091669754125,
+          "server_ms": {
+            "retrieve": 80.6,
+            "rerank": 7573.5,
+            "generate": 0.0,
+            "total": 7654.2
+          },
+          "stub": true
+        },
+        {
+          "wall_ms": 7966.975583025487,
+          "server_ms": {
+            "retrieve": 108.7,
+            "rerank": 7852.3,
+            "generate": 0.1,
+            "total": 7961.1
+          },
+          "stub": true,
+          "during": {
+            "samples": 77,
+            "cgroup_anon_max": 1270800384,
+            "cgroup_anon_min": 1040912384,
+            "process_rss_anon_max": 1280970752,
+            "process_rss_anon_min": 1027215360
+          }
+        }
+      ]
+    }
+  }
+}
