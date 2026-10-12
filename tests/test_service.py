@@ -57,7 +57,11 @@ def test_normal_answer(key):
     assert [s["page"] for s in body["sources"]] == ["concepts/p1.md", "concepts/p2.md", "concepts/p4.md"]
     assert body["sources"][0]["snippet"] == "Chunk 1 text. More text."
     assert body["top_rerank_score"] == 0.9
-    assert set(body["latency_ms"]) == {"retrieve", "rerank", "generate", "total"}
+    # Response shape: unchanged apart from the added queue_wait_ms in latency_ms.
+    assert set(body) == {"answer", "abstained", "sources", "top_rerank_score", "latency_ms"}
+    assert set(body["sources"][0]) == {"page", "chunk_id", "rerank_score", "snippet"}
+    assert set(body["latency_ms"]) == {"retrieve", "queue_wait_ms", "rerank", "generate", "total"}
+    assert body["latency_ms"]["queue_wait_ms"] < 1000
     # The LLM gets the stripped question and exactly the top 3 reranked chunks.
     assert calls == [("How long is the grace period?", ["concepts/p1.md#0", "concepts/p2.md#0", "concepts/p4.md#0"])]
 
@@ -183,3 +187,117 @@ def test_llm_stub_is_off_by_default_and_skips_groq_when_on(monkeypatch):
     assert body["answer"] == app_mod.STUB_REPLY and body["abstained"] is False
     assert [s["page"] for s in body["sources"]] == ["concepts/p1.md", "concepts/p2.md", "concepts/p4.md"]
     assert len(groq_calls) == 3
+
+
+# ---------- one rerank at a time ----------
+
+import threading  # noqa: E402
+import time  # noqa: E402
+
+
+class GatedPipeline(FakePipeline):
+    """rerank() blocks until released, and records how many reranks overlap."""
+
+    def __init__(self):
+        super().__init__()
+        self.release = threading.Event()
+        self.entered = threading.Semaphore(0)
+        self.active = self.max_active = 0
+        self.lock = threading.Lock()
+
+    def rerank(self, question, candidates):
+        with self.lock:
+            self.active += 1
+            self.max_active = max(self.max_active, self.active)
+        self.entered.release()
+        self.release.wait(timeout=10)
+        with self.lock:
+            self.active -= 1
+        return super().rerank(question, candidates)
+
+
+def gated_client(**kwargs):
+    pipeline = GatedPipeline()
+    app = create_app(pipeline_factory=lambda: pipeline, llm=lambda q, c: FakeAnswer("30 seconds"), **kwargs)
+    return TestClient(app), app, pipeline
+
+
+def post_in_thread(client, results, key):
+    t = threading.Thread(target=lambda: results.__setitem__(key, client.post("/ask", json={"question": key})))
+    t.start()
+    return t
+
+
+def wait_until(cond, timeout=5):
+    end = time.time() + timeout
+    while time.time() < end:
+        if cond():
+            return True
+        time.sleep(0.01)
+    return False
+
+
+def test_two_concurrent_requests_are_serialised(key):
+    client, app, pipeline = gated_client(max_waiting=8, wait_timeout_s=10)
+    with client:
+        results = {}
+        threads = [post_in_thread(client, results, "a"), post_in_thread(client, results, "b")]
+        assert pipeline.entered.acquire(timeout=5)                 # one request is reranking ...
+        assert wait_until(lambda: app.state.gate.waiting == 1)     # ... and the other is queued
+        assert pipeline.max_active == 1
+        pipeline.release.set()
+        for t in threads:
+            t.join(timeout=10)
+    assert pipeline.max_active == 1
+    assert [results[k].status_code for k in "ab"] == [200, 200]
+    waits = sorted(results[k].json()["latency_ms"]["queue_wait_ms"] for k in "ab")
+    assert waits[0] < 1000 and waits[1] > 0
+
+
+def test_queue_full_returns_503_with_retry_after(key):
+    client, app, pipeline = gated_client(max_waiting=1, wait_timeout_s=10)
+    with client:
+        results = {}
+        threads = [post_in_thread(client, results, "running")]
+        assert pipeline.entered.acquire(timeout=5)
+        threads.append(post_in_thread(client, results, "waiting"))
+        assert wait_until(lambda: app.state.gate.waiting == 1)
+        r = client.post("/ask", json={"question": "rejected"})
+        pipeline.release.set()
+        for t in threads:
+            t.join(timeout=10)
+    assert r.status_code == 503 and r.headers["Retry-After"] == "10"
+    assert r.json()["detail"]["error"] == "queue_full" and r.json()["detail"]["max_waiting"] == 1
+    assert results["running"].status_code == 200 and results["waiting"].status_code == 200
+
+
+def test_wait_timeout_returns_503_with_retry_after(key):
+    client, app, pipeline = gated_client(max_waiting=8, wait_timeout_s=0.2)
+    with client:
+        results = {}
+        t = post_in_thread(client, results, "running")
+        assert pipeline.entered.acquire(timeout=5)
+        r = client.post("/ask", json={"question": "times out"})
+        pipeline.release.set()
+        t.join(timeout=10)
+    assert r.status_code == 503 and "Retry-After" in r.headers
+    assert r.json()["detail"]["error"] == "queue_timeout"
+    assert results["running"].status_code == 200
+    assert app.state.gate.waiting == 0 and app.state.gate.active == 0
+
+
+def test_health_is_fast_while_one_reranks_and_others_wait(key):
+    client, app, pipeline = gated_client(max_waiting=8, wait_timeout_s=10)
+    with client:
+        results = {}
+        threads = [post_in_thread(client, results, k) for k in ("a", "b", "c")]
+        assert pipeline.entered.acquire(timeout=5)
+        assert wait_until(lambda: app.state.gate.waiting == 2)
+        t0 = time.perf_counter()
+        health = client.get("/health")
+        elapsed = time.perf_counter() - t0
+        pipeline.release.set()
+        for t in threads:
+            t.join(timeout=10)
+    assert health.status_code == 200 and elapsed < 1.0
+    assert all(results[k].status_code == 200 for k in "abc") and pipeline.max_active == 1

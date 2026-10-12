@@ -8,3 +8,6 @@ data:
   LLM_STUB: "0"
   # Matches the container CPU limit (2), so torch does not oversubscribe the throttled CPUs.
   OMP_NUM_THREADS: "2"
+  # One rerank at a time per pod; up to MAX_WAITING requests queue, each for up to WAIT_TIMEOUT_S.
+  MAX_WAITING: "8"
+  WAIT_TIMEOUT_S: "120"
