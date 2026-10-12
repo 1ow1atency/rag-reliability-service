@@ -28,9 +28,13 @@ FROM base AS builder
 RUN apt-get update \
  && apt-get install -y --no-install-recommends git ca-certificates \
  && rm -rf /var/lib/apt/lists/*
+# Only what the docs fetch and index build import, so changes elsewhere in src/ (service,
+# generation, evaluation) do not invalidate the slow fetch + index layers below.
 COPY configs configs
-COPY src src
 COPY scripts scripts
+COPY src/__init__.py src/__init__.py
+COPY src/ingest src/ingest
+COPY src/retrieval src/retrieval
 RUN python scripts/fetch_docs.py \
  && python scripts/build_index.py \
  && python -c "import json; from sentence_transformers import CrossEncoder; \
