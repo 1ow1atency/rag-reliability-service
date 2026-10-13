@@ -1,6 +1,7 @@
 """Run the Kubernetes load-test experiments from the host and save raw data.
 
-Usage: python scripts/k8s_load_experiment.py {smoke,a,b} [replicas ...]   (results go under "round1")
+Usage: python scripts/k8s_load_experiment.py {smoke,a,b} [replicas ...] [--round=round2]
+(results go under "round1" unless --round is given)
 
 Load comes from scripts/load_test.py running INSIDE the cluster as a Job (service image, script and
 questions mounted from a ConfigMap) against the Service DNS name, one new connection per request.
@@ -32,6 +33,7 @@ URL = "http://rag.rag.svc.cluster.local:8000"
 SAMPLE_EVERY = 15
 N_QUESTIONS = 10
 SEED = 42
+ROUND = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--round=")), "round1")
 
 
 def kubectl(*args: str, input: str | None = None, check: bool = True) -> str:
@@ -142,9 +144,11 @@ def deployment_status() -> dict:
     return {"spec_replicas": d["spec"]["replicas"], "ready_replicas": d["status"].get("readyReplicas", 0)}
 
 
-def sample() -> dict:
-    return {"t": time.time(), "deployment": deployment_status(), "hpa": hpa_status(),
-            "top": top_pods(), "pods": rag_pods()}
+def sample(with_cgroup: bool = False) -> dict:
+    s = {"t": time.time(), "deployment": deployment_status(), "hpa": hpa_status(), "top": top_pods(), "pods": rag_pods()}
+    if with_cgroup:
+        s["cgroup"] = cgroup_memory()
+    return s
 
 
 def problems_since(t0: float) -> dict:
@@ -159,6 +163,21 @@ def problems_since(t0: float) -> dict:
     pods = rag_pods()
     return {"warning_events": bad, "restarts": {p["name"]: p["restarts"] for p in pods},
             "oom_killed": [p["name"] for p in pods if p["last_terminated_reason"] == "OOMKilled"]}
+
+
+def cgroup_memory() -> dict[str, dict]:
+    """memory.current, memory.peak and anon (bytes) per running rag pod, read from the cgroup files."""
+    cmd = ('c=/sys/fs/cgroup; echo "$(cat $c/memory.current) $(cat $c/memory.peak) '
+           '$(awk \'/^anon /{print $2}\' $c/memory.stat)"')
+    out = {}
+    for p in rag_pods():
+        if p["phase"] != "Running" or p["deleting"]:
+            continue
+        r = subprocess.run(["kubectl", "-n", NS, "exec", p["name"], "--", "sh", "-c", cmd], capture_output=True, text=True)
+        vals = r.stdout.split()
+        out[p["name"]] = ({"current": int(vals[0]), "peak": int(vals[1]), "anon": int(vals[2])}
+                          if r.returncode == 0 and len(vals) == 3 else {"error": r.stderr.strip()[:200]})
+    return out
 
 
 def requests_per_pod(since: float) -> dict[str, int]:
@@ -195,7 +214,7 @@ def run_job(name: str, clients: int, duration: int, samples: list | None = None,
 
 def summarize(result: dict) -> dict:
     recs = result["records"]
-    ok = [r for r in recs if r["status"] == 200]
+    ok = [r for r in recs if r["status"] == 200 and not r.get("error")]
     lat = sorted(r["latency_ms"] for r in ok)
     rerank = sorted(r["server_ms"]["rerank"] for r in ok if r.get("server_ms"))
     wall = result["finished"] - result["started"]
@@ -203,10 +222,16 @@ def summarize(result: dict) -> dict:
     def pct(v, p):
         return v[min(len(v) - 1, int(round(p / 100 * (len(v) - 1))))] if v else None
 
+    n503 = sum(1 for r in recs if r["status"] == 503)
     return {"requests": len(recs), "ok": len(ok), "errors": len(recs) - len(ok),
+            "n_503": n503, "other_errors": len(recs) - len(ok) - n503,
             "error_kinds": sorted({r["error"] or f"HTTP {r['status']}" for r in recs if r["status"] != 200}),
             "p50_ms": pct(lat, 50), "p95_ms": pct(lat, 95), "max_ms": lat[-1] if lat else None,
-            "server_rerank_p50_ms": pct(rerank, 50), "wall_s": wall, "rps": len(ok) / wall if wall else None}
+            "server_rerank_p50_ms": pct(rerank, 50), "wall_s": wall, "rps": len(ok) / wall if wall else None,
+            "error_types": sorted({r.get("error_type") or f"HTTP {r['status']}" for r in recs if r not in ok}),
+            "possible_sleep": result.get("flags", {}).get("possible_sleep"),
+            "possible_sleep_reasons": result.get("flags", {}).get("reasons"),
+            "all_clients_reported": result.get("all_clients_reported")}
 
 
 # ---------- experiments ----------
@@ -225,6 +250,7 @@ def wait_ready(replicas: int, timeout: int = 600) -> None:
 def cell(label: str, clients: int, duration: int) -> dict:
     samples = []
     restarts_before = {p["name"]: p["restarts"] for p in rag_pods()}
+    mem_before = cgroup_memory()
     t0 = time.time()
     result = run_job(f"load-{label}", clients, duration, samples=samples)
     summary = summarize(result)
@@ -235,7 +261,15 @@ def cell(label: str, clients: int, duration: int) -> dict:
             cur["cpu_m"], cur["mem_mi"] = max(cur["cpu_m"], v["cpu_m"]), max(cur["mem_mi"], v["mem_mi"])
     return {"label": label, "clients": clients, "duration_s": duration, "summary": summary,
             "per_pod_requests": requests_per_pod(result["started"]), "top_peak": peak,
-            "restarts_before": restarts_before, "samples": samples, "problems": problems_since(t0), "raw": result}
+            "restarts_before": restarts_before, "cgroup_memory_before": mem_before,
+            "cgroup_memory_after": cgroup_memory(), "samples": samples, "problems": problems_since(t0), "raw": result}
+
+
+def new_oom(c: dict) -> list[str]:
+    """Pods that restarted during the cell and whose last termination was OOMKilled."""
+    after = {p["name"]: p for p in rag_pods()}
+    return [n for n, p in after.items()
+            if p["restarts"] > c["restarts_before"].get(n, 0) and p["last_terminated_reason"] == "OOMKilled"]
 
 
 def fmt(v, spec: str) -> str:
@@ -244,15 +278,23 @@ def fmt(v, spec: str) -> str:
 
 def experiment_a(data: dict, replicas_list: tuple[int, ...] = (1, 3)) -> None:
     kubectl("delete", "hpa", "rag", "--ignore-not-found")
-    exp = data.setdefault("round1", {}).setdefault("experiment_a", {"hpa": "deleted for this experiment", "cells": []})
+    exp = data.setdefault(ROUND, {}).setdefault("experiment_a", {"hpa": "deleted for this experiment", "cells": []})
     for replicas in replicas_list:
         wait_ready(replicas)
         for clients in (1, 3, 6):
             c = cell(f"a-r{replicas}-c{clients}", clients, 90)
             c["replicas"] = replicas
+            c["new_oom_killed"] = new_oom(c)
             exp["cells"].append(c)
             save_results(data)
             s = c["summary"]
+            mib = lambda m: {k: round(v / 1048576) for k, v in m.items()} if "error" not in m else m
+            print(f"   flags: possible_sleep={s['possible_sleep']} {s['possible_sleep_reasons']} "
+                  f"all_clients_reported={s['all_clients_reported']} error_types={s['error_types']}", flush=True)
+            print(f"   503={s['n_503']} other_errors={s['other_errors']} cgroup before={ {p: mib(m) for p, m in c['cgroup_memory_before'].items()} } "
+                  f"after={ {p: mib(m) for p, m in c['cgroup_memory_after'].items()} }", flush=True)
+            if c["new_oom_killed"]:
+                raise SystemExit(f"STOP: OOMKilled during {c['label']}: {c['new_oom_killed']}")
             print(f"A replicas={replicas} clients={clients}: ok={s['ok']} err={s['errors']} p50={fmt(s['p50_ms'], '.0f')} "
                   f"p95={fmt(s['p95_ms'], '.0f')} rps={fmt(s['rps'], '.3f')} per-pod={c['per_pod_requests']} top_peak={c['top_peak']} "
                   f"problems={len(c['problems']['warning_events'])} restarts={c['problems']['restarts']} "
@@ -275,14 +317,14 @@ def experiment_b(data: dict) -> None:
     th = threading.Thread(target=load)
     th.start()
     while th.is_alive():
-        samples.append(sample())
+        samples.append(sample(with_cgroup=True))
         print(f"B t+{samples[-1]['t'] - t_load:5.0f}s {samples[-1]['deployment']} hpa={samples[-1]['hpa']} "
               f"top={samples[-1]['top']}", flush=True)
         th.join(timeout=SAMPLE_EVERY)
     t_load_end = time.time()
     # Load stopped: keep sampling until back to 1 ready replica (scale-down window 300 s), max 20 min.
     while time.time() < t_load_end + 1200:
-        samples.append(sample())
+        samples.append(sample(with_cgroup=True))
         s = samples[-1]
         print(f"B post t+{s['t'] - t_load_end:5.0f}s {s['deployment']} hpa={s['hpa']}", flush=True)
         if s["deployment"]["spec_replicas"] == 1 and len([p for p in s["pods"] if not p["deleting"]]) == 1 \
@@ -290,7 +332,7 @@ def experiment_b(data: dict) -> None:
             break
         time.sleep(SAMPLE_EVERY)
     result = result_box["result"]
-    data.setdefault("round1", {})["experiment_b"] = {"clients": 4, "duration_s": 300, "t_load_submitted": t_load, "t_load_job_end": t_load_end,
+    data.setdefault(ROUND, {})["experiment_b"] = {"clients": 4, "duration_s": 300, "t_load_submitted": t_load, "t_load_job_end": t_load_end,
                             "summary": summarize(result), "per_pod_requests": requests_per_pod(result["started"]),
                             "samples": samples, "problems": problems_since(t_load),
                             "hpa_events": [e for e in json.loads(kubectl("get", "events", "-o", "json"))["items"]
@@ -300,7 +342,8 @@ def experiment_b(data: dict) -> None:
 
 
 def main() -> None:
-    mode = sys.argv[1] if len(sys.argv) > 1 else ""
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    mode = args[0] if args else ""
     if mode not in ("smoke", "a", "b"):
         raise SystemExit(__doc__)
     cm = json.loads(kubectl("get", "configmap", "rag-config", "-o", "json"))["data"]
@@ -321,7 +364,7 @@ def main() -> None:
         save_results(data)
         print(json.dumps(c["summary"]), c["per_pod_requests"])
     elif mode == "a":
-        experiment_a(data, tuple(int(x) for x in sys.argv[2:]) or (1, 3))
+        experiment_a(data, tuple(int(x) for x in args[1:]) or (1, 3))
     else:
         experiment_b(data)
 

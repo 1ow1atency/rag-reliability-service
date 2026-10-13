@@ -24036,5 +24036,4997 @@
       "status": "skipped",
       "reason": "a-r1-c3 and a-r1-c6 showed that 1 replica cannot hold 3+ concurrent reranks within the 2.5 Gi memory limit (peak working set 2467 Mi at 3 clients; OOMKilled at 6 clients), so starting the HPA experiment at 1 replica with 4 constant clients would mostly measure OOM kills, not scaling."
     }
+  },
+  "round2_interrupted": {
+    "experiment_a": {
+      "hpa": "deleted for this experiment",
+      "cells": [
+        {
+          "label": "a-r1-c1",
+          "clients": 1,
+          "duration_s": 90,
+          "summary": {
+            "requests": 9,
+            "ok": 9,
+            "errors": 0,
+            "n_503": 0,
+            "other_errors": 0,
+            "error_kinds": [],
+            "p50_ms": 11153.303020997555,
+            "p95_ms": 11538.088909997896,
+            "max_ms": 11538.088909997896,
+            "server_rerank_p50_ms": 11112.3,
+            "wall_s": 100.36145281791687,
+            "rps": 0.08967586406235531
+          },
+          "per_pod_requests": {
+            "rag-86f448bbf4-mpg9l": 9
+          },
+          "top_peak": {
+            "rag-86f448bbf4-mpg9l": {
+              "cpu_m": 1985,
+              "mem_mi": 2460
+            }
+          },
+          "restarts_before": {
+            "rag-86f448bbf4-mpg9l": 0
+          },
+          "cgroup_memory_before": {
+            "rag-86f448bbf4-mpg9l": {
+              "current": 2534645760,
+              "peak": 2684329984,
+              "anon": 1171673088
+            }
+          },
+          "cgroup_memory_after": {
+            "rag-86f448bbf4-mpg9l": {
+              "current": 2477481984,
+              "peak": 2684329984,
+              "anon": 1176625152
+            }
+          },
+          "samples": [
+            {
+              "t": 1791803456.817976,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1311,
+                  "mem_mi": 2404
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803471.901994,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 705,
+                  "mem_mi": 2435
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803487.756302,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1982,
+                  "mem_mi": 2309
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803503.25828,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1985,
+                  "mem_mi": 2460
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803519.134913,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1982,
+                  "mem_mi": 2290
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803534.246779,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1982,
+                  "mem_mi": 2385
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803550.1251469,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1982,
+                  "mem_mi": 2371
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            }
+          ],
+          "problems": {
+            "warning_events": [],
+            "restarts": {
+              "rag-86f448bbf4-mpg9l": 0
+            },
+            "oom_killed": []
+          },
+          "raw": {
+            "url": "http://rag.rag.svc.cluster.local:8000",
+            "clients": 1,
+            "duration_s": 90.0,
+            "started": 1791803458.3728724,
+            "finished": 1791803558.7343252,
+            "records": [
+              {
+                "start": 1791803458.3731046,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 42.7,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 10988.2,
+                  "generate": 0.0,
+                  "total": 11030.9
+                },
+                "latency_ms": 11077.009904001898,
+                "client": 0,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791803469.4501705,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 53.2,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 10586.8,
+                  "generate": 0.0,
+                  "total": 10640.0
+                },
+                "latency_ms": 10643.759694001346,
+                "client": 0,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791803480.0939608,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 32.8,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 10766.2,
+                  "generate": 0.0,
+                  "total": 10799.1
+                },
+                "latency_ms": 10801.21452700405,
+                "client": 0,
+                "question_id": "q021"
+              },
+              {
+                "start": 1791803490.895223,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 24.8,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 10982.8,
+                  "generate": 0.0,
+                  "total": 11007.7
+                },
+                "latency_ms": 11011.170110999956,
+                "client": 0,
+                "question_id": "q019"
+              },
+              {
+                "start": 1791803501.9064257,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 44.1,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 11486.1,
+                  "generate": 0.0,
+                  "total": 11530.2
+                },
+                "latency_ms": 11538.088909997896,
+                "client": 0,
+                "question_id": "q045"
+              },
+              {
+                "start": 1791803513.4446375,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 37.7,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 11112.3,
+                  "generate": 0.0,
+                  "total": 11150.0
+                },
+                "latency_ms": 11153.303020997555,
+                "client": 0,
+                "question_id": "q007"
+              },
+              {
+                "start": 1791803524.5980213,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 42.6,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 11425.9,
+                  "generate": 0.0,
+                  "total": 11468.6
+                },
+                "latency_ms": 11471.064904995728,
+                "client": 0,
+                "question_id": "q027"
+              },
+              {
+                "start": 1791803536.0691442,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 30.7,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 11300.9,
+                  "generate": 0.0,
+                  "total": 11331.6
+                },
+                "latency_ms": 11335.596267002984,
+                "client": 0,
+                "question_id": "q005"
+              },
+              {
+                "start": 1791803547.404782,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 46.0,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 11279.4,
+                  "generate": 0.1,
+                  "total": 11325.5
+                },
+                "latency_ms": 11329.244287997426,
+                "client": 0,
+                "question_id": "q025"
+              }
+            ],
+            "job": "load-a-r1-c1"
+          },
+          "replicas": 1,
+          "new_oom_killed": []
+        },
+        {
+          "label": "a-r1-c3",
+          "clients": 3,
+          "duration_s": 90,
+          "summary": {
+            "requests": 10,
+            "ok": 10,
+            "errors": 0,
+            "n_503": 0,
+            "other_errors": 0,
+            "error_kinds": [],
+            "p50_ms": 34532.669487998646,
+            "p95_ms": 34737.73149699991,
+            "max_ms": 34737.73149699991,
+            "server_rerank_p50_ms": 11514.4,
+            "wall_s": 114.21060037612915,
+            "rps": 0.08755754690954302
+          },
+          "per_pod_requests": {
+            "rag-86f448bbf4-mpg9l": 10
+          },
+          "top_peak": {
+            "rag-86f448bbf4-mpg9l": {
+              "cpu_m": 1993,
+              "mem_mi": 2427
+            }
+          },
+          "restarts_before": {
+            "rag-86f448bbf4-mpg9l": 0
+          },
+          "cgroup_memory_before": {
+            "rag-86f448bbf4-mpg9l": {
+              "current": 2477830144,
+              "peak": 2684329984,
+              "anon": 1176608768
+            }
+          },
+          "cgroup_memory_after": {
+            "rag-86f448bbf4-mpg9l": {
+              "current": 1878872064,
+              "peak": 2684329984,
+              "anon": 1203052544
+            }
+          },
+          "samples": [
+            {
+              "t": 1791803563.72462,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1984,
+                  "mem_mi": 2297
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803579.2413251,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 991,
+                  "mem_mi": 2391
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803595.1905549,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1991,
+                  "mem_mi": 2427
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803611.115515,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1992,
+                  "mem_mi": 1783
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803627.0505972,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1993,
+                  "mem_mi": 2262
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803643.019634,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1991,
+                  "mem_mi": 2095
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803658.870843,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1990,
+                  "mem_mi": 2313
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803674.2966201,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1991,
+                  "mem_mi": 2373
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            }
+          ],
+          "problems": {
+            "warning_events": [],
+            "restarts": {
+              "rag-86f448bbf4-mpg9l": 0
+            },
+            "oom_killed": []
+          },
+          "raw": {
+            "url": "http://rag.rag.svc.cluster.local:8000",
+            "clients": 3,
+            "duration_s": 90.0,
+            "started": 1791803566.2801347,
+            "finished": 1791803680.490735,
+            "records": [
+              {
+                "start": 1791803566.2803688,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 44.0,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 10831.2,
+                  "generate": 0.0,
+                  "total": 10875.2
+                },
+                "latency_ms": 10890.50815799419,
+                "client": 0,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791803566.2807105,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 117.4,
+                  "queue_wait_ms": 21713.5,
+                  "rerank": 11445.0,
+                  "generate": 0.0,
+                  "total": 33276.0
+                },
+                "latency_ms": 33286.61333100172,
+                "client": 1,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791803566.2849295,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 98.1,
+                  "queue_wait_ms": 10781.2,
+                  "rerank": 10952.1,
+                  "generate": 0.0,
+                  "total": 21831.4
+                },
+                "latency_ms": 21837.8559910052,
+                "client": 2,
+                "question_id": "q021"
+              },
+              {
+                "start": 1791803577.1709566,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 39.4,
+                  "queue_wait_ms": 22353.7,
+                  "rerank": 11518.2,
+                  "generate": 0.0,
+                  "total": 33911.4
+                },
+                "latency_ms": 33915.988667999045,
+                "client": 0,
+                "question_id": "q019"
+              },
+              {
+                "start": 1791803588.1228254,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 38.8,
+                  "queue_wait_ms": 22921.0,
+                  "rerank": 11589.3,
+                  "generate": 0.0,
+                  "total": 34549.2
+                },
+                "latency_ms": 34552.344035000715,
+                "client": 2,
+                "question_id": "q007"
+              },
+              {
+                "start": 1791803599.5673678,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 90.9,
+                  "queue_wait_ms": 23008.2,
+                  "rerank": 11560.8,
+                  "generate": 0.0,
+                  "total": 34659.9
+                },
+                "latency_ms": 34669.292478996795,
+                "client": 1,
+                "question_id": "q045"
+              },
+              {
+                "start": 1791803611.0870159,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 73.1,
+                  "queue_wait_ms": 23072.5,
+                  "rerank": 11514.4,
+                  "generate": 0.0,
+                  "total": 34660.1
+                },
+                "latency_ms": 34665.83375499613,
+                "client": 0,
+                "question_id": "q027"
+              },
+              {
+                "start": 1791803622.6752234,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 72.7,
+                  "queue_wait_ms": 23001.0,
+                  "rerank": 11514.6,
+                  "generate": 0.0,
+                  "total": 34588.3
+                },
+                "latency_ms": 34590.72079199541,
+                "client": 2,
+                "question_id": "q025"
+              },
+              {
+                "start": 1791803634.2366917,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 45.6,
+                  "queue_wait_ms": 22981.5,
+                  "rerank": 11500.0,
+                  "generate": 0.0,
+                  "total": 34527.0
+                },
+                "latency_ms": 34532.669487998646,
+                "client": 1,
+                "question_id": "q005"
+              },
+              {
+                "start": 1791803645.7528803,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 49.1,
+                  "queue_wait_ms": 22961.8,
+                  "rerank": 11724.5,
+                  "generate": 0.0,
+                  "total": 34735.4
+                },
+                "latency_ms": 34737.73149699991,
+                "client": 0,
+                "question_id": "q041"
+              }
+            ],
+            "job": "load-a-r1-c3"
+          },
+          "replicas": 1,
+          "new_oom_killed": []
+        },
+        {
+          "label": "a-r1-c6",
+          "clients": 6,
+          "duration_s": 90,
+          "summary": {
+            "requests": 8,
+            "ok": 8,
+            "errors": 0,
+            "n_503": 0,
+            "other_errors": 0,
+            "error_kinds": [],
+            "p50_ms": 64687.632108005346,
+            "p95_ms": 75435.24409199745,
+            "max_ms": 75435.24409199745,
+            "server_rerank_p50_ms": 10952.2,
+            "wall_s": 507.9658508300781,
+            "rps": 0.01574909019361641
+          },
+          "per_pod_requests": {
+            "rag-86f448bbf4-mpg9l": 8
+          },
+          "top_peak": {
+            "rag-86f448bbf4-mpg9l": {
+              "cpu_m": 1991,
+              "mem_mi": 2418
+            }
+          },
+          "restarts_before": {
+            "rag-86f448bbf4-mpg9l": 0
+          },
+          "cgroup_memory_before": {
+            "rag-86f448bbf4-mpg9l": {
+              "current": 1878802432,
+              "peak": 2684329984,
+              "anon": 1203044352
+            }
+          },
+          "cgroup_memory_after": {
+            "rag-86f448bbf4-mpg9l": {
+              "current": 2182696960,
+              "peak": 2684329984,
+              "anon": 1221103616
+            }
+          },
+          "samples": [
+            {
+              "t": 1791803684.676904,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1991,
+                  "mem_mi": 2373
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803700.31317,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1141,
+                  "mem_mi": 2224
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803715.8803048,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1989,
+                  "mem_mi": 2360
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803881.34472,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1989,
+                  "mem_mi": 2418
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791803998.633617,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 173,
+                  "mem_mi": 2333
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791804014.583701,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 257,
+                  "mem_mi": 2390
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791804177.346148,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 1989,
+                  "mem_mi": 2346
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791804193.311938,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 179,
+                  "mem_mi": 2026
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791803428.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                }
+              ]
+            }
+          ],
+          "problems": {
+            "warning_events": [],
+            "restarts": {
+              "rag-86f448bbf4-mpg9l": 0
+            },
+            "oom_killed": []
+          },
+          "raw": {
+            "url": "http://rag.rag.svc.cluster.local:8000",
+            "clients": 6,
+            "duration_s": 90.0,
+            "started": 1791803686.9042366,
+            "finished": 1791804194.8700874,
+            "records": [
+              {
+                "start": 1791803686.9044504,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 239.9,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 11652.7,
+                  "generate": 0.0,
+                  "total": 11892.7
+                },
+                "latency_ms": 11912.546188003034,
+                "client": 0,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791803686.9047832,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 270.7,
+                  "queue_wait_ms": 64677.0,
+                  "rerank": 10469.6,
+                  "generate": 0.0,
+                  "total": 75417.3
+                },
+                "latency_ms": 75435.24409199745,
+                "client": 1,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791803686.9056728,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 250.9,
+                  "queue_wait_ms": 32193.6,
+                  "rerank": 10952.2,
+                  "generate": 0.0,
+                  "total": 43396.7
+                },
+                "latency_ms": 43414.32253099629,
+                "client": 2,
+                "question_id": "q021"
+              },
+              {
+                "start": 1791803686.9089139,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 249.6,
+                  "queue_wait_ms": 43146.0,
+                  "rerank": 10757.8,
+                  "generate": 0.0,
+                  "total": 54153.5
+                },
+                "latency_ms": 54167.8767370031,
+                "client": 3,
+                "question_id": "q019"
+              },
+              {
+                "start": 1791803686.9091508,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 253.7,
+                  "queue_wait_ms": 53899.2,
+                  "rerank": 10791.2,
+                  "generate": 0.0,
+                  "total": 64944.2
+                },
+                "latency_ms": 64957.85417899606,
+                "client": 4,
+                "question_id": "q045"
+              },
+              {
+                "start": 1791803686.90937,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 245.8,
+                  "queue_wait_ms": 11647.7,
+                  "rerank": 20546.8,
+                  "generate": 0.0,
+                  "total": 32440.3
+                },
+                "latency_ms": 32455.58532999712,
+                "client": 5,
+                "question_id": "q007"
+              },
+              {
+                "start": 1791803698.8171468,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 123.8,
+                  "queue_wait_ms": 63391.1,
+                  "rerank": 11200.9,
+                  "generate": 0.0,
+                  "total": 74715.9
+                },
+                "latency_ms": 74721.41798300436,
+                "client": 0,
+                "question_id": "q027"
+              },
+              {
+                "start": 1791803719.3650148,
+                "status": 200,
+                "error": null,
+                "server_ms": {
+                  "retrieve": 43.9,
+                  "queue_wait_ms": 54125.4,
+                  "rerank": 10515.1,
+                  "generate": 0.0,
+                  "total": 64684.5
+                },
+                "latency_ms": 64687.632108005346,
+                "client": 5,
+                "question_id": "q001"
+              }
+            ],
+            "job": "load-a-r1-c6"
+          },
+          "replicas": 1,
+          "new_oom_killed": []
+        }
+      ]
+    }
+  },
+  "round2_interrupted_note": "Moved unchanged from 'round2'. The Mac slept 11:20:18-11:22:57Z (during a-r1-c6) and again 11:25:01-11:54:00Z, after which OrbStack stopped (11:54:18Z) and the pods exited (Completed, not OOM). a-r1-c6 is compromised: wall 508 s, and the second requests of clients 1-4 were never recorded (the old load generator could lose a client thread on an unexpected exception). No 3-replica cells exist. Times from the OrbStack log (IST converted to UTC).",
+  "round2": {
+    "experiment_a": {
+      "hpa": "deleted for this experiment",
+      "cells": [
+        {
+          "label": "a-r1-c1",
+          "clients": 1,
+          "duration_s": 90,
+          "summary": {
+            "requests": 6,
+            "ok": 5,
+            "errors": 1,
+            "n_503": 0,
+            "other_errors": 1,
+            "error_kinds": [
+              "URLError: <urlopen error [Errno 113] No route to host>"
+            ],
+            "p50_ms": 10686.15750400022,
+            "p95_ms": 12724.978910999198,
+            "max_ms": 12724.978910999198,
+            "server_rerank_p50_ms": 10654.3,
+            "wall_s": 94.90933060646057,
+            "rps": 0.052681859286653164,
+            "error_types": [
+              "URLError"
+            ],
+            "possible_sleep": false,
+            "possible_sleep_reasons": [],
+            "all_clients_reported": true
+          },
+          "per_pod_requests": {
+            "rag-86f448bbf4-tf8q8": 5
+          },
+          "top_peak": {
+            "rag-86f448bbf4-mpg9l": {
+              "cpu_m": 13,
+              "mem_mi": 805
+            },
+            "rag-86f448bbf4-tf8q8": {
+              "cpu_m": 1991,
+              "mem_mi": 2376
+            },
+            "rag-86f448bbf4-xzgld": {
+              "cpu_m": 4,
+              "mem_mi": 785
+            }
+          },
+          "restarts_before": {
+            "rag-86f448bbf4-mpg9l": 1,
+            "rag-86f448bbf4-tf8q8": 1,
+            "rag-86f448bbf4-xzgld": 1
+          },
+          "cgroup_memory_before": {
+            "rag-86f448bbf4-tf8q8": {
+              "current": 824168448,
+              "peak": 1185402880,
+              "anon": 823095296
+            }
+          },
+          "cgroup_memory_after": {
+            "rag-86f448bbf4-tf8q8": {
+              "current": 1831182336,
+              "peak": 2638467072,
+              "anon": 1173245952
+            }
+          },
+          "samples": [
+            {
+              "t": 1791868730.1064808,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-mpg9l": {
+                  "cpu_m": 13,
+                  "mem_mi": 805
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 3,
+                  "mem_mi": 784
+                },
+                "rag-86f448bbf4-xzgld": {
+                  "cpu_m": 4,
+                  "mem_mi": 785
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-mpg9l",
+                  "phase": "Running",
+                  "created": 1791803417.0,
+                  "ready": true,
+                  "ready_since": 1791811090.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": true
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-xzgld",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811086.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": true
+                }
+              ]
+            },
+            {
+              "t": 1791868745.7698848,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 4,
+                  "mem_mi": 785
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868760.805502,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 4,
+                  "mem_mi": 785
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868776.834723,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 4,
+                  "mem_mi": 785
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868792.479127,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1779,
+                  "mem_mi": 2376
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868808.3099031,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1991,
+                  "mem_mi": 2264
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868824.261471,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1991,
+                  "mem_mi": 2366
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            }
+          ],
+          "problems": {
+            "warning_events": [
+              {
+                "t": 1791868729.0,
+                "object": "rag-86f448bbf4-mpg9l",
+                "reason": "Killing",
+                "count": 1,
+                "message": "Stopping container rag"
+              },
+              {
+                "t": 1791868729.0,
+                "object": "rag-86f448bbf4-xzgld",
+                "reason": "Killing",
+                "count": 1,
+                "message": "Stopping container rag"
+              }
+            ],
+            "restarts": {
+              "rag-86f448bbf4-tf8q8": 1
+            },
+            "oom_killed": []
+          },
+          "raw": {
+            "url": "http://rag.rag.svc.cluster.local:8000",
+            "clients": 1,
+            "duration_s": 90.0,
+            "started": 1791868731.8766031,
+            "finished": 1791868826.7859337,
+            "records": [
+              {
+                "start": 1791868731.8768206,
+                "status": null,
+                "error": "URLError: <urlopen error [Errno 113] No route to host>",
+                "error_type": "URLError",
+                "server_ms": null,
+                "latency_ms": 38792.262484001185,
+                "client": 0,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791868771.6724563,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 319.5,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 12393.8,
+                  "generate": 0.1,
+                  "total": 12713.4
+                },
+                "latency_ms": 12724.978910999198,
+                "client": 0,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791868784.3976293,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 32.6,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 10469.6,
+                  "generate": 0.0,
+                  "total": 10502.2
+                },
+                "latency_ms": 10509.267071000068,
+                "client": 0,
+                "question_id": "q021"
+              },
+              {
+                "start": 1791868794.906948,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 33.1,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 10455.7,
+                  "generate": 0.0,
+                  "total": 10488.8
+                },
+                "latency_ms": 10491.39536200164,
+                "client": 0,
+                "question_id": "q019"
+              },
+              {
+                "start": 1791868805.3983855,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 29.7,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 10654.3,
+                  "generate": 0.0,
+                  "total": 10684.0
+                },
+                "latency_ms": 10686.15750400022,
+                "client": 0,
+                "question_id": "q045"
+              },
+              {
+                "start": 1791868816.0845993,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 28.0,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 10670.1,
+                  "generate": 0.0,
+                  "total": 10698.1
+                },
+                "latency_ms": 10700.406739000755,
+                "client": 0,
+                "question_id": "q007"
+              }
+            ],
+            "client_finals": [
+              {
+                "client": 0,
+                "requests": 6,
+                "ended": 1791868826.7850118,
+                "error": null
+              }
+            ],
+            "all_clients_reported": true,
+            "flags": {
+              "possible_sleep": false,
+              "reasons": [],
+              "wall_s": 94.90933060646057,
+              "max_completion_gap_s": 13.728352069854736
+            },
+            "job": "load-a-r1-c1"
+          },
+          "replicas": 1,
+          "new_oom_killed": []
+        },
+        {
+          "label": "a-r1-c3",
+          "clients": 3,
+          "duration_s": 90,
+          "summary": {
+            "requests": 11,
+            "ok": 11,
+            "errors": 0,
+            "n_503": 0,
+            "other_errors": 0,
+            "error_kinds": [],
+            "p50_ms": 32831.147245000466,
+            "p95_ms": 33876.93591800053,
+            "max_ms": 33876.93591800053,
+            "server_rerank_p50_ms": 11026.2,
+            "wall_s": 121.11892056465149,
+            "rps": 0.09081983185383792,
+            "error_types": [],
+            "possible_sleep": false,
+            "possible_sleep_reasons": [],
+            "all_clients_reported": true
+          },
+          "per_pod_requests": {
+            "rag-86f448bbf4-tf8q8": 11
+          },
+          "top_peak": {
+            "rag-86f448bbf4-tf8q8": {
+              "cpu_m": 1991,
+              "mem_mi": 2415
+            }
+          },
+          "restarts_before": {
+            "rag-86f448bbf4-tf8q8": 1
+          },
+          "cgroup_memory_before": {
+            "rag-86f448bbf4-tf8q8": {
+              "current": 1831817216,
+              "peak": 2638467072,
+              "anon": 1173245952
+            }
+          },
+          "cgroup_memory_after": {
+            "rag-86f448bbf4-tf8q8": {
+              "current": 1828573184,
+              "peak": 2683809792,
+              "anon": 863498240
+            }
+          },
+          "samples": [
+            {
+              "t": 1791868830.410898,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1991,
+                  "mem_mi": 2366
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868845.516004,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1479,
+                  "mem_mi": 1746
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868861.3882308,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1986,
+                  "mem_mi": 2287
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868877.2259111,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1977,
+                  "mem_mi": 2179
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868892.485567,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1987,
+                  "mem_mi": 2415
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868908.326381,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1990,
+                  "mem_mi": 2373
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868924.2758799,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1984,
+                  "mem_mi": 2281
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868940.207679,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1984,
+                  "mem_mi": 2330
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868955.544928,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1985,
+                  "mem_mi": 2342
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            }
+          ],
+          "problems": {
+            "warning_events": [],
+            "restarts": {
+              "rag-86f448bbf4-tf8q8": 1
+            },
+            "oom_killed": []
+          },
+          "raw": {
+            "url": "http://rag.rag.svc.cluster.local:8000",
+            "clients": 3,
+            "duration_s": 90.0,
+            "started": 1791868832.474314,
+            "finished": 1791868953.5932345,
+            "records": [
+              {
+                "start": 1791868832.4745305,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 127.9,
+                  "queue_wait_ms": 10641.8,
+                  "rerank": 10647.3,
+                  "generate": 0.0,
+                  "total": 21417.1
+                },
+                "latency_ms": 21427.082023001276,
+                "client": 0,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791868832.4748638,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 124.1,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 10644.6,
+                  "generate": 0.0,
+                  "total": 10768.7
+                },
+                "latency_ms": 10779.130917999282,
+                "client": 1,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791868832.4757533,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 126.7,
+                  "queue_wait_ms": 21289.3,
+                  "rerank": 10933.6,
+                  "generate": 0.0,
+                  "total": 32349.5
+                },
+                "latency_ms": 32359.451198999523,
+                "client": 2,
+                "question_id": "q021"
+              },
+              {
+                "start": 1791868843.2540863,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 70.4,
+                  "queue_wait_ms": 21506.9,
+                  "rerank": 10874.2,
+                  "generate": 0.0,
+                  "total": 32451.6
+                },
+                "latency_ms": 32456.720963000407,
+                "client": 1,
+                "question_id": "q045"
+              },
+              {
+                "start": 1791868853.9016466,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 34.3,
+                  "queue_wait_ms": 21771.0,
+                  "rerank": 11026.2,
+                  "generate": 0.0,
+                  "total": 32831.5
+                },
+                "latency_ms": 32833.65845499975,
+                "client": 0,
+                "question_id": "q019"
+              },
+              {
+                "start": 1791868864.8352466,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 28.2,
+                  "queue_wait_ms": 21868.7,
+                  "rerank": 10756.1,
+                  "generate": 0.0,
+                  "total": 32653.0
+                },
+                "latency_ms": 32657.23643599995,
+                "client": 2,
+                "question_id": "q007"
+              },
+              {
+                "start": 1791868875.7108455,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 138.8,
+                  "queue_wait_ms": 21638.1,
+                  "rerank": 11047.6,
+                  "generate": 0.0,
+                  "total": 32824.5
+                },
+                "latency_ms": 32831.147245000466,
+                "client": 1,
+                "question_id": "q005"
+              },
+              {
+                "start": 1791868886.7353554,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 57.0,
+                  "queue_wait_ms": 21744.7,
+                  "rerank": 11259.7,
+                  "generate": 0.0,
+                  "total": 33061.4
+                },
+                "latency_ms": 33066.23238300017,
+                "client": 0,
+                "question_id": "q027"
+              },
+              {
+                "start": 1791868897.49252,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 40.9,
+                  "queue_wait_ms": 22264.3,
+                  "rerank": 11410.9,
+                  "generate": 0.0,
+                  "total": 33716.1
+                },
+                "latency_ms": 33720.1693549996,
+                "client": 2,
+                "question_id": "q025"
+              },
+              {
+                "start": 1791868908.5420427,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 49.8,
+                  "queue_wait_ms": 22616.1,
+                  "rerank": 11206.4,
+                  "generate": 0.0,
+                  "total": 33872.4
+                },
+                "latency_ms": 33876.93591800053,
+                "client": 1,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791868919.8016174,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 236.1,
+                  "queue_wait_ms": 22375.9,
+                  "rerank": 11175.6,
+                  "generate": 0.0,
+                  "total": 33787.7
+                },
+                "latency_ms": 33791.259134999564,
+                "client": 0,
+                "question_id": "q041"
+              }
+            ],
+            "client_finals": [
+              {
+                "client": 0,
+                "requests": 4,
+                "ended": 1791868953.5928888,
+                "error": null
+              },
+              {
+                "client": 1,
+                "requests": 4,
+                "ended": 1791868942.4189928,
+                "error": null
+              },
+              {
+                "client": 2,
+                "requests": 3,
+                "ended": 1791868931.2127087,
+                "error": null
+              }
+            ],
+            "all_clients_reported": true,
+            "flags": {
+              "possible_sleep": false,
+              "reasons": [],
+              "wall_s": 121.11892056465149,
+              "max_completion_gap_s": 11.411101579666138
+            },
+            "job": "load-a-r1-c3"
+          },
+          "replicas": 1,
+          "new_oom_killed": []
+        },
+        {
+          "label": "a-r1-c6",
+          "clients": 6,
+          "duration_s": 90,
+          "summary": {
+            "requests": 13,
+            "ok": 13,
+            "errors": 0,
+            "n_503": 0,
+            "other_errors": 0,
+            "error_kinds": [],
+            "p50_ms": 68386.59340400045,
+            "p95_ms": 69419.9487599999,
+            "max_ms": 69921.13087699909,
+            "server_rerank_p50_ms": 11446.5,
+            "wall_s": 149.68501353263855,
+            "rps": 0.08684904181917566,
+            "error_types": [],
+            "possible_sleep": true,
+            "possible_sleep_reasons": [
+              "wall 150 s > 1.5 x 90 s"
+            ],
+            "all_clients_reported": true
+          },
+          "per_pod_requests": {
+            "rag-86f448bbf4-tf8q8": 13
+          },
+          "top_peak": {
+            "rag-86f448bbf4-tf8q8": {
+              "cpu_m": 1989,
+              "mem_mi": 2418
+            }
+          },
+          "restarts_before": {
+            "rag-86f448bbf4-tf8q8": 1
+          },
+          "cgroup_memory_before": {
+            "rag-86f448bbf4-tf8q8": {
+              "current": 1829515264,
+              "peak": 2683809792,
+              "anon": 863498240
+            }
+          },
+          "cgroup_memory_after": {
+            "rag-86f448bbf4-tf8q8": {
+              "current": 2352857088,
+              "peak": 2683809792,
+              "anon": 1223614464
+            }
+          },
+          "samples": [
+            {
+              "t": 1791868958.37034,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1985,
+                  "mem_mi": 2342
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868973.53841,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1060,
+                  "mem_mi": 2373
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791868989.4650629,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1981,
+                  "mem_mi": 2418
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869005.330316,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1987,
+                  "mem_mi": 2412
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869021.250357,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1976,
+                  "mem_mi": 2269
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869037.100611,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1986,
+                  "mem_mi": 2348
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869052.496236,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1987,
+                  "mem_mi": 2406
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869068.5355158,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1983,
+                  "mem_mi": 2358
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869084.3969128,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1988,
+                  "mem_mi": 2364
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869099.538858,
+              "deployment": {
+                "spec_replicas": 1,
+                "ready_replicas": 1
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1989,
+                  "mem_mi": 2390
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            }
+          ],
+          "problems": {
+            "warning_events": [],
+            "restarts": {
+              "rag-86f448bbf4-tf8q8": 1
+            },
+            "oom_killed": []
+          },
+          "raw": {
+            "url": "http://rag.rag.svc.cluster.local:8000",
+            "clients": 6,
+            "duration_s": 90.0,
+            "started": 1791868960.5853946,
+            "finished": 1791869110.2704082,
+            "records": [
+              {
+                "start": 1791868960.5856416,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 392.4,
+                  "queue_wait_ms": 45054.1,
+                  "rerank": 11318.5,
+                  "generate": 0.0,
+                  "total": 56765.0
+                },
+                "latency_ms": 56785.41090999897,
+                "client": 0,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791868960.585962,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 361.6,
+                  "queue_wait_ms": 11043.9,
+                  "rerank": 11319.1,
+                  "generate": 0.0,
+                  "total": 22724.6
+                },
+                "latency_ms": 22745.749104000424,
+                "client": 1,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791868960.5899577,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 395.5,
+                  "queue_wait_ms": 56369.6,
+                  "rerank": 11603.7,
+                  "generate": 0.0,
+                  "total": 68368.8
+                },
+                "latency_ms": 68386.59340400045,
+                "client": 2,
+                "question_id": "q021"
+              },
+              {
+                "start": 1791868960.5901961,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 355.6,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 11048.3,
+                  "generate": 0.0,
+                  "total": 11404.0
+                },
+                "latency_ms": 11421.220399000958,
+                "client": 3,
+                "question_id": "q019"
+              },
+              {
+                "start": 1791868960.591199,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 368.7,
+                  "queue_wait_ms": 33557.2,
+                  "rerank": 11519.9,
+                  "generate": 0.0,
+                  "total": 45445.9
+                },
+                "latency_ms": 45462.931096999455,
+                "client": 4,
+                "question_id": "q045"
+              },
+              {
+                "start": 1791868960.5913343,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 370.2,
+                  "queue_wait_ms": 22362.8,
+                  "rerank": 11201.8,
+                  "generate": 0.0,
+                  "total": 33934.8
+                },
+                "latency_ms": 33942.1188719989,
+                "client": 5,
+                "question_id": "q007"
+              },
+              {
+                "start": 1791868972.011466,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 34.1,
+                  "queue_wait_ms": 56926.9,
+                  "rerank": 11372.8,
+                  "generate": 0.0,
+                  "total": 68333.9
+                },
+                "latency_ms": 68337.71179300129,
+                "client": 3,
+                "question_id": "q041"
+              },
+              {
+                "start": 1791868983.3317652,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 54.5,
+                  "queue_wait_ms": 56959.7,
+                  "rerank": 11652.5,
+                  "generate": 0.0,
+                  "total": 68666.6
+                },
+                "latency_ms": 68672.86695199982,
+                "client": 1,
+                "question_id": "q005"
+              },
+              {
+                "start": 1791868994.533483,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 32.9,
+                  "queue_wait_ms": 57434.6,
+                  "rerank": 11643.9,
+                  "generate": 0.0,
+                  "total": 69111.4
+                },
+                "latency_ms": 69114.68773399974,
+                "client": 5,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791869006.0541863,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 66.2,
+                  "queue_wait_ms": 57521.9,
+                  "rerank": 11446.5,
+                  "generate": 0.0,
+                  "total": 69034.6
+                },
+                "latency_ms": 69040.83858400008,
+                "client": 4,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791869017.3710911,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 48.9,
+                  "queue_wait_ms": 57671.7,
+                  "rerank": 11395.1,
+                  "generate": 0.0,
+                  "total": 69115.8
+                },
+                "latency_ms": 69119.48707100055,
+                "client": 0,
+                "question_id": "q027"
+              },
+              {
+                "start": 1791869028.976594,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 48.6,
+                  "queue_wait_ms": 57461.9,
+                  "rerank": 11905.0,
+                  "generate": 0.0,
+                  "total": 69415.5
+                },
+                "latency_ms": 69419.9487599999,
+                "client": 2,
+                "question_id": "q025"
+              },
+              {
+                "start": 1791869040.3492193,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 45.0,
+                  "queue_wait_ms": 57998.2,
+                  "rerank": 11875.9,
+                  "generate": 0.0,
+                  "total": 69919.1
+                },
+                "latency_ms": 69921.13087699909,
+                "client": 3,
+                "question_id": "q007"
+              }
+            ],
+            "client_finals": [
+              {
+                "client": 0,
+                "requests": 2,
+                "ended": 1791869086.490585,
+                "error": null
+              },
+              {
+                "client": 1,
+                "requests": 2,
+                "ended": 1791869052.004649,
+                "error": null
+              },
+              {
+                "client": 2,
+                "requests": 2,
+                "ended": 1791869098.39655,
+                "error": null
+              },
+              {
+                "client": 3,
+                "requests": 3,
+                "ended": 1791869110.2703571,
+                "error": null
+              },
+              {
+                "client": 4,
+                "requests": 2,
+                "ended": 1791869075.0950334,
+                "error": null
+              },
+              {
+                "client": 5,
+                "requests": 2,
+                "ended": 1791869063.648216,
+                "error": null
+              }
+            ],
+            "all_clients_reported": true,
+            "flags": {
+              "possible_sleep": true,
+              "reasons": [
+                "wall 150 s > 1.5 x 90 s"
+              ],
+              "wall_s": 149.68501353263855,
+              "max_completion_gap_s": 11.905964612960815
+            },
+            "job": "load-a-r1-c6"
+          },
+          "replicas": 1,
+          "new_oom_killed": []
+        },
+        {
+          "label": "a-r3-c1",
+          "clients": 1,
+          "duration_s": 90,
+          "summary": {
+            "requests": 8,
+            "ok": 8,
+            "errors": 0,
+            "n_503": 0,
+            "other_errors": 0,
+            "error_kinds": [],
+            "p50_ms": 12065.787583000201,
+            "p95_ms": 12499.950645998979,
+            "max_ms": 12499.950645998979,
+            "server_rerank_p50_ms": 12032.4,
+            "wall_s": 94.39275407791138,
+            "rps": 0.0847522680967316,
+            "error_types": [],
+            "possible_sleep": false,
+            "possible_sleep_reasons": [],
+            "all_clients_reported": true
+          },
+          "per_pod_requests": {
+            "rag-86f448bbf4-g462j": 5,
+            "rag-86f448bbf4-lj4q5": 2,
+            "rag-86f448bbf4-tf8q8": 1
+          },
+          "top_peak": {
+            "rag-86f448bbf4-tf8q8": {
+              "cpu_m": 1275,
+              "mem_mi": 2244
+            },
+            "rag-86f448bbf4-g462j": {
+              "cpu_m": 1984,
+              "mem_mi": 1513
+            },
+            "rag-86f448bbf4-lj4q5": {
+              "cpu_m": 1240,
+              "mem_mi": 1642
+            }
+          },
+          "restarts_before": {
+            "rag-86f448bbf4-g462j": 0,
+            "rag-86f448bbf4-lj4q5": 0,
+            "rag-86f448bbf4-tf8q8": 1
+          },
+          "cgroup_memory_before": {
+            "rag-86f448bbf4-g462j": {
+              "current": 1063043072,
+              "peak": 1080750080,
+              "anon": 823009280
+            },
+            "rag-86f448bbf4-lj4q5": {
+              "current": 1071415296,
+              "peak": 1094209536,
+              "anon": 822976512
+            },
+            "rag-86f448bbf4-tf8q8": {
+              "current": 2003312640,
+              "peak": 2683809792,
+              "anon": 882716672
+            }
+          },
+          "cgroup_memory_after": {
+            "rag-86f448bbf4-g462j": {
+              "current": 1361960960,
+              "peak": 1723781120,
+              "anon": 1174892544
+            },
+            "rag-86f448bbf4-lj4q5": {
+              "current": 1719615488,
+              "peak": 1880903680,
+              "anon": 1170329600
+            },
+            "rag-86f448bbf4-tf8q8": {
+              "current": 1619296256,
+              "peak": 2683809792,
+              "anon": 1215447040
+            }
+          },
+          "samples": [
+            {
+              "t": 1791869128.657231,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1275,
+                  "mem_mi": 2244
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869144.489367,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 4,
+                  "mem_mi": 1910
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869159.4988,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1984,
+                  "mem_mi": 1457
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1,
+                  "mem_mi": 937
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1,
+                  "mem_mi": 1777
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869175.410487,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 741,
+                  "mem_mi": 1513
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 2,
+                  "mem_mi": 937
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1247,
+                  "mem_mi": 2110
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869190.575433,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1438,
+                  "mem_mi": 1424
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 545,
+                  "mem_mi": 1611
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 2,
+                  "mem_mi": 1572
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869206.583746,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 894,
+                  "mem_mi": 1459
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1092,
+                  "mem_mi": 1642
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 2,
+                  "mem_mi": 1572
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869222.62992,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 749,
+                  "mem_mi": 1480
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1240,
+                  "mem_mi": 1607
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 2,
+                  "mem_mi": 1571
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            }
+          ],
+          "problems": {
+            "warning_events": [],
+            "restarts": {
+              "rag-86f448bbf4-g462j": 0,
+              "rag-86f448bbf4-lj4q5": 0,
+              "rag-86f448bbf4-tf8q8": 1
+            },
+            "oom_killed": []
+          },
+          "raw": {
+            "url": "http://rag.rag.svc.cluster.local:8000",
+            "clients": 1,
+            "duration_s": 90.0,
+            "started": 1791869129.3851361,
+            "finished": 1791869223.7778902,
+            "records": [
+              {
+                "start": 1791869129.3853405,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 64.7,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 10631.5,
+                  "generate": 0.0,
+                  "total": 10696.2
+                },
+                "latency_ms": 10713.080770001397,
+                "client": 0,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791869140.0985236,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 107.3,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 11009.3,
+                  "generate": 0.0,
+                  "total": 11116.6
+                },
+                "latency_ms": 11119.031962000008,
+                "client": 0,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791869151.217588,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 62.1,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 11258.2,
+                  "generate": 0.1,
+                  "total": 11320.4
+                },
+                "latency_ms": 11323.153776000254,
+                "client": 0,
+                "question_id": "q021"
+              },
+              {
+                "start": 1791869162.5407922,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 29.3,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 12032.4,
+                  "generate": 0.1,
+                  "total": 12061.8
+                },
+                "latency_ms": 12065.787583000201,
+                "client": 0,
+                "question_id": "q019"
+              },
+              {
+                "start": 1791869174.6066713,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 54.4,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 11850.8,
+                  "generate": 0.0,
+                  "total": 11905.3
+                },
+                "latency_ms": 11910.696058999747,
+                "client": 0,
+                "question_id": "q045"
+              },
+              {
+                "start": 1791869186.5173995,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 63.3,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 12298.4,
+                  "generate": 0.1,
+                  "total": 12361.8
+                },
+                "latency_ms": 12370.925297000213,
+                "client": 0,
+                "question_id": "q007"
+              },
+              {
+                "start": 1791869198.8885489,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 59.7,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 12321.4,
+                  "generate": 0.0,
+                  "total": 12381.3
+                },
+                "latency_ms": 12387.232562999998,
+                "client": 0,
+                "question_id": "q027"
+              },
+              {
+                "start": 1791869211.2758923,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 50.4,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 12445.6,
+                  "generate": 0.1,
+                  "total": 12496.0
+                },
+                "latency_ms": 12499.950645998979,
+                "client": 0,
+                "question_id": "q005"
+              }
+            ],
+            "client_finals": [
+              {
+                "client": 0,
+                "requests": 8,
+                "ended": 1791869223.7758949,
+                "error": null
+              }
+            ],
+            "all_clients_reported": true,
+            "flags": {
+              "possible_sleep": false,
+              "reasons": [],
+              "wall_s": 94.39275407791138,
+              "max_completion_gap_s": 12.500061511993408
+            },
+            "job": "load-a-r3-c1"
+          },
+          "replicas": 3,
+          "new_oom_killed": []
+        },
+        {
+          "label": "a-r3-c3",
+          "clients": 3,
+          "duration_s": 90,
+          "summary": {
+            "requests": 13,
+            "ok": 13,
+            "errors": 0,
+            "n_503": 0,
+            "other_errors": 0,
+            "error_kinds": [],
+            "p50_ms": 24465.38224699907,
+            "p95_ms": 35987.34857300042,
+            "max_ms": 42009.700553000584,
+            "server_rerank_p50_ms": 18342.0,
+            "wall_s": 116.90900182723999,
+            "rps": 0.11119759639390726,
+            "error_types": [],
+            "possible_sleep": false,
+            "possible_sleep_reasons": [],
+            "all_clients_reported": true
+          },
+          "per_pod_requests": {
+            "rag-86f448bbf4-g462j": 4,
+            "rag-86f448bbf4-lj4q5": 5,
+            "rag-86f448bbf4-tf8q8": 4
+          },
+          "top_peak": {
+            "rag-86f448bbf4-g462j": {
+              "cpu_m": 1976,
+              "mem_mi": 1480
+            },
+            "rag-86f448bbf4-lj4q5": {
+              "cpu_m": 1988,
+              "mem_mi": 1639
+            },
+            "rag-86f448bbf4-tf8q8": {
+              "cpu_m": 1990,
+              "mem_mi": 2012
+            }
+          },
+          "restarts_before": {
+            "rag-86f448bbf4-g462j": 0,
+            "rag-86f448bbf4-lj4q5": 0,
+            "rag-86f448bbf4-tf8q8": 1
+          },
+          "cgroup_memory_before": {
+            "rag-86f448bbf4-g462j": {
+              "current": 1362665472,
+              "peak": 1723781120,
+              "anon": 1174876160
+            },
+            "rag-86f448bbf4-lj4q5": {
+              "current": 1720066048,
+              "peak": 1880903680,
+              "anon": 1170333696
+            },
+            "rag-86f448bbf4-tf8q8": {
+              "current": 1619111936,
+              "peak": 2683809792,
+              "anon": 1215430656
+            }
+          },
+          "cgroup_memory_after": {
+            "rag-86f448bbf4-g462j": {
+              "current": 1092943872,
+              "peak": 1723781120,
+              "anon": 854081536
+            },
+            "rag-86f448bbf4-lj4q5": {
+              "current": 1476935680,
+              "peak": 1880903680,
+              "anon": 1190604800
+            },
+            "rag-86f448bbf4-tf8q8": {
+              "current": 1738596352,
+              "peak": 2683809792,
+              "anon": 882212864
+            }
+          },
+          "samples": [
+            {
+              "t": 1791869228.912478,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 749,
+                  "mem_mi": 1480
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1240,
+                  "mem_mi": 1607
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 2,
+                  "mem_mi": 1571
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869244.766033,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 535,
+                  "mem_mi": 1401
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 417,
+                  "mem_mi": 1639
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 539,
+                  "mem_mi": 1592
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869260.0001202,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1830,
+                  "mem_mi": 1456
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 159,
+                  "mem_mi": 1552
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1990,
+                  "mem_mi": 1559
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869275.283496,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 7,
+                  "mem_mi": 1455
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1988,
+                  "mem_mi": 1584
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1984,
+                  "mem_mi": 1592
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869290.663239,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1713,
+                  "mem_mi": 1285
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1965,
+                  "mem_mi": 1148
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1960,
+                  "mem_mi": 1609
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869306.484287,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1957,
+                  "mem_mi": 1386
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1921,
+                  "mem_mi": 1142
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1926,
+                  "mem_mi": 2012
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869321.89068,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1976,
+                  "mem_mi": 1386
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1978,
+                  "mem_mi": 1143
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1976,
+                  "mem_mi": 2012
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869337.128145,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1974,
+                  "mem_mi": 1312
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1976,
+                  "mem_mi": 1351
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 819,
+                  "mem_mi": 1978
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            }
+          ],
+          "problems": {
+            "warning_events": [],
+            "restarts": {
+              "rag-86f448bbf4-g462j": 0,
+              "rag-86f448bbf4-lj4q5": 0,
+              "rag-86f448bbf4-tf8q8": 1
+            },
+            "oom_killed": []
+          },
+          "raw": {
+            "url": "http://rag.rag.svc.cluster.local:8000",
+            "clients": 3,
+            "duration_s": 90.0,
+            "started": 1791869231.568304,
+            "finished": 1791869348.477306,
+            "records": [
+              {
+                "start": 1791869231.5685437,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 113.8,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 17769.1,
+                  "generate": 0.1,
+                  "total": 17883.0
+                },
+                "latency_ms": 17907.773109000118,
+                "client": 0,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791869231.5688772,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 183.1,
+                  "queue_wait_ms": 17709.7,
+                  "rerank": 18078.6,
+                  "generate": 0.4,
+                  "total": 35971.9
+                },
+                "latency_ms": 35987.34857300042,
+                "client": 1,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791869231.569053,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 109.2,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 17779.5,
+                  "generate": 0.1,
+                  "total": 17888.9
+                },
+                "latency_ms": 17904.368031999184,
+                "client": 2,
+                "question_id": "q021"
+              },
+              {
+                "start": 1791869249.4737592,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 102.6,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 17960.7,
+                  "generate": 0.1,
+                  "total": 18063.5
+                },
+                "latency_ms": 18080.670532999648,
+                "client": 2,
+                "question_id": "q007"
+              },
+              {
+                "start": 1791869249.4763706,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 143.8,
+                  "queue_wait_ms": 17929.0,
+                  "rerank": 23929.4,
+                  "generate": 0.1,
+                  "total": 42002.3
+                },
+                "latency_ms": 42009.700553000584,
+                "client": 0,
+                "question_id": "q019"
+              },
+              {
+                "start": 1791869267.5548046,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 141.7,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 23966.3,
+                  "generate": 0.0,
+                  "total": 24108.1
+                },
+                "latency_ms": 24115.355834001093,
+                "client": 2,
+                "question_id": "q025"
+              },
+              {
+                "start": 1791869267.556293,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 150.5,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 24301.9,
+                  "generate": 0.2,
+                  "total": 24452.7
+                },
+                "latency_ms": 24465.38224699907,
+                "client": 1,
+                "question_id": "q045"
+              },
+              {
+                "start": 1791869291.4862282,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 206.6,
+                  "queue_wait_ms": 291.2,
+                  "rerank": 25316.1,
+                  "generate": 0.1,
+                  "total": 25814.0
+                },
+                "latency_ms": 25847.81253700021,
+                "client": 0,
+                "question_id": "q027"
+              },
+              {
+                "start": 1791869291.670246,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 93.3,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 25157.8,
+                  "generate": 0.1,
+                  "total": 25251.3
+                },
+                "latency_ms": 25259.66186400001,
+                "client": 2,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791869292.0217865,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 154.3,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 24742.7,
+                  "generate": 0.2,
+                  "total": 24897.1
+                },
+                "latency_ms": 24909.243555001012,
+                "client": 1,
+                "question_id": "q005"
+              },
+              {
+                "start": 1791869316.9304323,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 216.7,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 18342.0,
+                  "generate": 0.0,
+                  "total": 18558.7
+                },
+                "latency_ms": 18570.134650999535,
+                "client": 2,
+                "question_id": "q045"
+              },
+              {
+                "start": 1791869316.9310915,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 308.0,
+                  "queue_wait_ms": 84.9,
+                  "rerank": 18185.3,
+                  "generate": 0.0,
+                  "total": 18578.2
+                },
+                "latency_ms": 18588.680184000623,
+                "client": 1,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791869317.3341155,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 90.8,
+                  "queue_wait_ms": 18072.1,
+                  "rerank": 12977.3,
+                  "generate": 0.0,
+                  "total": 31140.3
+                },
+                "latency_ms": 31143.026043000646,
+                "client": 0,
+                "question_id": "q041"
+              }
+            ],
+            "client_finals": [
+              {
+                "client": 0,
+                "requests": 4,
+                "ended": 1791869348.4771488,
+                "error": null
+              },
+              {
+                "client": 1,
+                "requests": 4,
+                "ended": 1791869335.5197823,
+                "error": null
+              },
+              {
+                "client": 2,
+                "requests": 5,
+                "ended": 1791869335.5005867,
+                "error": null
+              }
+            ],
+            "all_clients_reported": true,
+            "flags": {
+              "possible_sleep": false,
+              "reasons": [],
+              "wall_s": 116.90900182723999,
+              "max_completion_gap_s": 24.90823245048523
+            },
+            "job": "load-a-r3-c3"
+          },
+          "replicas": 3,
+          "new_oom_killed": []
+        },
+        {
+          "label": "a-r3-c6",
+          "clients": 6,
+          "duration_s": 90,
+          "summary": {
+            "requests": 15,
+            "ok": 15,
+            "errors": 0,
+            "n_503": 0,
+            "other_errors": 0,
+            "error_kinds": [],
+            "p50_ms": 48872.531585000615,
+            "p95_ms": 58660.49135800131,
+            "max_ms": 70589.8479740008,
+            "server_rerank_p50_ms": 25062.1,
+            "wall_s": 132.72377514839172,
+            "rps": 0.11301667680285059,
+            "error_types": [],
+            "possible_sleep": false,
+            "possible_sleep_reasons": [],
+            "all_clients_reported": true
+          },
+          "per_pod_requests": {
+            "rag-86f448bbf4-g462j": 5,
+            "rag-86f448bbf4-lj4q5": 4,
+            "rag-86f448bbf4-tf8q8": 6
+          },
+          "top_peak": {
+            "rag-86f448bbf4-g462j": {
+              "cpu_m": 1980,
+              "mem_mi": 1366
+            },
+            "rag-86f448bbf4-lj4q5": {
+              "cpu_m": 1988,
+              "mem_mi": 1433
+            },
+            "rag-86f448bbf4-tf8q8": {
+              "cpu_m": 1984,
+              "mem_mi": 2096
+            }
+          },
+          "restarts_before": {
+            "rag-86f448bbf4-g462j": 0,
+            "rag-86f448bbf4-lj4q5": 0,
+            "rag-86f448bbf4-tf8q8": 1
+          },
+          "cgroup_memory_before": {
+            "rag-86f448bbf4-g462j": {
+              "current": 1093525504,
+              "peak": 1723781120,
+              "anon": 854081536
+            },
+            "rag-86f448bbf4-lj4q5": {
+              "current": 1477648384,
+              "peak": 1880903680,
+              "anon": 1190604800
+            },
+            "rag-86f448bbf4-tf8q8": {
+              "current": 1738715136,
+              "peak": 2683809792,
+              "anon": 882204672
+            }
+          },
+          "cgroup_memory_after": {
+            "rag-86f448bbf4-g462j": {
+              "current": 1029160960,
+              "peak": 1723781120,
+              "anon": 868884480
+            },
+            "rag-86f448bbf4-lj4q5": {
+              "current": 927195136,
+              "peak": 1880903680,
+              "anon": 851890176
+            },
+            "rag-86f448bbf4-tf8q8": {
+              "current": 2264723456,
+              "peak": 2683809792,
+              "anon": 1231441920
+            }
+          },
+          "samples": [
+            {
+              "t": 1791869352.7991989,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1307,
+                  "mem_mi": 1366
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1988,
+                  "mem_mi": 1386
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 3,
+                  "mem_mi": 1657
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869367.988487,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 153,
+                  "mem_mi": 1327
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1185,
+                  "mem_mi": 1323
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 153,
+                  "mem_mi": 1995
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869383.421356,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1968,
+                  "mem_mi": 1203
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1974,
+                  "mem_mi": 1342
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1967,
+                  "mem_mi": 1556
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869398.929261,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1970,
+                  "mem_mi": 1229
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1974,
+                  "mem_mi": 1433
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1970,
+                  "mem_mi": 1871
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869414.5154428,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1980,
+                  "mem_mi": 1257
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1978,
+                  "mem_mi": 1433
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1980,
+                  "mem_mi": 1871
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869429.983969,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1979,
+                  "mem_mi": 1165
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1975,
+                  "mem_mi": 1245
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1980,
+                  "mem_mi": 1871
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869445.406411,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1972,
+                  "mem_mi": 1185
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1931,
+                  "mem_mi": 1243
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1979,
+                  "mem_mi": 1991
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869460.967625,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1973,
+                  "mem_mi": 1341
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 1258,
+                  "mem_mi": 1203
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1976,
+                  "mem_mi": 2096
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            },
+            {
+              "t": 1791869476.190698,
+              "deployment": {
+                "spec_replicas": 3,
+                "ready_replicas": 3
+              },
+              "hpa": null,
+              "top": {
+                "rag-86f448bbf4-g462j": {
+                  "cpu_m": 1809,
+                  "mem_mi": 1304
+                },
+                "rag-86f448bbf4-lj4q5": {
+                  "cpu_m": 3,
+                  "mem_mi": 883
+                },
+                "rag-86f448bbf4-tf8q8": {
+                  "cpu_m": 1984,
+                  "mem_mi": 2049
+                }
+              },
+              "pods": [
+                {
+                  "name": "rag-86f448bbf4-g462j",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-lj4q5",
+                  "phase": "Running",
+                  "created": 1791869115.0,
+                  "ready": true,
+                  "ready_since": 1791869126.0,
+                  "restarts": 0,
+                  "last_terminated_reason": null,
+                  "deleting": false
+                },
+                {
+                  "name": "rag-86f448bbf4-tf8q8",
+                  "phase": "Running",
+                  "created": 1791804199.0,
+                  "ready": true,
+                  "ready_since": 1791811089.0,
+                  "restarts": 1,
+                  "last_terminated_reason": "Completed",
+                  "deleting": false
+                }
+              ]
+            }
+          ],
+          "problems": {
+            "warning_events": [],
+            "restarts": {
+              "rag-86f448bbf4-g462j": 0,
+              "rag-86f448bbf4-lj4q5": 0,
+              "rag-86f448bbf4-tf8q8": 1
+            },
+            "oom_killed": []
+          },
+          "raw": {
+            "url": "http://rag.rag.svc.cluster.local:8000",
+            "clients": 6,
+            "duration_s": 90.0,
+            "started": 1791869354.457066,
+            "finished": 1791869487.1808412,
+            "records": [
+              {
+                "start": 1791869354.4573128,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 93.4,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 23646.4,
+                  "generate": 0.1,
+                  "total": 23739.9
+                },
+                "latency_ms": 23809.32385900087,
+                "client": 0,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791869354.457668,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 104.7,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 23525.9,
+                  "generate": 0.1,
+                  "total": 23630.8
+                },
+                "latency_ms": 23703.00307099933,
+                "client": 1,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791869354.5126495,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 130.8,
+                  "queue_wait_ms": 23726.7,
+                  "rerank": 24932.1,
+                  "generate": 0.1,
+                  "total": 48789.7
+                },
+                "latency_ms": 48802.34072500025,
+                "client": 2,
+                "question_id": "q021"
+              },
+              {
+                "start": 1791869354.5127916,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 66.0,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 23785.1,
+                  "generate": 0.2,
+                  "total": 23851.4
+                },
+                "latency_ms": 23897.00932100095,
+                "client": 3,
+                "question_id": "q019"
+              },
+              {
+                "start": 1791869354.512943,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 124.7,
+                  "queue_wait_ms": 23612.0,
+                  "rerank": 25116.8,
+                  "generate": 0.1,
+                  "total": 48853.6
+                },
+                "latency_ms": 48872.531585000615,
+                "client": 4,
+                "question_id": "q045"
+              },
+              {
+                "start": 1791869354.5159206,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 126.1,
+                  "queue_wait_ms": 23501.8,
+                  "rerank": 25075.6,
+                  "generate": 0.1,
+                  "total": 48703.6
+                },
+                "latency_ms": 48719.064783999784,
+                "client": 5,
+                "question_id": "q007"
+              },
+              {
+                "start": 1791869378.1609921,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 416.2,
+                  "queue_wait_ms": 24639.2,
+                  "rerank": 25283.6,
+                  "generate": 0.1,
+                  "total": 50339.1
+                },
+                "latency_ms": 50359.199421000085,
+                "client": 1,
+                "question_id": "q005"
+              },
+              {
+                "start": 1791869378.2667508,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 282.3,
+                  "queue_wait_ms": 24824.9,
+                  "rerank": 25062.1,
+                  "generate": 0.1,
+                  "total": 50169.4
+                },
+                "latency_ms": 50177.737147998414,
+                "client": 0,
+                "question_id": "q027"
+              },
+              {
+                "start": 1791869378.4099479,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 287.5,
+                  "queue_wait_ms": 24607.1,
+                  "rerank": 25448.9,
+                  "generate": 0.1,
+                  "total": 50343.7
+                },
+                "latency_ms": 50361.22843500016,
+                "client": 3,
+                "question_id": "q041"
+              },
+              {
+                "start": 1791869403.2351925,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 403.5,
+                  "queue_wait_ms": 24864.6,
+                  "rerank": 26107.8,
+                  "generate": 0.1,
+                  "total": 51376.0
+                },
+                "latency_ms": 51400.99769600056,
+                "client": 5,
+                "question_id": "q001"
+              },
+              {
+                "start": 1791869403.3150558,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 415.6,
+                  "queue_wait_ms": 50888.9,
+                  "rerank": 19277.2,
+                  "generate": 0.1,
+                  "total": 70581.8
+                },
+                "latency_ms": 70589.8479740008,
+                "client": 2,
+                "question_id": "q025"
+              },
+              {
+                "start": 1791869403.3855345,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 229.6,
+                  "queue_wait_ms": 25145.9,
+                  "rerank": 26505.8,
+                  "generate": 0.1,
+                  "total": 51881.6
+                },
+                "latency_ms": 51897.521549000885,
+                "client": 4,
+                "question_id": "q009"
+              },
+              {
+                "start": 1791869428.4446414,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 260.0,
+                  "queue_wait_ms": 26560.7,
+                  "rerank": 19037.2,
+                  "generate": 0.0,
+                  "total": 45858.0
+                },
+                "latency_ms": 45866.225106001366,
+                "client": 0,
+                "question_id": "q021"
+              },
+              {
+                "start": 1791869428.52027,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 133.1,
+                  "queue_wait_ms": 45243.9,
+                  "rerank": 13278.4,
+                  "generate": 0.0,
+                  "total": 58655.4
+                },
+                "latency_ms": 58660.49135800131,
+                "client": 1,
+                "question_id": "q019"
+              },
+              {
+                "start": 1791869428.7712462,
+                "status": 200,
+                "error": null,
+                "error_type": null,
+                "server_ms": {
+                  "retrieve": 114.0,
+                  "queue_wait_ms": 0.0,
+                  "rerank": 26360.6,
+                  "generate": 0.3,
+                  "total": 26474.9
+                },
+                "latency_ms": 26483.672746000593,
+                "client": 3,
+                "question_id": "q007"
+              }
+            ],
+            "client_finals": [
+              {
+                "client": 0,
+                "requests": 3,
+                "ended": 1791869474.310876,
+                "error": null
+              },
+              {
+                "client": 1,
+                "requests": 3,
+                "ended": 1791869487.1807687,
+                "error": null
+              },
+              {
+                "client": 2,
+                "requests": 2,
+                "ended": 1791869473.9049375,
+                "error": null
+              },
+              {
+                "client": 3,
+                "requests": 3,
+                "ended": 1791869455.2549734,
+                "error": null
+              },
+              {
+                "client": 4,
+                "requests": 2,
+                "ended": 1791869455.2831028,
+                "error": null
+              },
+              {
+                "client": 5,
+                "requests": 2,
+                "ended": 1791869454.6362484,
+                "error": null
+              }
+            ],
+            "all_clients_reported": true,
+            "flags": {
+              "possible_sleep": false,
+              "reasons": [],
+              "wall_s": 132.72377514839172,
+              "max_completion_gap_s": 25.86501383781433
+            },
+            "job": "load-a-r3-c6"
+          },
+          "replicas": 3,
+          "new_oom_killed": []
+        }
+      ]
+    },
+    "experiment_b": {
+      "status": "skipped",
+      "reason": "Round 2 showed that 3 replicas add only about 1.25x throughput (0.111-0.113 vs 0.087-0.091 req/s) on the shared Mac CPUs, and one pod already saturates its 2-CPU quota. k8s/hpa.yaml is included in the repo, but its autoscaling behaviour was not measured."
+    },
+    "notes": {
+      "generator_changes": "Round 2 load generator: 1 s back-off after any failed request; 503s counted separately from other errors; every exception recorded with its type; one final record per client; possible_sleep flag per cell. Round 1 had none of these.",
+      "a-r1-c1": "The cell started 2 s after scaling from 3 replicas to 1; the first request was routed to a departing pod and failed after 38.8 s ('No route to host'). The recorded 0.053 req/s is a driver artifact. Recomputation (not a recorded value): 5 OK requests over 55.1 s from the first OK start to the last OK end = 0.091 req/s (same as 1 / mean OK latency of 11.0 s). An earlier rough estimate of 0.094 used only the 10.5-10.7 s requests.",
+      "a-r1-c6": "possible_sleep=True is a false positive: completions were steady every 11-12 s (largest gap 11.9 s); the 150 s wall time includes the six queued requests draining after the 90 s deadline."
+    },
+    "known_tool_gaps": [
+      "The driver waits for the remaining pods to be Ready after scaling, but not for departing pods to leave the Service, so the first request of a cell right after a scale-down can hit a terminating pod (a-r1-c1).",
+      "The possible_sleep wall-time rule (> 1.5 x duration) counts queue drain after the deadline, so cells with a deep queue (1 replica, 6 clients) are flagged even without a pause; the completion-gap rule is the reliable signal there."
+    ]
   }
 }
