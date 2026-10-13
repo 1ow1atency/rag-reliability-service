@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, ci-test]   # ci-test is a temporary branch for trying the workflow; removed before merging
+    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:            # manual runs; the only trigger for the full image build

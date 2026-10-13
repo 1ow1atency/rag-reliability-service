@@ -1,5 +1,7 @@
 # RAG Reliability Service
 
+[![CI](https://github.com/1ow1atency/rag-reliability-service/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/1ow1atency/rag-reliability-service/actions/workflows/ci.yml)
+
 A retrieval-augmented question-answering service over the Kubernetes documentation (concepts and tasks, pinned to one commit). It is evaluated against a closed-book baseline on a 49-question set, with retrieval, answer quality and abstention on unanswerable questions measured separately. It is deployed with FastAPI, Docker and Kubernetes, with a load test on a single-node cluster.
 
 ## Key results
