@@ -55,6 +55,7 @@ def test_clean_markdown_removes_br_tags():
     assert text == "| Pod | `spec.nodeName` `spec.restartPolicy` `spec.schedulerName` |"
 
 
+@pytest.mark.needs_data  # loads the bge-small tokenizer (model download)
 def test_fixed_windows_overlap_and_word_boundaries(tok):
     text = filler(600)
     spans = token_windows(text, tok, 256)
@@ -68,6 +69,7 @@ def test_fixed_windows_overlap_and_word_boundaries(tok):
         assert text[s2 - 1] == " "  # never starts mid-word
 
 
+@pytest.mark.needs_data  # loads the bge-small tokenizer (model download)
 def test_heading_chunks_merge_split_and_paths(tok):
     text = "\n\n".join([
         f"## Install\n\n{filler(40, 'inst')}",
