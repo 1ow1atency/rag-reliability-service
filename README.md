@@ -132,6 +132,7 @@ This response is an example from a live run against the Docker container on 2026
 - **Small samples:** 17 dev and 19 test questions with evidence sentences, and 21 answerable test questions for generation, so one question moves recall by 5–6 points and the confidence intervals are wide.
 - **Dev was used to tune** the generation prompts and choose the retrieval setup. Test was run once, after locking them.
 - **CPU reranking is slow:** a median of about 6 s per request in Docker (5.3–7.9 s, all CPUs) and about 11 s under a 2-CPU limit (10.3–12.6 s), from `results/metrics/k8s_memory_diagnosis.json`.
+- **CI coverage:** CI runs the unit tests (30 of 32; the two tokenizer tests need local data and are marked `needs_data`) and a Docker base-stage check; the full image build runs on demand only.
 - **Some questions have more than one valid page,** so page-level recall slightly undercounts. Glossary definitions pulled in by Hugo shortcodes are not in the corpus (25 pages).
 
 ## Repo layout
